@@ -1,0 +1,16 @@
+---
+title: "Taller 1"
+author: "Andres Felipe Beltran Rodriguez"
+date: "10/23/2021"
+output: html_document
+---
+
+# Introduccion
+
+Este es el primer codigo 
+
+
+```{r creacion del primer vector}
+vector <- c(1,2,3,4)
+```
+
