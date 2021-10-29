@@ -1,0 +1,5 @@
+"0",""
+"0","mins <- seq(min(gastos), "
+"0","            min(gastos)+((LongInt))*6,"
+"0","            by = LongInt)"
+"0",""

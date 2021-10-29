@@ -172,10 +172,23 @@ pre code {
 </div>
 
 
-<div id="introduccion" class="section level1">
-<h1>Introduccion</h1>
-<p>Este es el primer codigo</p>
-<pre class="r"><code>vector &lt;- c(1,2,3,4)</code></pre>
+<ol style="list-style-type: decimal">
+<li>Con la variable gastos semanales de los empleados en una empresa construya:</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>una distribución de frecuencias, de frecuencias relativas, acumuladas, y relativas acumuladas.</li>
+</ol>
+<p>Para resolver este punto debemos ingresar los datos a R:</p>
+<pre class="r"><code>library(readxl)
+tarea1 &lt;- read_excel(&quot;~/GitHub/Metodos-estadisticos/Métodos Estadísticos  posgrado/tarea 1/tarea1.xlsx&quot;)
+
+gastos &lt;- tarea1$gastos</code></pre>
+<p>Para definir la cantidad de intervalos en los cuales separar los datos, podemos utilizar la ecuacion de sturges <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1926.10502161">(Sturges 1926</a></p>
+<div id="referencias" class="section level1">
+<h1>Referencias</h1>
+<ul>
+<li>Sturges, H. A. (1926). The choice of a class interval. Journal of the american statistical association, 21(153), 65-66.</li>
+</ul>
 </div>
 
 

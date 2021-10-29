@@ -191,34 +191,110 @@ Entonces
 
 * *Ejemplo:*
  
+\begin{align}
+\sum_{i=1}^5 2 = 2 + 2 + 2 + 2 + 2
+\end{align}
 
  
 Si c es una constante que multiplica las observaciones:  
 
-$\sum_{i=1}^n c x_i = c \sum_{i=1}^n x_i$
+\begin{align}
+\sum_{i=1}^n c x_i = c \sum_{i=1}^n x_i
+\end{align}
 
-Si$x_1, x_2, x_3,...x_n$ y $y_1, y_2, y_3,...y_n$ son sucesiones de numeros;
+\begin{align}
+\sum_{i=1}^n c x_i = c \cdot x_1 + c \cdot x_2 + c \cdot x_3 + \cdot \cdot \cdot + c \cdot x_n
+\end{align}
+
+\begin{align}
+\sum_{i=1}^n c x_i = c \; (x_1 +   x_2 +  x_3 + \cdot \cdot \cdot +   x_n)
+\end{align}
+
+\begin{align}
+\sum_{i=1}^n c x_i = c \sum_{i=1}^n x_i
+\end{align}
 
 
-$\sum_{i=1}^n (x_i + y_i) =  \sum_{i=1}^n x_i + \sum_{i=1}^n y_i$
+Si $x_1, x_2, x_3,...x_n$ y $y_1, y_2, y_3,...y_n$ son sucesiones de numeros;
 
-Si$x_1, x_2, x_3,...x_n$ y $y_1, y_2, y_3,...y_n$ son sucesiones de numeros;
+\begin{align}
+\sum_{i=1}^n (x_i + y_i) =  \sum_{i=1}^n x_i + \sum_{i=1}^n y_i
+\end{align}
 
 
-$\sum_{i=1}^n (x_i - y_i) =  \sum_{i=1}^n x_i - \sum_{i=1}^n y_i$
+\begin{align}
+\sum_{i=1}^n (x_i + y_i) =  (x_1 + y_1) 
++ (x_2 + y_2) + (x_3 + y_3) + \cdot \cdot \cdot + (x_n + y_n)
+\end{align}
 
-5.
+\begin{align}
+\sum_{i=1}^n (x_i + y_i) =  (x_1 + x_2 + \cdot \cdot \cdot + x_n ) + (y_1 + y_2 + \cdot \cdot \cdot + y_n )
+\end{align}
 
-$\sum_{i=1}^n (x_i - \bar{x}) = 0$
+\begin{align}
+\sum_{i=1}^n (x_i + y_i) =  \sum_{i=1}^n x_i + \sum_{i=1}^n y_i
+\end{align}
+
+Si $x_1, x_2, x_3,...x_n$ y $y_1, y_2, y_3,...y_n$ son sucesiones de numeros;
+
+\begin{align}
+\sum_{i=1}^n (x_i - y_i) =  \sum_{i=1}^n x_i - \sum_{i=1}^n y_i
+\end{align}
+
+
+5. 
+
+\begin{align}
+\sum_{i=1}^n (x_i - \bar{x}) = 0
+\end{align}
+
+\begin{align}
+\sum_{i=1}^n (x_i - \bar{x}) =  \sum_{i=1}^n x_i - \sum_{i=1}^n \bar{x}
+\end{align}
  
-$\sum_{i=1}^n (x_i - \bar{x}) =  \sum_{i=1}^n x_i - \sum_{i=1}^n \bar{x}$
+\begin{align}
+ \sum_{i=1}^n (x_i - \bar{x}) = \frac{n}{n} \sum_{i=1}^n x_i - n \bar{x}
+\end{align}
+
+\begin{align}
+ \sum_{i=1}^n (x_i - \bar{x}) = n \bar{x} - n \bar{x}
+\end{align}
+
+\begin{align}
+ \sum_{i=1}^n (x_i - \bar{x}) = 0
+\end{align}
 
 6.
 
 promedio de y en funcion de promedio de x en regresion lineal simple
 
-Si $A$
+Si $y_i = a + b x_i$ siendo a y b constante
 
+\begin{align}
+\bar{y} = a + b \bar{x}
+\end{align}
+
+En efecto:
+
+\begin{align}
+\sum_{i= 1}^n y_i = \sum_{i=1}^n (a + b x_i)
+\end{align}
+
+\begin{align}
+\sum_{i= 1}^n y_i = \sum_{i=1}^n a + \sum_{i=1}^n b x_i
+\end{align}
+
+\begin{align}
+\sum_{i= 1}^n y_i = na + b \sum_{i=1}^n  x_i
+\end{align}
+
+\begin{align}
+\frac{\sum_{i= 1}^n y_i}{n} = \frac{na}{n} +b \frac{ \sum_{i=1}^n  x_i}{n}
+\end{align}
+
+\begin{align}
+\bar{y} = a + b \bar{x} 
+\end{align}
 
 ## La mediana
 
@@ -259,6 +335,8 @@ e.g. Cual es el color más frecuente en los ojos.
 
 ## Varianza 
 
+Uno de los problemas es que la unidad de medida queda al cuadrado, e.g. si se miden cm, la varianza tiene unidades de $cm^2$:
+
 * Varianza poblacional:
 
 \begin{align}
@@ -272,13 +350,44 @@ s^2= \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1}
 \end{align}
 
 \begin{align}
-s^2 = \sum_{i=1}^n \frac{(X_i^2 - 2x_i\bar{x}+ \bar{x}^2}{n-1}
+s^2 = \sum_{i=1}^n \frac{x_i^2 - 2x_i\bar{x}+ \bar{x}^2}{n-1}
 \end{align}
 
 \begin{align}
-s^2 =  \frac{\sum_{i=1}^n X_i^2 - 2\bar{x}\sum_{i=1}^n x_i+ \bar{x}^2}{n-1}
+s^2 =  \frac{\sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n x_i+ n\bar{x}^2}{n-1}
 \end{align}
 
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2 - 2\bar{x} \frac{n}{n}\sum_{i=1}^n x_i + n\bar{x}^2}{n-1}
+\end{align}
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2 - 2\bar{x} n \bar{x} + n\bar{x}^2}{n-1}
+\end{align}
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2 - 2 n \bar{x}^2 + n\bar{x}^2}{n-1}
+\end{align}
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2 - n \bar{x}^2 }{n-1}
+\end{align}
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2}{n-1} -\frac{ n \bar{x}^2 }{n-1}
+\end{align}
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2}{n-1} -\frac{ n }{n-1}
+\left( \frac{\sum_{i=1}^n x_i}{n} \right)^2
+\end{align} 
+
+\begin{align}
+s^2 =  \frac{\sum_{i=1}^n x_i^2}{n-1} -\frac{ 1 }{n-1}
+ \frac{\left(\sum_{i=1}^n x_i\right)^2}{n} 
+\end{align} 
+
+En algunos casos puede ser más conveniente calcular la varianza de esta forma.
 
 
 ## Coeficiente de variación
@@ -289,7 +398,8 @@ Si CV es igual o menor a $5 \%$ hay homogeneidad
 
 si esta entre $5\%$ y $20\%$ los datos son medianamente homogeneos
 
-Si CV mayor a 20% hay heterogeneidad                                                          ## Rango
+Si CV mayor a 20% hay heterogeneidad                                                         
+## Rango
 
 medida no robusta, si hay datos atipicos se ve muy afectado
 
@@ -300,9 +410,11 @@ boxplot
 # Cuartiles
 
 
-Se divide en cuatro partes porcentiales el conjunto de observaciones
+Se divide en cuatro partes porcentiales el conjunto de observaciones.
 
-Se calcula de la sigueinte manera
+Se calcula de la sigueinte manera.
+
+Se ordena la muestra y se toma la posicion que corresponde.
 
 $Q_k = k \cdot \frac{n}{4} \; k =1,2,3$
 
@@ -341,3 +453,268 @@ Mide el grado de aplastamiento o apuntamiento de la gráfica de la distribución
 DM = \frac{\sum_{i = 1}^n |x_i - \bar{x}|}{n}
 \end{align}
 
+## Media ponderada
+## Media geometrica
+## Media armonica
+Sirve en diseño de experimentos par aproximar el numero de replicas en todo el expermineto cuando el diseño es desbalanceado.
+
+# Ejemplo en excel
+ Tabla de pesos de mujeres en una empresa
+ 
+1. construcción de la tabla de frecuencias
+
+* Definición de los intervalos: podemos utilizar la siguiente ecuación:
+
+\begin{align}
+k = 1 + 3.322 log_{10} (n)
+\end{align}
+
+Para esta muestra de 50 pesos de mujeres:
+
+\begin{align}
+k = 1 + 3.322 log_{10} (50)
+\end{align}
+
+\begin{align}
+k = 6.6 \approx 7
+\end{align}
+
+Vamos a usar 7 intervalos, para saber la longitud dividimos el rango en el numero de intervalos.
+
+Para hallar el rango podemos importar los datos a R:
+
+```{r importando la tabla de pesos}
+
+tablaPesos <- read.table("TABLAPESOS.txt", header = T)
+
+```
+
+Y luego preguntar sobre el valor maximo y el minimo:
+
+```{r}
+max(tablaPesos)
+min(tablaPesos)
+```
+Podemos entonces calcular la longitud de cada intervalo:
+
+```{r}
+(max(tablaPesos)-min(tablaPesos))/7
+```
+Obtenemos una longitud de intervalo de $2.71 \approx 3$
+
+Los intervalos entonces serían:
+
+```{r, echo = F}
+intervalosPesos <- data.frame(intervalo=as.character(c(1:7)),
+                             valores = c('53 55',
+                                         '56 58',
+                                         '59 61',
+                                         '62 64',
+                                         '65 67',
+                                         '68 70',
+                                         '71 73'))
+intervalosPesos
+```
+
+En excel:
+
+* Usamos los limites superiores de los intervalos
+    + Datos, analisis de datos, histograma, aceptar, seleccionar rango de entrada, rango de clases son los limites superiores.
+      Al hacer esto, excel genera una tabla como la siguiente:
+
+![tabla de frecuencias en excel](./img/frecuenciasExcel.jpg)
+
+Luego, a partir de esta tabla podemos calcular todas las frecuencias, la frecuencia absoluta ($f_i$), recuencia relativa ($f_r$), la frecuencia absoluta acumulada ($F_i$) y la frecuencia relativa acumulada ($F_r$):
+
+![tabla de frecuencias completa en excel](./img/tablaDeFrecuencias.jpg)
+Luego a partir de esta tabla de frecuencias, utilizando las columnas de intervalo y % de frecuencia podemos construir un histograma como el siguiente:
+
+![Histograma de porcentajes para las masas de mujeres](./img/histogramaPorcentajes.jpg)
+Para hacer una operación análoga en R podemos crear los intervalos de la siguiente manera:
+
+```{r}
+mins <- seq(53,71, by = 3)
+maxs <- seq(55,73, by = 3)
+```
+
+Luego, podemos juntar las dos columnas de limites inferiores y superiores de intervalo en la tabla `TDF`:
+
+```{r}
+TDF <- data.frame(min = mins,
+                                 max = maxs )
+TDF
+```
+
+Luego podemos iterar a lo largo de las filas de `tablasDefrecuencias` buscando cuantos elementos de `tablaDePesos` están dentro del intervalo definido por cada fila:
+
+```{r}
+for(i in 1:nrow(TDF)) {
+  TDF$Freq[i] <-
+      length(
+          which(
+mins[i] <=  tablaPesos & tablaPesos<= maxs[i]))
+}
+```
+
+Podemos luego calcular la frecuencia relativa dividiendo por el total de observaciones:
+
+```{r}
+TDF$fr <-TDF$Freq/
+    sum(TDF$Freq)
+
+TDF
+```
+
+
+Luego podemos calcular la frecuencia absoluta y relativa acumuladas para cada intervalo de manera ascendiente:
+
+```{r}
+for(i in 1:nrow(TDF)){
+
+TDF$Fi[i] <- sum(TDF$Freq[1:i])
+
+}
+```
+
+Podemos hacer lo mismo para la frecuencia relativa acumulada ($F_r$):
+
+```{r}
+for(i in 1:nrow(TDF)){
+
+TDF$Fr[i] <- sum(TDF$fr[1:i])
+
+}
+```
+
+Una vez tenemos la tabla de frecuencias completa, podemos hacer la gráfica de frecuencias porcentuales:
+
+```{r}
+library(ggplot2)
+intervalos <- factor(paste(TDF$min,'-',TDF$max))
+
+ggplot(TDF,
+       aes(x = intervalos,
+           y = fr*100,
+           fill=intervalos,
+           label = round(fr*100,2)
+           )
+       ) +
+    geom_bar(stat="identity") +
+  xlab("intervalo") +
+    ylab('% frecuencia relativa')+
+  geom_label(aes(fill = intervalos),
+             colour = "white",
+             fontface = "italic")
+```
+
+# Calculo de medidas descriptivas
+
+```{r}
+mean(tablaPesos$pesos)
+quantile(tablaPesos$pesos)
+
+```
+El 75% de las mujeres pesan entre 53 y 66 kg. El 25% restante pesa entre 66 kg y 72 kg
+
+* la varianza: Es importante calcular la varianza muestral y no la varianza poblacional, dado que no se puede saber la poblacional ($\sigma^2$) si no su estimador ($s^2$).
+
+* Algunos paquetes hacen calculos con la varianza poblacional
+
+En R: 'The denominator n - 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. '
+
+```{r}
+var(tablaPesos$pesos)
+```
+Para calcular la varianza poblacional:
+
+```{r}
+pesos <- tablaPesos$pesos
+sum((pesos - mean(pesos))^2)/length(pesos)
+```
+para el calculo de la desviacion estandar:
+
+```{r}
+sd(pesos)
+sqrt(var(pesos))
+```
+Interpretación:
+
+Varianza: Tiene unidades al cuadrado.
+Tendriamos que tener otro grupo de comparación, con una medición similar.
+
+Desviacion estandar: la desviacion de las observaciones respecto al promedio es de 4.14 unidades de masa (kg).
+
+Para calcular otros estadísticos descriptivos podemos utilizar en excel:
+
+* Datos > Análisis de datos > Estadística descriptiva > Se selecciona rango de entrada y de salida.
+
+Se obtiene la siguiente tabla:
+
+![Cuadro de estadística descriptiva en excel](./img/EstadisticaDescriptiva.jpg)
+
+Dentro de esta tabla está el error típico
+
+## Error típico - error estándar
+
+\begin{align}
+\frac{s}{\sqrt(n)}
+\end{align}
+
+En este caso:
+
+```{r}
+sd(pesos)/sqrt(50)
+```
+Se utiliza para inferencia, para intervalos de confianza. En diseño de experimentos sirve para el cálculo de tamaño de muestra. Se espera que no aumente el número de réplicas si no disminuye lo suficiente el error típico.
+
+```{r}
+library(e1071)
+kurtosis(pesos)
+skewness(pesos)
+```
+La distribucion de pesos tiene una curtosis $<3$, lo cual indica que es mas aplanada que una distribucion normal, o tiene hombros más pesados.
+
+Además, tiene un coeficiende de asimetría cercano a cero, lo cual indica un ligero sesgo con cola hacia valores menores de peso.
+
+```{r}
+range(pesos)
+range(pesos)[2] - range(pesos)[1]
+```
+La persona que mas peso tiene, tiene 19 kg mas que la persona de menos peso.
+
+Tambien podemos graficar la frecuencia acumulada:
+
+
+```{r}
+library(ggplot2)
+intervalos <- factor(paste(TDF$min,'-',TDF$max))
+
+ggplot(TDF,
+       aes(x = intervalos,
+           y = Fr*100,
+           fill=intervalos,
+           label = round(Fr*100,2)
+           )
+       ) +
+    geom_bar(stat="identity") +
+  xlab("intervalo") +
+    ylab('% frecuencia relativa')+
+  geom_label(aes(fill = intervalos),
+             colour = "white",
+             fontface = "italic")
+```
+
+el 86% de las mujeres pesan entre 53 y 67 kg.
+
+## Desviación media absoluta
+
+
+
+## Ejemplo de edades
+
+Este ejemplo está en el código llamado `medidasdescriptivas.R`
+
+
+# Proporción
+
+Es similar al promedio, para variables de tipo cualitativo

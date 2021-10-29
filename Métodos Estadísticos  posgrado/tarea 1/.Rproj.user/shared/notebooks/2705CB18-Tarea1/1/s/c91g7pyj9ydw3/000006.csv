@@ -1,0 +1,4 @@
+"0","library(readxl)"
+"0","tarea1 <- read_excel(""./tarea1.xlsx"")"
+"0",""
+"0","gastos <- tarea1$gastos"

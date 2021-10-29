@@ -1,0 +1,7 @@
+"0","maxs <- mins + LongInt-1"
+"0",""
+"0","TDF <- data.frame("
+"0","  min = mins,"
+"0","  max = maxs"
+"0",")"
+"0","TDF"
