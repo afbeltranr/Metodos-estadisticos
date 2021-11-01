@@ -13,7 +13,7 @@ highlight: tango
 ---
 <!-- \usepackage{supertabular,booktabs} -->
 
-1. Con la variable gastos semanales de los empleados en una empresa construya:
+## 1. Con la variable gastos semanales de los empleados en una empresa construya:
 
 a. una distribución de frecuencias, de frecuencias relativas, acumuladas, y relativas acumuladas.
 
@@ -193,7 +193,245 @@ colour = "white",
 fontface = "italic") +
  theme(axis.text.x = element_blank())
 ```
-# Medidas descriptivas de localización
+### Medidas descriptivas de localización y dispersión
+d. Calcule las medidas descriptivas de localización y variabilidad incluyendo el primer cuartil y el decil siete. Interpretar los resultados obtenidos.
+La media se calcula con la funcion `mean()`
+```{r }
+mean(gastos)
+```
+>
+*En promedio los gastos de la empresa son de 91307.11
+
+La mediana se calcula con la funcion `median()`
+```{r }
+median(gastos)
+```
+>
+*El 50% de los gastos de la empresa son menores a 88021 y el otro 50% de los gastos son mayores
+
+Para calcular la moda creamos una funcion `moda()`
+```{r }
+
+moda <- function(x) {                    
+  v <- unique(x)
+  t <- tabulate(match(x, v))
+  v[t == max(t)]
+}
+moda(gastos)
+```
+>
+*Los gastos mas frecuentes en la empresa tienen valores de 50000, 60000, 65000 y 75000
+
+
+La desviacion estandar y la varianza muestral se calcula con las funciones `sd()` y `var()`
+```{r }
+sd(gastos)
+var(gastos)
+```
+>
+*La desviacion de las observaciones respecto al valor promedio es de 29527.13
+
+Para calcular el rango se le resta al maximo dato el minimo:
+```{r }
+Rango<-max(gastos)-min(gastos)
+Rango
+```
+>
+*El mayor gasto de la empresa es 108961 mas costoso que el gasto minimo de la empresa
+
+Para calcular el coeficiente creamos la funcion `Coefvar()`
+```{r }
+CoefVar<-function(x){
+  sd(x)/mean(x)*100
+}
+CoefVar(gastos)
+
+```
+>
+*Como el coeficiente de variacion es mayor al 20% los datos son heterogeneos
+
+
+**Cuartiles y deciles**
+
+Para calcular cuartiles se usa la función `quantile()` 
+```{r }
+quantile(gastos)
+```
+>
+*Primer cuartil :el 25% de los gastos de la empresa tienen un valor de 40000 hasta 66050 y el 75% restante tienen un valor de 66050 hasta 148961
+
+Para calcular el rango intercuartilico se usa la función `IQR()` 
+```{r }
+IQR(gastos)
+
+```
+>
+*El 50% de los gastos de la empresa tienen un valor de 66050 hasta 115041.2 
+
+Para calcular deciles se usa la función `quantile()` 
+```{r }
+quantile(gastos,probs = seq(0,1,0.1))
+```
+>
+*Septimo decil: El 70% de los gastos de la empresa tienen un valor de 40000 hasta 110067.8 y el 30% restante tienen un valor de 110067.8 hasta 148961
+
+
+e. Qué puede decir respecto a la simetría y curtosis en la distribución de los datos, justificar la respuesta e interprete estas medidas.
+### Símetria y curtosis
+
+```{r }
+library(e1071)
+skewness(gastos)
+kurtosis(gastos)
+```
+>
+*Como el resultado del coeficiente de asimetria es mayor a 0, la distribucion es asimetria a la derecha, es decir que hay un sesgo hacia la derecha. 
+*La curtosis dio un resultado negativo indicando una distribucion platocurtica, mas aplastada que la distribucion normal y con mas desviacion estandar.
+
+f. Qué proporción de mediciones está dentro de 1.5 desviaciones estándar de la media, a dos desviaciones estándar de la media y a tres desviaciones estándar de la media, concluya?
+Para calcular que proporcion de los datos estan en 1,5 2 y 3 desviaciones estandar de la media, obtenemos estos rangos de datos:  
+```{r }
+Rango1.5sd<-c(mean(gastos)-(1.5*sd(gastos)),mean(gastos)+(1.5*sd(gastos)))
+length(which(gastos>Rango1.5sd[1]  & gastos <Rango1.5sd[2]))/length(gastos)*100
+
+Rango2sd<-c(mean(gastos)-(2*sd(gastos)),mean(gastos)+(2*sd(gastos)))
+length(which(gastos>Rango2sd[1]  & gastos <Rango2sd[2]))/length(gastos)*100
+
+Rango3sd<-c(mean(gastos)-(3*sd(gastos)),mean(gastos)+(3*sd(gastos)))
+length(which(gastos>Rango3sd[1]  & gastos <Rango3sd[2]))/length(gastos)*100
+
+
+```
+>
+*El 87,7% de las mediciones esta dentro de 1.5 desviaciones estándar de la media y el 100% de las mediciones esta dentro de 2 y 3 desviaciones estándar de la media.
+
+g. Cuál de las medidas de localización y de variabilidad recomendaría y porque?
+>
+*Para estos datos la mejor medida de tendencia central serian las modas, ya que como se ve en el histograma la mayoria de gastos se encuentran en el intervalo entre 55566 y 71131 que coincide con las modas, la media y la mediana se ven afectadas por el sesgo a la derecha y sus valores son mayores a 8000. La mejor medida de varianza podria ser el rango intercuartilico ya que no se ve tan afectado por la media como la desviacion estandar.
+
+h. Calcule los coeficientes de variación por turno para la variable gastos semanales y diga en cuál de los turnos hay más homogeneidad, interprete.
+Coeficientes de variacion por turno
+```{r }
+empresa<-tarea1[c(2,4)]
+empresa$turno<-as.factor(turno)
+diurno<-subset(empresa,turno == "diurno")
+tarde<-subset(empresa,turno == "tarde")
+nocturna<-subset(empresa,turno == "nocturna")
+
+CoefVar(diurno$gastos)
+CoefVar(tarde$gastos)
+CoefVar(nocturna$gastos)
+
+```
+>
+*El menor coeficiente de variacion lo tiene el turno de la tarde (25.5%) por lo que es el turno con mayor homogeneidad, le sigue el turno nocturno (34.7%) que es mas heterogeneo y finalmente el turno diurno (37.2) que es el mas heterogeneo de los 3. 
+
+
+## 2. De las variables jornada y turno construya:
+a. Una tabla de frecuencias para el cruce de las dos variables y concluya.
+```{r }
+library(gmodels)
+CrossTable(tarea1$turno,tarea1$jornada,prop.chisq=F)
+```
+>
+*El 31% de las personas esta en el turno diurno, de este grupo un 35.7% esta en jornada completa, otro 35.7 % esta en la jornada media y el 28.6% restante esta en jornada parcial.
+El 35.6% de las personas esta en el turno nocturno, de este grupo un 40.6% esta en jornada completa, otro 40.6 % esta en la jornada media y el 18.8% restante esta en jornada parcial.
+El 33.3% de las personas esta en el turno tarde, de este grupo un 26.7% esta en jornada completa, un 20 % esta en la jornada media y el 53.3% restante esta en jornada parcial.
+En el turno diurno y nocturno hay menor cantidad de personas en jornada parcial, en cambio en el turno tarde la mayoria de personas esta en la jornada parcial.
+Al parecer no se asocian mucho las variables 
+
+b. Un histograma de frecuencias relativas (darlas en porcentajes).
+c. Interpretar los resultados mostrados por el gráfico. Qué puede decir de la distribución de los datos?
+```{r,warning = FALSE }
+tarea1$turno<-as.factor(turno)
+tarea1$jornada<-as.factor(tarea1$jornada)
+tablaf<-table(tarea1$turno,tarea1$jornada)
+tFrecRel<-as.data.frame(tablaf/90*100) 
+colnames(tFrecRel)<-c("Turno","Jornada","Frecuencia Relativa")
+ggplot(tFrecRel, aes(fill=tFrecRel$Turno, y=tFrecRel$`Frecuencia Relativa` , x= tFrecRel$Jornada)) + 
+    geom_bar(position="dodge", stat="identity")+
+xlab("Jornada") +
+ylab('% Frecuencia relativa')+ scale_fill_discrete(name = "Turno")
+
+```
+>
+*La distribucion de los datos cambia dependiendo de la jornada, en la jornada completa y media siguen la misma tendencia, en donde la mayoria de personas estan en el turno nocturno y la minoria en el turno tarde, mientras que en la jornada parcial la mayoria de personas esta en el turno tarde y la minoria en el turno noche. Los graficos muestran que las variables no estan asociadas.
+
+
+d. Diga si hay asociación entre las dos variables con un nivel de significancia de 0.05 e interprete el resultado.
+Para determinar si hay asociacion se hace un test Ji- cuadrado de Pearson con la funcion `chisq.test()` 
+```{r}
+chisq.test(tarea1$turno,tarea1$jornada)
+```
+>
+*En este caso como el valor de alfa es 0.05 y el p-valor es 0.063 es mayor la hipotesis nula se rechaza es decir que no hay asociacion entre la jornada y los turnos.
+
+e. Construya la tabla de frecuencias correspondiente al hábito de fumar y jornada laboral, concluya.
+
+```{r }
+tarea1$fuma <-as.factor(tarea1$fuma)
+CrossTable(tarea1$fuma,tarea1$jornada,prop.chisq=F)
+```
+>
+*El 28% de las personas no fuma, de este grupo un 32% esta en jornada completa, otro 42.9 % esta en la jornada media y el 25% restante esta en jornada parcial.
+El 68.9% de las personas fuma, de este grupo un 35.5% esta en jornada completa, otro 27.4 % esta en la jornada media y el 37.1% restante esta en jornada parcial.
+La mayoria de las personas que no fuman estan en la jornada media, mientras que las que fuman estan en su mayoria en la jornada parcial o completa.
+Las variables no estan muy asociadas entre si.
+
+
+f. Hay asociación entre el hábito de fumar de los empleados y la jornada laboral con un nivel de significancia de 0.05. Interprete el resultado?
+
+```{r,warning = FALSE}
+chisq.test(tarea1$fuma,tarea1$jornada)
+
+```
+>
+*En este caso como el valor de alfa es 0.05 y el p-valor es 0.311 es mayor la hipotesis nula se rechaza es decir que no hay asociacion entre la jornada y el habito de fumar de los empleados.
+
+
+
+#####################
+
+
+
+
+4. Con el archivo daños por sitio, correspondiente a una muestra de 480 cardones en la alta Guajira. Construya una tabla de frecuencias para el cruce de las variables tipo de daño (0= no hay daño, 1= corte con machete, 2= daño por insectos, 3= comido de cabras, 4= daño por viento, 5= daño por aves) y sitio (1= intervenido, 0= no intervenido).
+a. Realizar el análisis respectivo, construya las tablas de frecuencias correspondientes
+```{r}
+cardones <- read_excel("C:/Users/lavag/Downloads/tarea1.xlsx", 
+    sheet = "cardones")
+cardones$`Tipo de Daño`<-as.factor(cardones$`Tipo de Daño`)
+cardones$sitio<-as.factor(cardones$sitio)
+attach(cardones)
+CrossTable(`Tipo de Daño`,sitio,prop.chisq=F)
+```
+>
+*Lo que se pueder ver en la tabla de contingencia es que al comparar el tipo de daño en los sitios internevidos y sin intervenir todos tienen valores muy similares excepto el daño 5, que es daño por aves, el 7% de los cardones sufre daño por aves y de este grupo el 82% esta en sitios no intervenidos y solo un 15.8% esta en sitios intervenidos.
+Las variables estan asociadas entre si.
+
+b. Hacer el histograma de las frecuencias relativas en porcentaje y concluya.
+```{r,warning = FALSE}
+tablef<-table(`Tipo de Daño`,sitio)
+tableFrecRel<-as.data.frame(tablef/480*100) 
+ggplot(tableFrecRel, aes(fill=tableFrecRel$Tipo.de.Daño, y=tableFrecRel$Freq , x= tableFrecRel$sitio)) +     geom_bar(position="dodge", stat="identity")+
+xlab("Sitio") +ylab('% Frecuencia relativa')+ scale_fill_discrete(name = "Tipo de daño")+  geom_text(aes(label = round(tableFrecRel$Freq,2) ), vjust = 1.2, colour = "white", position = position_dodge(.9))
+
+
+```
+>
+*Como lo muestra el histograma al comparar los sitios intervenido y los no internevidos las tendencias son similares, excepto para el daño 5 o daño por aves que tiene una frecuencia relativa mucho mayor en los sitios no intervenidos que en los intervenidos. Las variables sitios y tipo de daños estan relacionadas.
+
+
+c. Hay asociación entre el tipo de daño y el sitio. Utilice un nivel de significancia del 0.05 y concluya?
+```{r,warning = FALSE}
+chisq.test(`Tipo de Daño`,sitio)
+
+```
+>
+*En este caso como el valor de alfa es 0.05 y el p-valor es 0.00053 es menor, la hipotesis nula no se rechaza es decir que si hay asociacion entre la intervencion del sitio y el tipo de daño.
+
+
+
 
 
 # Referencias
