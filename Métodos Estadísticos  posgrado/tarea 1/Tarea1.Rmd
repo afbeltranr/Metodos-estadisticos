@@ -313,7 +313,7 @@ h. Calcule los coeficientes de variación por turno para la variable gastos sema
 Coeficientes de variacion por turno
 ```{r }
 empresa<-tarea1[c(2,4)]
-empresa$turno<-as.factor(turno)
+empresa$turno<-as.factor(empresa$turno)
 diurno<-subset(empresa,turno == "diurno")
 tarde<-subset(empresa,turno == "tarde")
 nocturna<-subset(empresa,turno == "nocturna")
