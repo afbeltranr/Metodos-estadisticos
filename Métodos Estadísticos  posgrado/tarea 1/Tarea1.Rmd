@@ -343,7 +343,7 @@ Al parecer no se asocian mucho las variables
 b. Un histograma de frecuencias relativas (darlas en porcentajes).
 c. Interpretar los resultados mostrados por el gráfico. Qué puede decir de la distribución de los datos?
 ```{r,warning = FALSE }
-tarea1$turno<-as.factor(turno)
+tarea1$turno<-as.factor(tarea1$turno)
 tarea1$jornada<-as.factor(tarea1$jornada)
 tablaf<-table(tarea1$turno,tarea1$jornada)
 tFrecRel<-as.data.frame(tablaf/90*100) 
