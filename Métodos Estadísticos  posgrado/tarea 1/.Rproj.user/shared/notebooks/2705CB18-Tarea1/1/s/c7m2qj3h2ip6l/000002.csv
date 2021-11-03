@@ -1,4 +1,7 @@
 "0","library(readxl)"
 "0","tarea1 <- read_excel(""./tarea1.xlsx"")"
-"0",""
-"0","gastos <- tarea1$gastos"
+"2","New names:
+* `` -> ...5
+* `` -> ...6
+* `` -> ...7
+"

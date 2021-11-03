@@ -1,0 +1,4 @@
+"0","knitr::kable(CoefVarTurno, 'simple')"
+"2","Error in gsub(""\"""", ""\\\"""", string, fixed = TRUE) : 
+  input string 2 is invalid UTF-8
+"

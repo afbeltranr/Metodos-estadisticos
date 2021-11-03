@@ -1,0 +1,4 @@
+"0","gastosTarde <- filter(tarea1, turno == 'tarde') %>% select(gastos) %>% unlist"
+"0","gastosNocturna <- filter(tarea1, turno == 'nocturna') %>% select(gastos) %>% unlist"
+"0","CoefVarTurno <- round(data.frame(diurno = CoefVar(gastosDiurno),"
+"0","                           tarde =CoefVar(gastosTarde), nocturna =CoefVar(gastosNocturna)))"
