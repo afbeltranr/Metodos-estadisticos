@@ -515,7 +515,7 @@ fosfórico (P2O5)), e interprete el gráfico correspondiente.
 boxplot(fresa$consistenciac ~ fresa$tratamientoc, xlab = "Tratamiento C", ylab = "Consistencia C", col= colores)
 ```
 
-* En los 3 tratamientos vemos que se encuentran outliers, estos datos de consistencia C son tan grandes que no permiten ver muy bien la distribución de los demas datos 
+* En los 3 tratamientos vemos que se encuentran outliers, estos datos de consistencia C son tan grandes que no permiten ver muy bien la distribución de los demas datos, sin embargo, se alcanza a ver que el tratamiento C 1 tiene un ligero sesgo hacia la cola derecha y es el de menor rango, luego le sigue el tratamiento C 2 tiene un ligero sesgo hacia la cola izquierda, que tiene un rango un poco mas grade y por ultimo el tratamiento C 3 que tiene el rango mas grande de los 3 y 
 
 c. Realizar el boxplot para la variable gradosbrixb en frutos de fresa por tratamientob (0.25 g/m2 de Nitrogeno (N), 0.20 g/m2 de anhídrido fosfórico (P2O5), 0.15 g/m2 de
 óxido de potasa (K2O) de anhídrido fosfórico (P2O5)), e interprete el gráfico correspondiente.
