@@ -1,0 +1,24 @@
+"0","library(PerformanceAnalytics)"
+"2","Loading required package: xts
+"
+"2","Loading required package: zoo
+"
+"2","
+Attaching package: ‘zoo’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+"
+"2","
+Attaching package: ‘PerformanceAnalytics’
+
+"
+"2","The following object is masked from ‘package:graphics’:
+
+    legend
+
+"
+"0","chart.Correlation(df3, histogram=TRUE, pch=19)"

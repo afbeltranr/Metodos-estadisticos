@@ -1,0 +1,20 @@
+"0","library(e1071)"
+"2","
+Attaching package: ‘e1071’
+
+"
+"2","The following objects are masked from ‘package:PerformanceAnalytics’:
+
+    kurtosis, skewness
+
+"
+"0","kurtosis(TDF$fr)"
+"1","[1]"
+"1"," -1.936019"
+"1","
+"
+"0","skewness(TDF$fr)"
+"1","[1]"
+"1"," 0.2388275"
+"1","
+"
