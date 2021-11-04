@@ -1,0 +1,8 @@
+"0","nas3 <- which(is.na(fresa$consistenciaa))"
+"0","consistenciaa <- fresa$consistenciaa[-nas3]"
+"0",""
+"0","length(consistenciaa)"
+"1","[1]"
+"1"," 84"
+"1","
+"

@@ -20,7 +20,7 @@ a. una distribución de frecuencias, de frecuencias relativas, acumuladas, y rel
 
 Para resolver este punto debemos ingresar los datos a R:
 
-```{r cargando los datos, message = F}
+```{r cargando los datos 1, message = F}
 library(readxl)
 tarea1 <- read_excel("./tarea1.xlsx")
 ```
@@ -481,14 +481,32 @@ chisq.test(tarea1$fuma,tarea1$jornada)
 a. Realizar el boxplot de la variable gradosbrixa para frutos de fresa por tratamientob (0.25 g/m2 de Nitrogeno (N), 0.20 g/m2 de anhídrido fosfórico (P2O5), 0.15 g/m2 de
 óxido de potasa (K2O) e interprete el gráfico correspondiente.
 
-```{r cargando los datos, message = F}
+```{r cargando los datos 2, message = F}
 library(readxl)
-fresa <- read_excel("./tarea1.xlsx",sheet = "fresa")
-colores<-c("#00AFBB", "#E7B800", "#FC4E07")
-boxplot(fresa$gradosbrixa[c(1:84)] ~ fresa$tratamientob[c(1:84)], xlab = "Tratamiento B", ylab = "Grados Bix A", col= colores)
+fresa <- read_excel("./tarea1.xlsx", sheet =2)
 ```
 
-* Podemos ver que para el tratamiento B 1 los grados bix A presentan un outlier, además la mediana no esta en el centro de la caja indicando un ligero sesgo hacia la cola derecha tiene el rango mas grande de los tres tratamientos, para el tratamiento B 2 el rango es mas pequeño pero estos datos tienen mas dispersion, como se puede ver por el ancho de la caja, tambien presenta un ligero sesgo hacia la izquierda, finalmente, para el tratamiento B 3 es el que tiene menor rango y se ve simetrico.
+```{r identificando NA}
+nas <- which(is.na(fresa$gradosbrixa))
+
+colores<-c("#00AFBB", "#E7B800", "#FC4E07")
+
+df1 <- data.frame(gradosbrixa = fresa$gradosbrixa[-nas],
+                  tratamientob = as.factor(fresa$tratamientob[-nas]))
+library(ggplot2)
+ggplot(df1,
+       aes( x = tratamientob,
+            y = gradosbrixa,
+            fill = tratamientob)) +
+  
+  geom_boxplot()
+
+```
+
+* Podemos ver que para el tratamiento B 1 los grados bix A presentan un outlier, además la mediana no esta en el centro de la caja indicando un ligero sesgo hacia la cola derecha; tiene el rango mas grande de los tres tratamientos. 
+
+para el tratamiento B 2 el rango es mas pequeño pero estos datos tienen mas dispersion, como se puede ver por el ancho de la caja, tambien presenta un ligero sesgo hacia la izquierda. Finalmente, el tratamiento B 3 es el que tiene menor rango y se ve simetrico. Estas afirmaciones se pueden soportar calculando los momentos de curtosis y de sesgo.
+
 
 b. Realizar el boxplot para la variable consistenciac en frutos de fresa por tratamientoc (0.10 g/m2 óxido de magnesio (MgO), 20 g/m2 de Nitrógeno, 10 g/m2 de anhídrido
 fosfórico (P2O5)), e interprete el gráfico correspondiente.
@@ -502,17 +520,182 @@ boxplot(fresa$consistenciac ~ fresa$tratamientoc, xlab = "Tratamiento C", ylab =
 c. Realizar el boxplot para la variable gradosbrixb en frutos de fresa por tratamientob (0.25 g/m2 de Nitrogeno (N), 0.20 g/m2 de anhídrido fosfórico (P2O5), 0.15 g/m2 de
 óxido de potasa (K2O) de anhídrido fosfórico (P2O5)), e interprete el gráfico correspondiente.
 
+```{r}
+nasb <- which(is.na(fresa$gradosbrixb))
+
+df2 <- data.frame(gradosbrixb = fresa$gradosbrixb[-nasb],
+                  tratamientob = as.factor(fresa$tratamientob[-nasb]))
+library(ggplot2)
+ggplot(df2,
+       aes( x = tratamientob,
+            y = gradosbrixb,
+            fill = tratamientob)) +
+  
+  geom_boxplot()
+
+```
+
 c. Construya una tabla de frecuencias completa para la variable consistenciaa en frutos de fresa y realice el gráfico de barras que le permita ver la distribución de frecuencias
 relativas en porcentaje e interprete.
+
+Primero separamos la variable consistenciaa en un vector:
+
+```{r}
+nas3 <- which(is.na(fresa$consistenciaa))
+consistenciaa <- fresa$consistenciaa[-nas3]
+
+length(consistenciaa)
+```
+Para determinar la cantidad de intervalos de nuevo utilizamos la ecuación de sturges:
+
+```{r}
+k2 <- 1 + (3.322 * log10(84))
+k2
+
+```
+```{r}
+round(k2,0)
+```
+Tendremos para esta variable 7 intervalos. Para saber la longitud del intervalo:
+
+```{r}
+LongInt2 <- (max(consistenciaa)-min(consistenciaa))/7
+round(LongInt2,4)
+
+```
+```{r}
+mins2 <- seq(min(consistenciaa), 
+            min(consistenciaa)+((LongInt2))*6,
+            by = LongInt2)
+
+```
+
+```{r}
+maxs2 <- mins2 + LongInt2-0.0001
+maxs2[7] <- maxs2[7] + 0.0001
+TDFc <- data.frame(
+  min = round(mins2,4),
+  max = round(maxs2,4))
+
+TDFc
+```
+
+
+realizamos los conteos:
+
+```{r}
+for(i in 1: nrow(TDFc)){
+  
+  TDFc$fi[i] <- length(
+    which(
+TDFc$min[i] <= consistenciaa & consistenciaa <= TDFc$max[i]
+    )
+  )
+  
+}
+TDFc
+```
+
+```{r}
+TDFc$fr <- TDFc$fi/length(consistenciaa)
+```
+
+
+
+```{r}
+for(i in 1:nrow(TDFc)){
+  
+  TDFc$Fi[i] <- sum(TDFc$fi[1:i]) 
+  
+}
+
+```
+
+
+```{r}
+for(i in 1:nrow(TDFc)){
+  
+  TDFc$Fr[i] <- sum(TDFc$fr[1:i]) 
+  
+}
+
+```
+
+```{r}
+TDFc2 <- TDFc
+colnames(TDFc2) <- c('min.',
+                   'max.',
+                   'f~i~',
+                   'f~r~',
+                   'F~i~',
+                   'F~r~'
+                   
+                   )
+```
+
+```{r}
+
+knitr::kable(TDFc2, 'simple')
+```
+
+```{r}
+library(ggplot2)
+
+intervalosc <- sort(factor(paste(TDFc$min,'-',TDFc$max),
+                     levels = paste(TDFc$min,'-',TDFc$max),) )
+ggplot(TDFc,
+aes(x = reorder(intervalosc,intervalosc, function(x)-length(x)),
+y = fr*100,
+fill=intervalosc,
+label = round(fr*100,2)
+)
+) +
+geom_bar(stat="identity") +
+xlab("intervalo") +
+ylab('% frecuencia relativa')+
+geom_label(aes(fill = intervalosc),
+colour = "white",
+fontface = "italic") +
+ theme(axis.text.x = element_blank())
+
+```
 
 d. Construya la matriz de correlaciones de Pearson para las variables gradosbrixa
 consistenciaa, gradosbrixb consistenciab, gradosbrixc y consistenciac y concluya.
 
+primero revisamos cual variable tienen mas valores faltantes, asi escogeremos las muestras restantes para calcular la correlacion entre variables
+```{r}
+  
+ which(is.na(fresa$gradosbrixa))
+ which(is.na(fresa$consistenciaa))
+ which(is.na(fresa$gradosbrixb))
+ which(is.na(fresa$consistenciab))
+  which(is.na(fresa$gradosbrixc))
+ which(is.na(fresa$consistenciac))  
+ 
+nasCor <-  which(is.na(fresa$gradosbrixa))
 
+```
+Una vez sabemos que escoger, podemos proceder a crear la tabla:
 
+```{r}
+df3 <-  data.frame(gradosbrixa = fresa$gradosbrixa[-nasCor],
+consistenciaa = fresa$consistenciaa[-nasCor],
+ gradosbrixb = fresa$gradosbrixb[-nasCor],
+consistenciab = fresa$consistenciab[-nasCor],
+ gradosbrixc = fresa$gradosbrixc[-nasCor],
+consistenciac = fresa$consistenciac[-nasCor])
+
+cor(df3)
+```
+
+```{r}
+pairs(df3)
+```
 
 ## 4. Con el archivo daños por sitio, correspondiente a una muestra de 480 cardones en la alta Guajira. Construya una tabla de frecuencias para el cruce de las variables tipo de daño (0= no hay daño, 1= corte con machete, 2= daño por insectos, 3= comido de cabras, 4= daño por viento, 5= daño por aves) y sitio (1= intervenido, 0= no intervenido).
 a. Realizar el análisis respectivo, construya las tablas de frecuencias correspondientes
+
 ```{r}
 cardones <- read_excel("./tarea1.xlsx", 
     sheet = "cardones")

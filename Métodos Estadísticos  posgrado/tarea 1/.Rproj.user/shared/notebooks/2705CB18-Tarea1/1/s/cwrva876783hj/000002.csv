@@ -1,0 +1,12 @@
+"0","library(readxl)"
+"0","fresa <- read_excel(""./tarea1.xlsx"",sheet = ""fresa"")"
+"2","New names:
+* dias -> dias...1
+* calibre -> calibre...2
+* dias -> dias...7
+* calibre -> calibre...8
+* dias -> dias...13
+* ...
+"
+"0","colores<-c(""#00AFBB"", ""#E7B800"", ""#FC4E07"")"
+"0","boxplot(fresa$gradosbrixa[c(1:84)] ~ fresa$tratamientob[c(1:84)], xlab = ""Tratamiento B"", ylab = ""Grados Bix A"", col= colores)"

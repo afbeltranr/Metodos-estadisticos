@@ -1,0 +1,1 @@
+"0","boxplot(fresa$consistenciac ~ fresa$tratamientoc, xlab = ""Tratamiento C"", ylab = ""Consistencia C"", col= colores)"

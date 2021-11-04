@@ -1,2 +1,0 @@
-"0","library(dplyr) "
-"0","gastosDiurno <- filter(tarea1, turno == 'diurno') %>% select(gastos) %>% unlist "
