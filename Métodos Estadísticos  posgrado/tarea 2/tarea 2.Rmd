@@ -1,0 +1,198 @@
+---
+title: "Tarea 2"
+author: "Valentina Gonzalez -Andres Felipe Beltran Rodriguez"
+date: "11/8/2021"
+output:
+  word_document: default
+  html_document: default
+---
+# Primer punto
+
+1. Los agricultores de la sabana de Bogotá realizaron un estudio respecto a la aplicación
+de fungicidas y abonos orgánicos y su relación con la presencia de daños por patógenos.
+Se utilizó una encesta para recoger la información. La encuesta tenía las siuguientes tres
+preguntas:
+  1. Qué tipo de abono orgánico utiliza?
+    a. Gallinaza
+    b. Compost
+    c. Cascarilla de arroz+desechos vegetales
+    d. Guano
+  2. Qué tipo de aplicación de fungicidas utiliza?
+    a. Metil Tiofanato 70% (Enovit Metil)
+    b. Belanaxil 8% (Galben M)
+    c. Azufre 80% (Sufrevit)
+  3. Cómo considera la presencia de daños por patógenos?
+    a. Alto 
+    b. Bajo
+    
+Los encuestados únicamente escogían un tipo de fungicida y un tipo de abono orgánico.
+
+Todos los encuestados respondieron todas las preguntas. Los resultados encontrados
+fueron los siguientes:
+
+1. El 12% de las personas utilizan Metil Tiofanato 70% y Cascarilla de arroz+desechos vegetales. 
+
+2. De las personas que prefieren Cascarilla de arroz+desechos vegetales el 50% encuentran la presencia de daños por patógenos alta independiente del tipo de aplicación de fungicidas. 
+
+3. El 9% de las personas utilizan Belanaxil 8% y Cascarilla de arroz+desechos vegetales.
+
+4. El 40% de los que utilizan Guano, utilizan Metil tiofanato 70%.
+
+5. El 40% de las personas que utiliza Compost encuentran la presencia de daños por patógenos alta sin importar el tipo de fungicidas que se aplique.
+
+6. El 20% de las personas utilizan Gallinaza. 
+
+7. De los que utilizan Gallinaza, el 40% utiliza Metil Tiofanato 70%. 
+8. De los que utilizan Gallinaza, el 40% utiliza Belanaxil 8%.
+
+9. El 15% de las personas utiliza Compost y Metil Tiofanato 70%.
+
+10. El 9% de las personas utiliza Azufre 80% y Cascarilla de arroz+desechos vegetales. 
+
+11. El 30% de las personas que utiliza Gallinaza encuentran la presencia de daños por patógenos alta  sin importar el tipo de fungicida.
+
+12. De los que utilizan Guano nadie utiliza Azufre 80%. 
+
+13. El 6% de las personas utilizan Compost y Belanaxil 8%. 
+
+14. De las personas que utilizan Guano el 60% encuentran lapresencia de daños por patógenos alta sin importar el tipo de fungicidas. 
+
+15. El 30% de las personas prefieren Compost.
+
+a. Construya el árbol de la situación anterior y calcule todas las probabilidades en todas
+las intersecciones y en todas las ramas del árbol.
+
+
+b. Qué porcentaje de los que encuentran la presencia de daños por patógenos alta utiliza
+Metil Tiofanato 70%.
+c. Cuál es la probabilidad de que al tomar una persona al azar que utiliza Belanaxil 8%,
+esta persona utilice Guano y encuentre la presencia de daños por patógenos baja.
+
+# Segundo punto
+
+2. Una forma de incrementar la probabilidad de rendimiento de un cultivo (conocida como
+la confiabilidad del sistema de riego) es mediante un riego eficiente incrementando el
+número de asperjadores del sistema de riego. Supóngase que un agricultor desea una
+probabilidad no menor de 0.99999 de que el sistema de riego funcione adecuadamente
+con un rendimiento por encima del promedio. ¿Cuántos asperjadores deben configurarse
+en paralelo, para alcanzar esta confiabilidad de operación, si se sabe que la probabilidad
+de que uno cualquiera de los asperjadores funcione adecuadamente es de 0.95?
+(supóngase que los asperjadores funcionan independiente entre sí).
+
+# Tercer punto
+3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales
+enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35
+reciben el medicamento B y 30 ambos medicamentos. El fármaco A reduce la
+probabilidad de ataque cardiaco en 25%, el B lo hace en un 30% y los dos medicamentos,
+si se toman juntos, funcionan de manera independiente. Se escogió a los 100 animales de
+forma que cada uno tuviera 70% de probabilidad de sufrir un ataque cardiaco. Si un
+animal seleccionado aleatoriamente sufre un ataque cardiaco.¿ Cuál es la probabilidad de
+que le haya administrado los dos medicamentos?
+# Cuarto punto
+4. Se instalaron cuatro anuncios panorámicos en la carretera a la entrada de la ciudad para
+hacerle publicidad a un nuevo fertilizante para los cultivos y se sabe por experiencia la
+probabilidad de que cada anuncio sea visto por un conductor escogido aleatoriamente. La
+probabilidad de que el primer anuncio sea visto por un conductor es de 075, la
+probabilidad de que el segundo sea visto es de 0.82, la probabilidad para el tercero es de
+0.87 y la del cuarto es de 0.9. Si el evento consiste en que el conductor vea uno cualquiera
+de los anuncios es independiente de si ha visto o no los demás.
+¿Cuál es la probabilidad de que?
+a. Los cuatro anuncios sean vistos por un conductor escogido aleatoriamente?
+b. El primero y cuarto anuncios sean vistos, sin que el segundo y tercero sean notados?
+c. Exactamente uno de los anuncios sea visto?
+d. Ninguno de los anuncios sea visto?
+e. El tercero y cuarto anuncios no sean vistos?
+# Quinto punto
+5. Corpoica acaba de ganar una licitación para tres trabajos similares. La experiencia
+indica que la probabilidad de que un determinado trabajo se demore más de lo planeado
+es 0.4. Si el ritmo al cual se trabaja es independiente.
+a. ¿Cuál es la probabilidad de que los tres trabajos se terminen en el tiempo planeado?
+b .¿Cuál es la probabilidad de que los tres trabajos tengan retrazo?
+c. ¿Cuál es la probabilidad de que al menos uno tenga retrazo?
+# Sexto punto
+6. La probabilidad de que una planta de arveja de la variedad 1 sobreviva a la inoculación
+es de 0.4 y la probabilidad de que una planta de arveja de la variedad 2 sobreviva a la
+inoculación es de 0.5. La probabilidad de que una planta de arveja de la variedad 1
+sobreviva dado que la planta de arveja de la variedad 2 sobrevive es de 0.7. Encuentre la
+probabilidad de que:
+a. Las dos variedades de arveja sobrevivan.
+b. Si la variedad 1 sobrevive la variedad 2 sobreviva.
+c. Al menos una variedad de las dos sobreviva.
+# Septimo punto
+7. Una finca contiene 20 tipos de insectos y contiene 5 que son dañinos para los cultivos.
+Se toma 2 insectos al azar sin reemplazo.
+a. Cuál es la probabilidad de que el segundo insecto sea dañino para el cultivo si el primero
+lo fue.
+b. Cuál es la probabilidad de que los dos insectos sean dañinos para el cultivo?
+c. Cuál es la probabilidad de que ambos insectos no sean dañinos para los cultivos?
+# Octavo punto
+8. La obtención de imágenes por resonancia magnética (MRI, por sus siglas en inglés) es
+una prueba aceptada no invasiva para evaluar los cambios en el cartílago de las
+articulaciones. En un estudio para comparar los resultados de la evaluación de MRI con
+la evaluación quirúrgica artroscópica de desgarres del cartílago en dos sitios de las rodillas
+de 35 pacientes se obtuvieron las siguientes clasificaciones de los 2x35=70 exámenes.
+Los desgarres reales se confirmaron mediante el examen quirúrgico artroscópico.
+
+
+
+
+<center> 
+
+```{r, echo = F}
+clasificacion <- c('MRI postiva','MRI negativa','Total')
+desgarres <- c(27,4,31)
+sinDesgarres <- c(0,39,39)
+Total <- c(27,43,70)
+
+TablaMRI <- data.frame(class = clasificacion,
+                       desgarres = desgarres,
+                       sindesgarres = sinDesgarres,
+                       Total = Total)
+
+colnames(TablaMRI) <- c('','Desgarres','Sin Desgarres',' Total')
+
+knitr::kable(TablaMRI)
+```
+
+</center> 
+
+a. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y haya
+sido identificado como tal mediante MRI?
+b. Cuál es la probabilidad de que un sitio elegido al azar no tenga ningún desgarre y haya
+sido identificado como un desgarre?
+c. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y no haya
+sido identificado por MRI?
+d. Si hay un desgarre, cuál es la probabilidad de una MRI positiva?
+e. Si hay un desgarre, cuál es la probabilidad de un falso negativo; es decir, una MRI
+negativa?
+f. Cuál es la probabilidad de que no se presente desgarre o haya una MRI negativa?
+# Noveno punto
+
+9. Se tienen 4 variedades resistentes a una enfermedad, 4 moderadamente susceptibles a
+la misma enfermedad y 3 variedades completamente susceptibles a tal enfermedad. De
+estas 11 variedades se desean formar grupos de 4 variedades. De cuántas maneras se
+pueden escoger:
+a. Dos variedades resistentes y dos moderadamente susceptibles.
+b. Tres resistentes y una completamente susceptible.
+c. Una variedad resistente, una moderadamente susceptible y dos completamente
+susceptibles.
+# Decimo punto
+10. Suponga que le interesa seguir dos rasgos independientes de los guisantes; textura
+(S=lisa, s=rugosa) y color de la semilla (Y=amarilla, y=verde), en una cruza de segunda
+generación de padres heterocigotos. Recuerde que la letra mayúscula representa el rasgo
+dominante. Complete la tabla con los pares de genes para ambos rasgos. Todos los pares
+posibles son igualmente probables.
+Color de la semilla
+Textura de la
+semilla
+yy yY Yy YY
+ss (ss yy) (ss yY)
+sS
+Ss
+SS
+a. Qué porcentaje de la descendencia de esta cruza tendrá guisantes amarillos lisos?
+b. Qué proporción de la descendencia tendrá guisantes verdes lisos?
+c. Qué proporción de la descendencia tendrá guisantes rugosos amarillos?
+d. Qué proporción de la descendencia tendrá guisantes verdes rugosos?
+e. Si una descendencia tiene guisantes amarillos lisos, Cuál es la probabilidad de que lleve
+un alelo s? Un alelo s y uno y?
