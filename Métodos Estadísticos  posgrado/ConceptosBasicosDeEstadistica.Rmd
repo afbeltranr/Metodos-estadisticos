@@ -1,13 +1,14 @@
 ---
-title: "Conceptos Basicos de Estadistica"
-author: "Felipe"
-date: "10/14/2021"
-output:
-    pdf_document
-fig_caption: yes
+title: "Using more LaTeX packages"
+output: 
+  pdf_document:
+    extra_dependencies: ["amsmath", "threeparttable"]
+    fig_caption: yes
 classoption:
 - twocolumn
+      
 ---
+
 
 # Conceptos básicos de estadística
 
@@ -714,7 +715,176 @@ el 86% de las mujeres pesan entre 53 y 67 kg.
 
 Este ejemplo está en el código llamado `medidasdescriptivas.R`
 
+Aun asi podemos 
 
 # Proporción
 
-Es similar al promedio, para variables de tipo cualitativo
+Es similar al promedio, para variables de tipo cualitativo:
+
+$$
+\begin{array}{c}
+  \hat{p} = \frac{\sum_{i=1}^n x_i}{n}
+\end{array}
+$$
+Con esta ecuación es posible calcular las proporciones.
+
+$$
+\begin{array}{c}
+x_i =
+   \begin{cases}
+      1 & \text{Si cumple la condicion}\\
+      0 & \text{Si no}
+    \end{cases}
+\end{array}
+$$
+
+Para calcular la proporcion de varias variables cualitativas podemos utilizar la funcion `crosstable` del paquete `gmodels`.
+
+Tambien se puede buscar asociacion entre las variables. Existen pruebas de asociación tales como la de $ji$ cuadrado.
+
+# Asociacion
+
+*'La existencia de asociación entre dos variables indicaría que la distribución de los valores de una de las dos variables difiere en función de los valores de la otra'*
+
+La asociación entre 2 variables de diferente tipo se puede encontrar:
+
+* El caso de dos variables categoricas
+# Prueba de independencia chi cuadrado
+
+La prueba de independencia de chi cuadrado de termina si hay alguna asociacion entre variables categóricas (Si están asociadas o son independientes) Es una prueba no paramétrica.
+
+Esta prueba utiliza una tabla de contingencia para analizar los datos. Ésta tabla es un arreglo en el cual los datos son clasificados de acuerdo a dos variables categóricas. Las categorías de una variable aparecen en las filas, y las categorías para la otra variable a aparecen en las columnas. Cada variable debe tener dos o más categorías o niveles. Cada celda refleja el conteo total de casos para un par especifico de categorías.
+
+
+:::: {.center data-latex=""}
+
+::: {.minipage data-latex="{.8\linewidth}"}
+**NOTA**
+
+Existen varias pruebas con el nombre 'prueba chi-cuadrado' además de la prueba de independencia de chi cuadrado. Es útil revisar el contexto de los datos y la pregunta de investigación para asegurar cual forma de la prueba chi cuadrado se está utilizando.
+:::
+
+::::
+
+## Usos de la prueba
+
+la prueba de independencia de chi cuadrado se utiliza comúnmente para probar:
+
+* Independencia estadística o asociación entre dos o más variables categóricas.
+
+La prueba de independencia chi-cuadrado solo muede comparar variables categóricas. No puede hacer comparaciones entre varaibles continuas o entre variables continuas y categoricas. Además, La prueba de independencia chi-cuadrado solo *evalua asociaciones* entre variables categoricas, y no puede inferir nada sobre causalidad.
+
+## requerimientos de los datos
+
+Los datos deben cumplir las siguientes condiciones:
+
+1. Tener dos variables categóricas.
+2. Dos o más categorías (grupos) o niveles para cada variable.
+3. Independencia de las observaciones.
+    * No existen relaciones entre los sujetos de cada grupo
+    * Las variables categoricas no estan 'emparejadas' de   manera.
+4. Tamaño de muestra relativamente grande.
+    * Se espera por lo menos una frecuencia de 1 en cada celda.
+    * Se esperan frecuencias de por lo menos 5 en la mayoria (80%) de celdas.
+    
+## Hipotesis
+
+La hipótesis nula $(H_0)$ y la hipótesis alternativa $(H_1)$ de la prueba de independencia de la prueba de chi cuadrado pueden ser expresadas de dos maneras diferentes pero equivalentes:
+
+
+:::: {.center data-latex=""}
+
+::: {.minipage data-latex="{.9\linewidth}"}
+
+$$
+\begin{array}{c}
+H_0 : \text{La [variable 1] es independiente de la [variable 2]}
+\end{array} \\
+$$
+$$
+\begin{array}{c}
+H_1 : \text{La [variable 1] no es independiente de la [variable 2]}
+\end{array}
+$$
+O 
+$$
+\begin{array}{c}
+H_0 : \text{La [variable 1] No está asociada con  [variable 2]}
+\end{array} \\
+$$
+$$
+\begin{array}{c}
+H_1 : \text{La [variable 1] está asociada con [variable 2]}
+\end{array}
+$$
+:::
+
+::::
+
+## Tabla de contingencia
+
+para i = 1, ..; , k y j = 1, ..., p se tiene que $n_{ij}$ es el número de individuos o **frecuencia absoluta** que presentan a la vez las modalidades $X_i$ e $Y_i$
+![](./img/TablaDeContingencia.jpg)
+El numero de individuos que presentan la modalida $x_i$, es lo que llamamos *frecuencia absoluta marginal* de $x_i$ y se representa como:
+
+$$
+\begin{array}{c}
+n_{i\bullet} = n_{i1} + n_{i2} + \cdot \cdot \cdot + n_{ip} = \sum_{j=1}^p n_{ij}
+\end{array}
+$$
+
+De forma análoga se define la frecuencia absoluta marginal de la modalidad $y_j$ como:
+$$
+\begin{array}{c}
+n_{\bullet j} = n_{1j} + n_{2j} + \cdot \cdot \cdot + n_{kj} = \sum_{i=1}^k n_{ij}
+\end{array}
+$$
+El número total de elementos de la población )o de la muestra n lo obtenemos de cualquiera de las siguientes formas, que son equivalentes:
+
+$$
+\begin{array}{c}
+n_{\bullet \bullet} = \sum_{i=1}^k n_{i \bullet} = \sum_{j=1}^p n_{ \bullet j} = \sum_{i=1}^k \sum_{j=1}^p n_{ij}
+\end{array}
+$$  
+## Estadistico de la prueba
+
+El estadistico de la prueba de independencia de chi-cuadrado se denota como $X^2$ y se calcula de la siguiente manera:
+
+$$
+\begin{array}{c}
+X^2_c = \sum_{i=1}^k \sum_{j=1}^p \frac{\left( n_{ij} - \frac{n_{i \bullet} \cdot n_{\bullet j}}{n} \right)^2}{\frac{n_{i \bullet} \cdot n_{\bullet j}}{n}}
+\end{array}
+$$
+El índice $X^2$ toma el valor de cero cuando dos variables son independientes.
+
+Siendo mayor que cero cuando exista asociación entre ellas, tanto mayor cuanto más intensa sea esa correlación.
+
+No tiene un límite máximo, lo cual supone una dificultad al nivel de interpretarlo.
+
+
+Calculo en R
+
+```{r}
+library(readxl)
+datos <- read_excel("./datostabla.xlsx")
+
+tabla<-table(datos) 
+
+
+library(gmodels)
+CrossTable(datos$nivelescola,datos$ingresos)
+
+chisq.test(tabla)$statistic
+chisq.test(tabla)
+
+```
+`Warning in chisq.test(tabla) : Chi-squared approximation may be incorrect` Aparece proque hay celdas con frecuencias de cero. Es aconsejable hacer la aproximación de fisher para muestras como esta.
+
+Los grados de libertad de la prueba seria (filas-1)(columnas-1) = 6.
+
+Existen otros estadisticos como el phi y el Cramer:
+
+```{r}
+ 
+```
+
