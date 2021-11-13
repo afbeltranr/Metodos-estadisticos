@@ -1005,3 +1005,17 @@ r_s = 1 - [6 \sum d_i^2 / (n^3-n) ]
 $$
 
 Cuando se usa un estimador no parametrico, se le asigna a las observaciones rangos.
+
+Para este estimador se utiliza una prueba de hipótesis:
+
+$$
+\begin{array}{c}
+H_0: r_s = 0 \;,\; \text{No hay correlacion}
+\end{array}
+$$
+
+$$
+\begin{array}{c}
+H_1: r_s \neq 0 \;,\; \text{hay correlacion}
+\end{array}
+$$
