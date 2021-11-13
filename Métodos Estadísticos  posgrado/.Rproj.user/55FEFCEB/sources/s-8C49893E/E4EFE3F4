@@ -3,9 +3,9 @@
     "path": "~/GitHub/Metodos-estadisticos/Métodos Estadísticos  posgrado/ConceptosBasicosDeEstadistica.Rmd",
     "project_path": "ConceptosBasicosDeEstadistica.Rmd",
     "type": "r_markdown",
-    "hash": "2717122483",
+    "hash": "0",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1634220176697.0,
     "source_on_save": false,
     "relative_order": 3,
@@ -13,15 +13,15 @@
         "tempName": "Untitled2",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "861,83",
-        "scrollLine": "852"
+        "cursorPosition": "1020,2",
+        "scrollLine": "1010"
     },
     "folds": "",
-    "lastKnownWriteTime": 1636510375,
+    "lastKnownWriteTime": 1636763319,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1636510375135,
+    "last_content_update": 1636763680995,
     "read_only": false,
     "read_only_alternatives": []
 }

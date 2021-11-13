@@ -459,7 +459,9 @@ DM = \frac{\sum_{i = 1}^n |x_i - \bar{x}|}{n}
 ## Media armonica
 Sirve en diseño de experimentos par aproximar el numero de replicas en todo el expermineto cuando el diseño es desbalanceado.
 
+
 # Ejemplo en excel
+
  Tabla de pesos de mujeres en una empresa
  
 1. construcción de la tabla de frecuencias
@@ -861,30 +863,159 @@ Siendo mayor que cero cuando exista asociación entre ellas, tanto mayor cuanto 
 
 No tiene un límite máximo, lo cual supone una dificultad al nivel de interpretarlo.
 
+Otra forma de escribirlo es:
 
-Calculo en R
+$$
+X^2_c =\ \frac{\sum_{i =1}^{pk}  (o_i-e_i)^2}{e_i^2}\;\;\;\text{En donde}\;\;\; e_i = \frac{n_{i\bullet} \cdot n_{\bullet j}}{n_{\bullet \bullet}}
+$$
+## Ejemplo en excel
+
+Para calcular en excel el chi cuadrado, podemos usar una tabla de contingencia ejemplo como la siguiente:
+
+![](./img/ejemploChiCuadrado.jpg)
+
+![](./img/chiDibujo.jpg)
+El 7 % de las veces que se obtiene un valor de chi cuadrado cumpliendose la hipótesis nula, se obtiene una suma de diferencias entre las frecuencias calculadas y las esperadas igual o mayor al experimental. No es posible rechazar la hipótesis nula. Es decir, la suma de las diferencias entre las frecuencias calculadas y las esperadas no es significativamente grande comparada con la suma de diferencias obtenida cuando la hipotesis nula se cumple.
+
+Entonces no es posible rechazar la hipótesis nula (En la cual no existe asociación entre las variables). Podemos así concluir que no hay evidencia suficiente para sugerir una asociación entre el uso de cinturon y el nivel de escolaridad.
+
+* Cuando la diferencia es pequeña, son independientes.
+* Cuando la diferencia es grande, están asociadas.
+
+Podemos realizar una análigo del análisis en R.
+
+Primero, importamos la tabla:
 
 ```{r}
 library(readxl)
 datos <- read_excel("./datostabla.xlsx")
-
-tabla<-table(datos) 
-
-
-library(gmodels)
-CrossTable(datos$nivelescola,datos$ingresos)
-
-chisq.test(tabla)$statistic
+tabla <- table(datos)
 chisq.test(tabla)
-
 ```
+
 `Warning in chisq.test(tabla) : Chi-squared approximation may be incorrect` Aparece proque hay celdas con frecuencias de cero. Es aconsejable hacer la aproximación de fisher para muestras como esta.
 
-Los grados de libertad de la prueba seria (filas-1)(columnas-1) = 6.
+Los grados de libertad de la prueba seria (filas-1)(columnas-1) $\neq$ 6. Aqui quedan preguntas
 
-Existen otros estadisticos como el phi y el Cramer:
+## Analogo manual en R
 
-```{r}
- 
-```
+Queda pendiente para avanzar en tema, hacerlo todo manual. con ciclos debe salir rapido
 
+$\phi$
+# Coeficiente *phi* de pearson ()
+
+$$
+\begin{array}{c}
+\phi = \sqrt{\frac{\chi^2}{n}}
+\end{array}
+$$
+Puede oscilar entre 0 y $\sqrt{q-1}$ siendo q el mímimo número de modalidades entre las variables (niveles).
+
+Si $\phi \leq 0.3$ nivel bajo de asociación
+Si $0.3 \leq \phi \leq 0.5$ nivel medio de asociación 
+Si $\phi \geq 0.5$ nivel alto de asociación
+
+Para las tablas de contingengia 2x2 oscila entre 0 y 1.
+
+
+# Coeficiente de contingencia de cramer
+
+$$
+\begin{array}{c}
+V = \sqrt{\frac{\chi^2}{n(q-1)}}
+\end{array}
+$$
+
+Donde 
+
+$$
+q = min[i,j]
+$$
+
+Varia entre 0 y 1.
+
+* 0  = independencia
+* Cercania a 1, intensidad de la asociacion entre las variables.
+
+## uso en R
+
+Para calcular el coeficiente de cramer podemos usar la funcion `cramerV`
+# Coeficiente de cohen
+
+Variable categórica dicotómica (dos niveles [a,b]) y una variable cuantitativa Y, el índice de asociación *d de cohen* se obtiene a través de la siguiente expresión:
+
+$$
+\begin{array}{c}
+d = \frac{\bar{Y}_a - \bar{Y}_b}{s_Y}
+\end{array}
+$$
+
+En donde
+
+* $\bar{Y}_a$: es la media de la variable cuantitativa Y en la categoría a.
+* $\bar{Y}_b$: es la media de la variable cuantitativa Y en la categoría b.
+* Desviación estándar de la variable *Y*.
+
+
+Los valores que puede tomar d no est[an acotados a un rango.
+
+Pueden ser tanto positivos como negativos.
+
+* d = 0, las variables son independientes.
+* mayor asociacion, mayor $|d|$
+
+# El caso de dos variables cuantitativas
+
+## Coeficiente de correlación de pearson
+
+El coeficiente de correlación es la medida que describe que tan bine una variable es explicada por otra, y se calcula:
+
+$$
+\begin{array}{c}
+r_{x,y} = \frac{cov(x,y)}{\sigma_x \cdot \sigma_y} = \frac{E(xy)- E(x) \cdot E(y)}{\sigma_x \cdot \sigma_y} 
+\end{array}
+$$
+$$
+\begin{array}{c}
+= \frac{\frac{1}{n} \cdot \sum_{i=1}^n x \cdot y\;\; - \;\;\frac{1}{n} \cdot \sum_{i=1}^n x \cdot \frac{1}{n} \cdot \sum_{i=1}^n y }{s_x \cdot s_y}
+\end{array}
+$$
+
+$$
+\begin{array}{c}
+-1 \leq r \leq 1
+\end{array}
+$$
+
+* La correlacion de pearson se recomienda para variables con distribucion normal, para variables no normales se recomienda el uso de la correlacion de spearman.
+
+
+## Ejemplo de correlacion
+
+![](./img/corrExcel.jpg)
+
+La imagen anterior tiene un ejemplo de como calcular la correlacion utilizando tanto varianza muestral como poblacional. Los paquetes estadisticos usan la varianza poblacional.
+
+##Coeficiende de correlacion de spearman
+
+$$
+\begin{array}{c}
+r_s = 1 - [6 \sum d_i^2 / (n^3-n) ] 
+\end{array}
+$$
+
+Cuando se usa un estimador no parametrico, se le asigna a las observaciones rangos.
+
+Para este estimador se utiliza una prueba de hipótesis:
+
+$$
+\begin{array}{c}
+H_0: r_s = 0 \;,\; \text{No hay correlacion}
+\end{array}
+$$
+
+$$
+\begin{array}{c}
+H_1: r_s \neq 0 \;,\; \text{hay correlacion}
+\end{array}
+$$
