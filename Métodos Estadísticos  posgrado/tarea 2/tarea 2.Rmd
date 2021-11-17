@@ -3,8 +3,10 @@ title: "Tarea 2"
 author: "Valentina Gonzalez -Andres Felipe Beltran Rodriguez"
 date: "11/8/2021"
 output:
-  word_document: default
-  html_document: default
+  html_document:
+    word_document
+always_allow_html: yes
+
 ---
 # Primer punto
 
@@ -62,13 +64,212 @@ fueron los siguientes:
 a. Construya el árbol de la situación anterior y calcule todas las probabilidades en todas
 las intersecciones y en todas las ramas del árbol.
 
-ya
+
+```{r}
+prob_data <- data.frame(pathString = c(
+  'Gallinaza',
+  'Compost',
+  'Cascaras',
+  'Guano',
+  'Gallinaza/Me',
+  'Gallinaza/Be',
+  'Gallinaza/Az',
+  'Compost/Me',
+  'Compost/Be',
+  'Compost/Az',
+  'Cascaras/Me',
+  'Cascaras/Be',
+  'Cascaras/Az',
+  'Guano/Me',
+  'Guano/Be',
+  'Guano/Az',
+  'Gallinaza/Me/A',
+  'Gallinaza/Me/B',
+  'Gallinaza/Be/A',
+  'Gallinaza/Be/B',
+  'Gallinaza/Az/A',
+  'Gallinaza/Az/B',
+  'Compost/Me/A',
+  'Compost/Me/B',
+  'Compost/Be/A',
+  'Compost/Be/B',
+  'Compost/Az/A',
+  'Compost/Az/B',
+  'Cascaras/Me/A',
+  'Cascaras/Me/B',
+  'Cascaras/Be/A',
+  'Cascaras/Be/B',
+  'Cascaras/Az/A',
+  'Cascaras/Az/B',
+  'Guano/Me/A',
+  'Guano/Me/B',
+  'Guano/Be/A',
+  'Guano/Be/B',
+  'Guano/Az/A',
+  'Guano/Az/B'
+  ),
+ prob = c(0.2,
+          0.3,
+          0.3,
+          0.2,
+          0.4,
+          0.4,
+          0.2,
+          0.5,
+          0.2,
+          0.3,
+          0.4,
+          0.3,
+          0.3,
+          0.4,
+          0.6,
+          0,
+          0.3,
+          0.7,
+          0.3,
+          0.7,
+          0.3,
+          0.7,
+          0.4,
+          0.6,
+          0.4,
+          0.6,
+          0.4,
+          0.6,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.6,
+          0.4,
+          0.6,
+          0.4,
+          0.6,
+          0.4
+          ))
+# knitr::kable(prob_data)
+```
+
+## Creando variables de ayuda
+
+El objetivo de este paso es generar nuevas variables a partir de las entradas originales que van a ayudarnos a definir la estructura requerida para diobujar el arbol.
+
+1. tree_level : el nivel de la rama en la cual se va a dibujar una probabilidad en especifico
+2. tree_group: El nombre de la primera rama que se usa para buscar la probabilidad madre.
+
+3 node_type = un nombre unico para construir componentes a medida para la visualizacion.
+
+También creamos la variable llamada`max_tree_level` qUe nos dice el numero total de ramas en el arbol.
 
 
-b. Qué porcentaje de los que encuentran la presencia de daños por patógenos alta utiliza
+```{r}
+library(data.tree)
+library(dplyr)
+library(stringr)
+library(DiagrammeR)
+prob_data <- prob_data %>% mutate(
+                                  tree_level = str_count(string = pathString, 
+                                                         pattern = '/')+1,
+                                  tree_group = str_replace(string = pathString, 
+                                                           pattern = '/.*',
+                                                           replacement = ''),
+                                  node_type = 'decision_node')
+
+max_tree_level <- max(prob_data$tree_level, na.rm = T)
+```
+
+## Encontrando las probabilidades padre
+
+para determinar la probabilidad acumulada para un resultado dado, es necesario multiplicar las probabilidades en ramas secundarias por las probabilidades de las ramas madres asociadas a cada una de ellas.
+
+Para hacer esto, creamos un nuevo data_frame `parent_lookup`, que contiene todas las probabilidades que vienen de nuestra fuente de datos. 
+
+Podemos entonces iterar a traves de los cuatro niveles, tomando las probabilidades de todas las ramas madre. Al final podemos calcular la probabilidad acumulada `overall_prob` al multiplicar a lo largo de todas probabilidades a traves de una secuencia de ramas.
+
+
+Primero, obtenemos las distintas probabilidades para poder encontrar las probabilidades del nodo madre:
+
+```{r}
+parent_lookup <- prob_data %>% distinct(pathString, prob) 
+```
+
+Luego iteramos a lo largo de las primeras cuatro capas para obtener todas las probabilidades madre.
+
+```{r}
+for (i in 1:(max_tree_level -  1)) { # loop through all tree layers to get all immidiate parent probabilities (to calculate cumulative prob)
+  
+  names(parent_lookup)[1] <-paste0("parent",i)
+  names(parent_lookup)[2] <-paste0("parent_prob",i)
+  
+  for (j in 1:i) {
+    
+    if (j == 1)  prob_data[[paste0("parent",i)]] <- sub("/[^/]+$", "", prob_data$pathString)
+    else if (j  > 1) prob_data[[paste0("parent",i)]] <- sub("/[^/]+$", "", prob_data[[paste0("parent",i)]])
+  }
+  
+  prob_data <- prob_data %>% left_join(parent_lookup, by = paste0("parent",i))
+  
+}
+
+
+prob_data$overall_prob <- apply(prob_data %>% select(contains("prob"))  , 1, prod, na.rm = T)  # calculate cumulative probability   
+
+terminal_data <- prob_data %>%  filter(tree_level == max_tree_level) %>% # create new rows that will display terminal/final step calulcations on the tree
+  mutate(node_type = 'terminal',
+         pathString = paste0(pathString, "/overall"),
+         prob = NA,
+         tree_level = max_tree_level + 1)
+
+start_node <- "Condiciones de cultivo" # name the root node
+
+prob_data = bind_rows(prob_data, terminal_data) %>%  # bind everything together 
+  mutate(pathString = paste0(start_node,"/",pathString),
+         overall_prob = ifelse(node_type == 'terminal', overall_prob, NA),
+         prob_rank = rank(-overall_prob, ties.method = "min", na.last = "keep"))
+
+prob_data = bind_rows(prob_data, data.frame(pathString = start_node, node_type = 'start', tree_level = 0)) %>% # add one new row to serve as the start node label
+  select(-contains("parent"))
+
+make_my_tree <- function(mydf, display_level = NULL, show_rank = FALSE, direction = "LR") {
+  
+  if (!is.null(display_level) ) {
+    mydf <- mydf %>% filter(tree_level <= display_level)
+    
+  }
+  
+  mytree <- as.Node(mydf) 
+  
+  GetEdgeLabel <- function(node) switch(node$node_type, node$prob)
+  
+  GetNodeShape <- function(node) switch(node$node_type, start = "box", node_decision = "circle", terminal = "none")
+  
+  
+  GetNodeLabel <- function(node) switch(node$node_type, 
+                                        terminal = ifelse(show_rank  == TRUE, paste0("Prob: ", node$overall_prob,"\nRank: ", node$prob_rank),
+                                                          paste0("Prob: ", node$overall_prob)),
+                                        node$node_name)
+  
+  SetEdgeStyle(mytree, fontname = 'helvetica', label = GetEdgeLabel)
+  
+  SetNodeStyle(mytree, fontname = 'helvetica', label = GetNodeLabel, shape = GetNodeShape)
+  
+  SetGraphStyle(mytree, rankdir = direction) 
+  
+  plot(mytree)
+  
+}
+
+make_my_tree(prob_data)
+
+
+```
+
+b. Qué porcentaje de los que encuentr an la presencia de daños por patógenos alta utiliza
 Metil Tiofanato 70%.
 
-ya
+
 
 c. Cuál es la probabilidad de que al tomar una persona al azar que utiliza Belanaxil 8%,
 esta persona utilice Guano y encuentre la presencia de daños por patógenos baja.
@@ -79,11 +280,11 @@ ya
 
 2. Una forma de incrementar la probabilidad de rendimiento de un cultivo (conocida como
 la confiabilidad del sistema de riego) es mediante un riego eficiente incrementando el
-número de asperjadores del sistema de riego. Supóngase que un agricultor desea una
-probabilidad no menor de 0.99999 de que el sistema de riego funcione adecuadamente
-con un rendimiento por encima del promedio. ¿Cuántos asperjadores deben configurarse
-en paralelo, para alcanzar esta confiabilidad de operación, si se sabe que la probabilidad
-de que uno cualquiera de los asperjadores funcione adecuadamente es de 0.95?
+número de asperjadores del sistema de riego. 
+
+Supóngase que un agricultor desea una probabilidad no menor de 0.99999 de que el sistema de riego funcione adecuadamente con un rendimiento por encima del promedio. 
+
+¿Cuántos asperjadores deben configurarse en paralelo, para alcanzar esta confiabilidad de operación, si se sabe que la probabilidad de que uno cualquiera de los asperjadores funcione adecuadamente es de 0.95?
 (supóngase que los asperjadores funcionan independiente entre sí).
 
 # Tercer punto
