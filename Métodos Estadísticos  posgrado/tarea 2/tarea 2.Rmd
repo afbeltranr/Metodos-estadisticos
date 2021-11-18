@@ -287,6 +287,26 @@ Supóngase que un agricultor desea una probabilidad no menor de 0.99999 de que e
 ¿Cuántos asperjadores deben configurarse en paralelo, para alcanzar esta confiabilidad de operación, si se sabe que la probabilidad de que uno cualquiera de los asperjadores funcione adecuadamente es de 0.95?
 (supóngase que los asperjadores funcionan independiente entre sí).
 
+* Definimos la probabilidad que se debe hallar como P(A)
+A: Sistema el sistema de riego funcione adecuadamente con un rendimiento por encima del promedio.
+
+$$ B_1: \text{ Probabilidad de que el asperjador 1 funcione adecuadamente }$$
+$$ B_2: \text{ Probabilidad de que el asperjador 2 funcione adecuadamente }$$
+y así sucesivamente,
+
+$$P(A)> 0.99999 $$
+$$P(A)= P(B_1\cap B_2\dots\cap B_k)= 0.95^k $$
+* Como las probabilidades de funcionamiento adecuado de los asperjadores son iguales y son independientes entre si, solo hay que despejar k
+
+$$ k\text{log} (0.95) = log (0.99999) $$
+```{r}
+
+log10(0.99999)/log10(0.95)
+```
+
+*k = 0.000195, no es posible llegar a esa probabilidad de 0.99999 con esa probabilidad de que el asperjador 1 funcione adecuadamente.
+
+
 # Tercer punto
 3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales
 enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35
@@ -296,6 +316,11 @@ si se toman juntos, funcionan de manera independiente. Se escogió a los 100 ani
 forma que cada uno tuviera 70% de probabilidad de sufrir un ataque cardiaco. Si un
 animal seleccionado aleatoriamente sufre un ataque cardiaco.¿ Cuál es la probabilidad de
 que le haya administrado los dos medicamentos?
+
+
+
+
+
 # Cuarto punto
 4. Se instalaron cuatro anuncios panorámicos en la carretera a la entrada de la ciudad para
 hacerle publicidad a un nuevo fertilizante para los cultivos y se sabe por experiencia la
@@ -305,18 +330,90 @@ probabilidad de que el segundo sea visto es de 0.82, la probabilidad para el ter
 0.87 y la del cuarto es de 0.9. Si el evento consiste en que el conductor vea uno cualquiera
 de los anuncios es independiente de si ha visto o no los demás.
 ¿Cuál es la probabilidad de que?
+
+```{r}
+PA1<-0.75
+PA2<-0.82
+PA3<-0.87
+PA4<-0.9
+```
+
 a. Los cuatro anuncios sean vistos por un conductor escogido aleatoriamente?
+$$P(A_1\cap A_2\cap A_3\cap A_4) $$
+```{r}
+PA1*PA2*PA3*PA4
+```
+* La probabilidad de que los cuatro anuncios sean vistos por un conductor escogido aleatoriamente es de 0.481
+
+
 b. El primero y cuarto anuncios sean vistos, sin que el segundo y tercero sean notados?
+
+$$P(A_1\cap A_4) $$
+```{r}
+PA1*PA4
+```
+* La probabilidad de que el primero y cuarto anuncios sean vistos, sin que el segundo y tercero sean notados es de 0.675
+
 c. Exactamente uno de los anuncios sea visto?
+
+$$P(A_1\cap A_2\cap A_3\cap A_4)^C $$
+```{r}
+PA1+PA2+PA3+PA4-(PA1*PA2)-(PA1*PA3)-(PA1*PA4)-(PA2*PA3)-(PA2*PA4)-(PA3*PA4)+(PA1*PA2*PA3)+(PA1*PA2*PA4)+(PA2*PA3*PA4)+(PA1*PA3*PA4)-(PA1*PA2*PA3*PA4)-(PA1*PA2*PA3*PA4)
+```
+* La probabilidad de que exactamente uno de los anuncios sea visto es de 0.518
+
 d. Ninguno de los anuncios sea visto?
+$$P(A_1\cup A_2\cup A_3\cup A_4)^C $$
+```{r}
+1-(PA1+PA2+PA3+PA4-(PA1*PA2)-(PA1*PA3)-(PA1*PA4)-(PA2*PA3)-(PA2*PA4)-(PA3*PA4)+(PA1*PA2*PA3)+(PA1*PA2*PA4)+(PA2*PA3*PA4)+(PA1*PA3*PA4)-(PA1*PA2*PA3*PA4))
+```
+* La probabilidad de que ninguno de los avisos sea visto es de 0.00058
+
 e. El tercero y cuarto anuncios no sean vistos?
+$$P( A_3\cup A_4)^C $$
+```{r}
+PA3+PA4-(PA3*PA4)
+```
+* La probabilidad de que el tercero y cuarto anuncios no sean vistos es de 0.987
+
+
 # Quinto punto
 5. Corpoica acaba de ganar una licitación para tres trabajos similares. La experiencia
 indica que la probabilidad de que un determinado trabajo se demore más de lo planeado
 es 0.4. Si el ritmo al cual se trabaja es independiente.
+
+$$ B_1: \text{ Probabilidad de que el trabajo 1 se demore más de lo planeado }$$
+$$ B_2: \text{ Probabilidad de que el trabajo 2 se demore más de lo planeado }$$
+$$ B_3: \text{ Probabilidad de que el trabajo 3 se demore más de lo planeado }$$
+```{r}
+PB1<-0.4
+PB2<-0.4
+PB3<-0.4
+```
+
 a. ¿Cuál es la probabilidad de que los tres trabajos se terminen en el tiempo planeado?
+$$P(B_1\cap B_2\cap B_3)^C $$
+
+```{r}
+PB1+PB2+PB3-(PB1*PB2)-(PB1*PB3)-(PB2*PB3)+(PB1*PB2*PB3)-(PB1*PB2*PB3)
+```
+* La probabilidad de de que los tres trabajos se terminen en el tiempo planeado es de 0.72
+
 b .¿Cuál es la probabilidad de que los tres trabajos tengan retrazo?
+$$P(B_1\cap B_2\cap B_3) $$
+```{r}
+PB1*PB2*PB3
+```
+* La probabilidad de de que los tres trabajos tengan retraso es de 0.064
+
 c. ¿Cuál es la probabilidad de que al menos uno tenga retrazo?
+$$P(B_1\cup B_2\cup B_3) $$
+```{r}
+PB1+PB2+PB3-(PB1*PB2)-(PB1*PB3)-(PB2*PB3)+(PB1*PB2*PB3)
+```
+* La probabilidad de de que al menos uno tenga retrazo es de 0.784
+
+
 # Sexto punto
 6. La probabilidad de que una planta de arveja de la variedad 1 sobreviva a la inoculación
 es de 0.4 y la probabilidad de que una planta de arveja de la variedad 2 sobreviva a la
