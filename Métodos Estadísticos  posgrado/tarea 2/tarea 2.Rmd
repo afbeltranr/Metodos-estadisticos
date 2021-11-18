@@ -309,16 +309,19 @@ log10(0.99999)/log10(0.95)
 
 # Tercer punto
 3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales
-enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35
-reciben el medicamento B y 30 ambos medicamentos. El fármaco A reduce la
-probabilidad de ataque cardiaco en 25%, el B lo hace en un 30% y los dos medicamentos,
-si se toman juntos, funcionan de manera independiente. Se escogió a los 100 animales de
-forma que cada uno tuviera 70% de probabilidad de sufrir un ataque cardiaco. Si un
-animal seleccionado aleatoriamente sufre un ataque cardiaco.¿ Cuál es la probabilidad de
+enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35 reciben el medicamento B y 30 ambos medicamentos. El fármaco A reduce la
+probabilidad de ataque cardiaco en 25%, el B lo hace en un 30% y los dos medicamentos,si se toman juntos, funcionan de manera independiente. Se escogió a los 100 animales de forma que cada uno tuviera 70% de probabilidad de sufrir un ataque cardiaco. Si un animal seleccionado aleatoriamente sufre un ataque cardiaco.¿ Cuál es la probabilidad de
 que le haya administrado los dos medicamentos?
-
-
-
+F: Sufrir un ataque cardiaco
+C: Recibe los dos medicamentos
+Si recibe los dos medicamentos al tiempo, la probabilidad de sufrir un ataque cardiaco baja a 15%
+$$P(A\cap C) $$
+```{r}
+PF<-0.15
+PC<-0.3
+PF*PC
+```
+* Si un animal seleccionado aleatoriamente sufre un ataque cardiaco, la probabilidad de que le haya administrado los dos medicamentos es de 0.045
 
 
 # Cuarto punto
@@ -420,16 +423,65 @@ es de 0.4 y la probabilidad de que una planta de arveja de la variedad 2 sobrevi
 inoculación es de 0.5. La probabilidad de que una planta de arveja de la variedad 1
 sobreviva dado que la planta de arveja de la variedad 2 sobrevive es de 0.7. Encuentre la
 probabilidad de que:
+
+A: Una planta de arveja de la variedad 1 sobreviva a la inoculación
+$$P(A) =0.4 $$
+B: Una planta de arveja de la variedad 2 sobreviva a la inoculación
+$$P(B)=0.5 $$
+$$P(A|B) =0.7 $$
 a. Las dos variedades de arveja sobrevivan.
+$$P(A\cap B) $$
+```{r}
+0.7*0.5
+```
+* La probabilidad de que las dos variedades de arveja sobrevivan es de 0.35
+
 b. Si la variedad 1 sobrevive la variedad 2 sobreviva.
+$$P(B|A)  $$
+```{r}
+0.35/0.4
+```
+* La probabilidad de que si la variedad 1 sobrevive la variedad 2 sobreviva es de 0.875
+
 c. Al menos una variedad de las dos sobreviva.
+$$P(A\cup B) $$
+```{r}
+0.5+0.4-0.35
+```
+* La probabilidad de que al menos una variedad de las dos sobreviva es de 0.55
+
 # Septimo punto
 7. Una finca contiene 20 tipos de insectos y contiene 5 que son dañinos para los cultivos.
 Se toma 2 insectos al azar sin reemplazo.
-a. Cuál es la probabilidad de que el segundo insecto sea dañino para el cultivo si el primero
-lo fue.
+
+Primero se calcula los casos posibles
+$$\left(\!\begin{array}{c}      20 \\       2     \end{array}   \!\right) = \frac{20!}{2!(20-2)!} $$
+```{r}
+choose(20,2)
+```
+Hay 190 casos posibles
+
+a. Cuál es la probabilidad de que el segundo insecto sea dañino para el cultivo si el primero lo fue.
+```{r}
+(5/20)*(4/19)
+```
+La probabilidad de que el primero sea dañino es de 5/20 y de que el segundo escogido sea dañino ya que el primero tambien lo es es de 5/20*4/19 = 0.0526
+
 b. Cuál es la probabilidad de que los dos insectos sean dañinos para el cultivo?
+$$ \frac{\left(\!\begin{array}{c}      5 \\       2     \end{array}   \!\right) \left(\!\begin{array}{c}      15 \\       0     \end{array}   \!\right)}{190} $$
+```{r}
+choose(5,2)/190
+```
+* La probabilidad de que los dos insectos sean dañinos para el cultivo es de 0.053
+
 c. Cuál es la probabilidad de que ambos insectos no sean dañinos para los cultivos?
+$$ \frac{\left(\!\begin{array}{c}      15 \\       2     \end{array}   \!\right) \left(\!\begin{array}{c}      5 \\       0     \end{array}   \!\right)}{190} $$
+```{r}
+choose(15,2)/190
+```
+* La probabilidad de que ambos insectos no sean dañinos para los cultivos es de 0.553
+
+
 # Octavo punto
 8. La obtención de imágenes por resonancia magnética (MRI, por sus siglas en inglés) es
 una prueba aceptada no invasiva para evaluar los cambios en el cartílago de las
@@ -461,32 +513,82 @@ knitr::kable(TablaMRI)
 
 </center> 
 
-a. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y haya
-sido identificado como tal mediante MRI?
-b. Cuál es la probabilidad de que un sitio elegido al azar no tenga ningún desgarre y haya
-sido identificado como un desgarre?
-c. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y no haya
-sido identificado por MRI?
+a. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y haya sido identificado como tal mediante MRI?
+$$P(Desgarre\cap MRI positiva) $$
+```{r}
+27/70
+```
+* La probabilidad de que un sitio seleccionado al azar tenga un desgarre y haya sido identificado como tal mediante MRI es de 0.386
+
+b. Cuál es la probabilidad de que un sitio elegido al azar no tenga ningún desgarre y haya sido identificado como un desgarre?
+$$P(Sin Desgarres\cap MRI positiva) $$
+```{r}
+0/70
+```
+* La probabilidad de que un sitio elegido al azar no tenga ningún desgarre y haya sido identificado como un desgarre es 0
+
+c. Cuál es la probabilidad de que un sitio seleccionado al azar tenga un desgarre y no haya sido identificado por MRI?
+$$P(Desgarre\cap MRI negativa) $$
+```{r}
+4/70
+```
+* La probabilidad de que un sitio seleccionado al azar tenga un desgarre y no haya sido identificado por MRI es de 0.057
+
 d. Si hay un desgarre, cuál es la probabilidad de una MRI positiva?
-e. Si hay un desgarre, cuál es la probabilidad de un falso negativo; es decir, una MRI
-negativa?
+$$P( MRI positiva |Desgarre) $$
+```{r}
+27/31
+```
+* Si hay un desgarre,la probabilidad de una MRI positiva es de 0.871
+
+e. Si hay un desgarre, cuál es la probabilidad de un falso negativo; es decir, una MRI negativa?
+$$P( MRI negativa |Desgarre) $$
+```{r}
+4/31
+```
+* Si hay un desgarre,la probabilidad de una MRI negativa es de 0.129
+
 f. Cuál es la probabilidad de que no se presente desgarre o haya una MRI negativa?
+$$P(Sin Desgarre\cup MRI negativa) $$
+```{r}
+(39/70)+(43/70)-(39/70)
+```
+* La probabilidad de que no se presente desgarre o haya una MRI negativa es de 0.614
+
+
 # Noveno punto
 
 9. Se tienen 4 variedades resistentes a una enfermedad, 4 moderadamente susceptibles a
 la misma enfermedad y 3 variedades completamente susceptibles a tal enfermedad. De
 estas 11 variedades se desean formar grupos de 4 variedades. De cuántas maneras se
 pueden escoger:
+
+
 a. Dos variedades resistentes y dos moderadamente susceptibles.
+$$ \left(\!\begin{array}{c}      4 \\       2     \end{array}   \!\right) \left(\!\begin{array}{c}      4 \\       2     \end{array}   \!\right) \left(\!\begin{array}{c}      3 \\       0     \end{array}   \!\right) $$
+```{r}
+choose(4,2)* choose(4,2)
+```
+* Se pueden escoger 36 formas de dos variedades resistentes y dos moderadamente susceptibles
+
 b. Tres resistentes y una completamente susceptible.
+$$ \left(\!\begin{array}{c}      4 \\       3     \end{array}   \!\right) \left(\!\begin{array}{c}      4 \\       0     \end{array}   \!\right) \left(\!\begin{array}{c}      3 \\       1     \end{array}   \!\right) $$
+```{r}
+choose(4,3)*choose(3,1)
+```
+* Se pueden escoger 12 formas de tres resistentes y una completamente susceptible
+
 c. Una variedad resistente, una moderadamente susceptible y dos completamente
 susceptibles.
+$$ \left(\!\begin{array}{c}      4 \\       1     \end{array}   \!\right) \left(\!\begin{array}{c}      4 \\       1     \end{array}   \!\right) \left(\!\begin{array}{c}      3 \\       2     \end{array}   \!\right) $$
+```{r}
+choose(4,1)*choose(4,1)*choose(3,2)
+```
+* Se pueden escoger 48 formas de Una variedad resistente, una moderadamente susceptible y dos completamente
+susceptibles
+
 # Decimo punto
-10. Suponga que le interesa seguir dos rasgos independientes de los guisantes; textura
-(S=lisa, s=rugosa) y color de la semilla (Y=amarilla, y=verde), en una cruza de segunda
-generación de padres heterocigotos. Recuerde que la letra mayúscula representa el rasgo
-dominante. Complete la tabla con los pares de genes para ambos rasgos. Todos los pares
-posibles son igualmente probables.
+10. Suponga que le interesa seguir dos rasgos independientes de los guisantes; textura (S=lisa, s=rugosa) y color de la semilla (Y=amarilla, y=verde), en una cruza de segunda generación de padres heterocigotos. Recuerde que la letra mayúscula representa el rasgo dominante. Complete la tabla con los pares de genes para ambos rasgos. Todos los pares posibles son igualmente probables.
 Color de la semilla
 Textura de la
 semilla
@@ -495,9 +597,43 @@ ss (ss yy) (ss yY)
 sS
 Ss
 SS
+
 a. Qué porcentaje de la descendencia de esta cruza tendrá guisantes amarillos lisos?
+```{r}
+12/16*100
+```
+%YS = 12/16 = 0.75
+* Un 75% de la descendencia de esta cruza tendrá guisantes amarillos lisos
+
 b. Qué proporción de la descendencia tendrá guisantes verdes lisos?
+```{r}
+3/16
+```
+%yS = 3/16 = 0.1875
+* La proporcion de la descendencia que tendrá guisantes verdes lisos es de 0.1875
+
 c. Qué proporción de la descendencia tendrá guisantes rugosos amarillos?
+```{r}
+12/16
+```
+%Ys = 3/16 = 0.1875
+* La proporcion de la descendencia que tendrá guisantes rugosos amarillos es de 0.1875
+
 d. Qué proporción de la descendencia tendrá guisantes verdes rugosos?
-e. Si una descendencia tiene guisantes amarillos lisos, Cuál es la probabilidad de que lleve
-un alelo s? Un alelo s y uno y?
+```{r}
+1/16
+```
+%ys = 1/16 = 0.0625
+* La proporcion de la descendencia que tendrá guisantes rugosos verdes es de 0.0625
+
+e. Si una descendencia tiene guisantes amarillos lisos, Cuál es la probabilidad de que lleve un alelo s?
+```{r}
+6/12
+```
+* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s es de 0.5
+
+Un alelo s y uno y?
+```{r}
+4/12
+```
+* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s y uno y es de 0.333
