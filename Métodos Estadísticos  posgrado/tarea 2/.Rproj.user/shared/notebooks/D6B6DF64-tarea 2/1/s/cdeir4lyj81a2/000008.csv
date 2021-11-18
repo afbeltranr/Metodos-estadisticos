@@ -53,7 +53,4 @@
 "0","  plot(mytree)"
 "0","  "
 "0","}"
-"0","png(filename = ""1.png"",make_my_tree(prob_data))"
-"2","Error in switch(units, `in` = res, cm = res/2.54, mm = res/25.4, px = 1) *  : 
-  non-numeric argument to binary operator
-"
+"0","make_my_tree(prob_data)"

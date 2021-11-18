@@ -1,1 +1,0 @@
-"0","parent_lookup <- prob_data %>% distinct(pathString, prob) "

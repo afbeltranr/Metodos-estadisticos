@@ -3,10 +3,9 @@ title: "Tarea 2"
 author: "Valentina Gonzalez -Andres Felipe Beltran Rodriguez"
 date: "11/8/2021"
 output:
-  html_document:
-    word_document
+  word_document: default
+  html_document: word_document
 always_allow_html: yes
-
 ---
 # Primer punto
 
@@ -164,7 +163,7 @@ El objetivo de este paso es generar nuevas variables a partir de las entradas or
 También creamos la variable llamada`max_tree_level` qUe nos dice el numero total de ramas en el arbol.
 
 
-```{r}
+```{r, message =FALSE, warning= FALSE}
 library(data.tree)
 library(dplyr)
 library(stringr)
@@ -191,13 +190,13 @@ Podemos entonces iterar a traves de los cuatro niveles, tomando las probabilidad
 
 Primero, obtenemos las distintas probabilidades para poder encontrar las probabilidades del nodo madre:
 
-```{r}
+```{r ,message =FALSE, warning= FALSE}
 parent_lookup <- prob_data %>% distinct(pathString, prob) 
 ```
 
-Luego iteramos a lo largo de las primeras cuatro capas para obtener todas las probabilidades madre.
+Luego iteramos a lo largo de la primera capa para obtener todas las probabilidades madre.
 
-```{r}
+```{r,message =FALSE, warning= FALSE}
 for (i in 1:(max_tree_level -  1)) { # loop through all tree layers to get all immidiate parent probabilities (to calculate cumulative prob)
   
   names(parent_lookup)[1] <-paste0("parent",i)
@@ -261,20 +260,72 @@ make_my_tree <- function(mydf, display_level = NULL, show_rank = FALSE, directio
   
 }
 
+
 make_my_tree(prob_data)
 
 
 ```
 
-b. Qué porcentaje de los que encuentr an la presencia de daños por patógenos alta utiliza
+![Arbol de probabilidades para el punto 1](./arbol1.jpg)
+
+b. Qué porcentaje de los que encuentran la presencia de daños por patógenos alta utiliza
 Metil Tiofanato 70%.
 
+Primero encontramos la probabilidad de encontrar la presencia de daños por patógenos alta:
 
+```{r}
+sum(prob_data$overall_prob[c(which(grepl('(?=.*/A/overall)',prob_data$pathString,perl =T)))])
+```
+
+Luego, calculamos la probabilidad de encontrar daño por patogenos alta cuando se usa Metil Tiofanato 70%
+
+```{r}
+sum(prob_data$overall_prob[c(which(grepl('(?=.*/Me/A/overall)',prob_data$pathString,perl =T)))])
+```
+
+Luego, el cociente:
+
+```{r}
+0.192/0.45
+```
+
+
+$$
+\begin{array}{c}
+\text{porcentaje de los que encuentra la presencia de daños alta al usar Metil Tiofanato 70% =} \\
+\frac{\text{porcentaje de los que utilizan metil tiofanato dentro de los que encuentran daño alto}}{\text{porcentaje de los que encuentran daño alto}} = \frac{0.192}{0.45} = 0.427
+\end{array}
+$$
+La probabilidad de encontrar la presencia de daños por patógenos alta al usar metil tiofanato 70% es del 42.7%.
 
 c. Cuál es la probabilidad de que al tomar una persona al azar que utiliza Belanaxil 8%,
 esta persona utilice Guano y encuentre la presencia de daños por patógenos baja.
 
-ya
+Primero calculamos el total de los que usan Belanaxil 8%
+
+```{r}
+sum(prob_data$overall_prob[c(which(grepl('(?=.*/Be/A/overall|/Be/B/overall)',prob_data$pathString,perl =T)))])
+```
+Y luego el porcentaje de los que usan belanaxil 8%, guano, y encuentran la presencia por daños de patogenos baja:
+
+```{r}
+sum(prob_data$overall_prob[c(which(grepl('(?=.*/Guano/Be/B/overall)',prob_data$pathString,perl =T)))])
+```
+
+Luego, calculamos el cociente:
+
+```{r}
+0.048/0.35
+```
+Cuál es la probabilidad de que al tomar una persona al azar que utiliza Belanaxil 8%,
+esta persona utilice Guano y encuentre la presencia de daños por patógenos baja.
+
+$$
+\begin{array}{c}
+\text{porcentaje de usar guano, Belanaxil 8% y encontrar daño por patogenos bajo =} \\
+\frac{\text{porcentaje de los que utilizan belanaxil, Guano y encuentran daño bajo}}{\text{porcentaje de los que usan Belanaxil 8%}} = \frac{0.048}{0.35} = 0.137
+\end{array}
+$$
 
 # Segundo punto
 
