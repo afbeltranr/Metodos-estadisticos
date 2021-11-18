@@ -370,7 +370,7 @@ utilizando la ley de deMorgan:
 $$
 p(B) = 1 - p(A_1^c \cap A_2^c \cap \dots \cap A_k^c)
 $$
-Ya que los eventos $$A_1,A_2, \dots, A_k$$ son independientes:
+Ya que los eventos $A_1,A_2, \dots, A_k$ son independientes:
 
 $$
 p(B) = 1 - \left( p(A_1^c)\cdot p(A_2^c)\dots p(A_k^c) \right)
@@ -426,21 +426,63 @@ $$
 Es posible utilizar 4 asperjadores para asegurar una probabilidad de que todos funcionen por encima del promedio mayor a 0.99999.
 
 # Tercer punto
-3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales
-enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35 reciben el medicamento B y 30 ambos medicamentos. El fármaco A reduce la
+
+3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales enfermos del corazón y lo hace en la forma siguiente: 35 reciben el medicamento A, 35 reciben el medicamento B y 30 ambos medicamentos. El fármaco A reduce la
 probabilidad de ataque cardiaco en 25%, el B lo hace en un 30% y los dos medicamentos,si se toman juntos, funcionan de manera independiente. Se escogió a los 100 animales de forma que cada uno tuviera 70% de probabilidad de sufrir un ataque cardiaco. Si un animal seleccionado aleatoriamente sufre un ataque cardiaco.¿ Cuál es la probabilidad de
 que le haya administrado los dos medicamentos?
-F: Sufrir un ataque cardiaco
-C: Recibe los dos medicamentos
-Si recibe los dos medicamentos al tiempo, la probabilidad de sufrir un ataque cardiaco baja a 15%
-$$P(A\cap C) $$
-```{r}
-PF<-0.15
-PC<-0.3
-PF*PC
-```
-* Si un animal seleccionado aleatoriamente sufre un ataque cardiaco, la probabilidad de que le haya administrado los dos medicamentos es de 0.045
 
+
+A: Sufrir un ataque cardiaco
+B: Recibe el medicamento A
+C: Recibe el medicamento B
+D: recibe A & B
+
+
+Nuestras probabilidades a priori son:
+
+$$
+P(A) = 0.7
+$$
+$$
+P(B) = 0.35
+$$
+$$
+P(C) = 0.35
+$$
+$$
+P(D) = 0.30
+$$
+$$
+P(A/C) = P(A) - 0.3 \; * P(A)
+$$
+$$
+P(A/B) = P(A) - 0.25 \; * P(A)
+$$
+![](./bayes4.jpg)
+
+$$
+P(D/A) = \frac{P(D)\cdot P(A/D)}{P(D)\cdot P(A/D)+P(B)\cdot P(A/B)+P(C)\cdot P(A/C)}
+$$
+Ahora debemos hallar las probabilidades condionales, tenemos todas excepto la probabilidad de ver la evidencia dado que se cumpla la hipotesis de que tomo ambos medicamentos.
+
+
+$$
+P(A/B) = 0.7 \cdot 0.75 = 0.52
+$$
+$$
+P(A/C) = 0.7 \cdot 0.7 = 0.49
+$$
+
+$$
+P(A/D) = 0.7 \cdot 0.7 \cdot 0.75 = 0.37
+$$
+$$
+P(D/A) = \frac{P(D)\cdot P(A/D)}{P(D)\cdot P(A/D)+P(B)\cdot P(A/B)+P(C)\cdot P(A/C)}
+$$
+$$
+P(D/A) = \frac{0.3\cdot 0.37}{0.3\cdot 0.37+0.35\cdot 0.49+0.35 \cdot 0.52} = 0.24
+$$
+de los perros que sufrieron un infarto la probabilidad de haber recibido los dos medicamentos es 0.24
 
 # Cuarto punto
 4. Se instalaron cuatro anuncios panorámicos en la carretera a la entrada de la ciudad para
@@ -453,52 +495,55 @@ de los anuncios es independiente de si ha visto o no los demás.
 ¿Cuál es la probabilidad de que?
 
 ```{r}
-PA1<-0.75
-PA2<-0.82
-PA3<-0.87
-PA4<-0.9
+PA<-0.75
+PB<-0.82
+PC<-0.87
+PD<-0.9
 ```
 
 a. Los cuatro anuncios sean vistos por un conductor escogido aleatoriamente?
 $$P(A_1\cap A_2\cap A_3\cap A_4) $$
+
+![](./venna.jpg)
 ```{r}
-PA1*PA2*PA3*PA4
+PA*PB*PC*PD
 ```
+
 * La probabilidad de que los cuatro anuncios sean vistos por un conductor escogido aleatoriamente es de 0.481
 
 
 b. El primero y cuarto anuncios sean vistos, sin que el segundo y tercero sean notados?
-
-$$P(A_1\cap A_4) $$
-```{r}
-PA1*PA4
-```
-* La probabilidad de que el primero y cuarto anuncios sean vistos, sin que el segundo y tercero sean notados es de 0.675
-
+![](./vennb.jpg)
+$P(A \cap B^c \cap C^c \cap D) = 0.75 \cdot 0.18 \cdot 0.13 \cdot 0.9 = 0.015$
 c. Exactamente uno de los anuncios sea visto?
 
-$$P(A_1\cap A_2\cap A_3\cap A_4)^C $$
+$$
+P(A_1\cap A_2\cap A_3\cap A_4)^C
+$$
+
 ```{r}
-PA1+PA2+PA3+PA4-(PA1*PA2)-(PA1*PA3)-(PA1*PA4)-(PA2*PA3)-(PA2*PA4)-(PA3*PA4)+(PA1*PA2*PA3)+(PA1*PA2*PA4)+(PA2*PA3*PA4)+(PA1*PA3*PA4)-(PA1*PA2*PA3*PA4)-(PA1*PA2*PA3*PA4)
+PA+PB+PC+PD-(PA*PB)-(PA*PC)-(PA*PD)-(PB*PC)-(PB*PD)-(PC*PD)+(PA*PB*PC)+(PA*PB*PD)+(PB*PC*PD)+(PA*PC*PD)-(PA*PB*PC*PD)-(PA*PB*PC*PD)
 ```
+
 * La probabilidad de que exactamente uno de los anuncios sea visto es de 0.518
 
 d. Ninguno de los anuncios sea visto?
-$$P(A_1\cup A_2\cup A_3\cup A_4)^C $$
+$$P(A\cup B\cup C\cup D)^C $$
 ```{r}
-1-(PA1+PA2+PA3+PA4-(PA1*PA2)-(PA1*PA3)-(PA1*PA4)-(PA2*PA3)-(PA2*PA4)-(PA3*PA4)+(PA1*PA2*PA3)+(PA1*PA2*PA4)+(PA2*PA3*PA4)+(PA1*PA3*PA4)-(PA1*PA2*PA3*PA4))
+1-(PA+PB+PC+PD-(PA*PB)-(PA*PC)-(PA*PD)-(PB*PC)-(PB*PD)-(PC*PD)+(PA*PB*PC)+(PA*PB*PD)+(PB*PC*PD)+(PA*PC*PD)-(PA*PB*PC*PD))
 ```
 * La probabilidad de que ninguno de los avisos sea visto es de 0.00058
 
 e. El tercero y cuarto anuncios no sean vistos?
-$$P( A_3\cup A_4)^C $$
+$$P( D \cup C)^C $$
 ```{r}
-PA3+PA4-(PA3*PA4)
+1-(PC+PD-(PC*PD))
 ```
 * La probabilidad de que el tercero y cuarto anuncios no sean vistos es de 0.987
 
 
 # Quinto punto
+
 5. Corpoica acaba de ganar una licitación para tres trabajos similares. La experiencia
 indica que la probabilidad de que un determinado trabajo se demore más de lo planeado
 es 0.4. Si el ritmo al cual se trabaja es independiente.
@@ -513,10 +558,10 @@ PB3<-0.4
 ```
 
 a. ¿Cuál es la probabilidad de que los tres trabajos se terminen en el tiempo planeado?
-$$P(B_1\cap B_2\cap B_3)^C $$
+$$P(B_1^C \cap B_2^C \cap B_3^C) $$
 
 ```{r}
-PB1+PB2+PB3-(PB1*PB2)-(PB1*PB3)-(PB2*PB3)+(PB1*PB2*PB3)-(PB1*PB2*PB3)
+(1-PB1)*(1-PB2)*(1-PB3)
 ```
 * La probabilidad de de que los tres trabajos se terminen en el tiempo planeado es de 0.72
 
@@ -536,6 +581,7 @@ PB1+PB2+PB3-(PB1*PB2)-(PB1*PB3)-(PB2*PB3)+(PB1*PB2*PB3)
 
 
 # Sexto punto
+
 6. La probabilidad de que una planta de arveja de la variedad 1 sobreviva a la inoculación
 es de 0.4 y la probabilidad de que una planta de arveja de la variedad 2 sobreviva a la
 inoculación es de 0.5. La probabilidad de que una planta de arveja de la variedad 1
@@ -718,10 +764,10 @@ SS
 
 a. Qué porcentaje de la descendencia de esta cruza tendrá guisantes amarillos lisos?
 ```{r}
-12/16*100
+9/16*100
 ```
-%YS = 12/16 = 0.75
-* Un 75% de la descendencia de esta cruza tendrá guisantes amarillos lisos
+
+* Un 56.25% de la descendencia de esta cruza tendrá guisantes amarillos lisos
 
 b. Qué proporción de la descendencia tendrá guisantes verdes lisos?
 ```{r}
@@ -732,7 +778,7 @@ b. Qué proporción de la descendencia tendrá guisantes verdes lisos?
 
 c. Qué proporción de la descendencia tendrá guisantes rugosos amarillos?
 ```{r}
-12/16
+3/16
 ```
 %Ys = 3/16 = 0.1875
 * La proporcion de la descendencia que tendrá guisantes rugosos amarillos es de 0.1875
@@ -746,12 +792,12 @@ d. Qué proporción de la descendencia tendrá guisantes verdes rugosos?
 
 e. Si una descendencia tiene guisantes amarillos lisos, Cuál es la probabilidad de que lleve un alelo s?
 ```{r}
-6/12
+6/9
 ```
-* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s es de 0.5
+* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s es de 0.66
 
 Un alelo s y uno y?
 ```{r}
-4/12
+4/9
 ```
-* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s y uno y es de 0.333
+* Si una descendencia tiene guisantes amarillos lisos la probabilidad de que lleve un alelo s y uno y es de 0.44
