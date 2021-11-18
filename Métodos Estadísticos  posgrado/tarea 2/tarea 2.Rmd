@@ -338,25 +338,92 @@ Supóngase que un agricultor desea una probabilidad no menor de 0.99999 de que e
 ¿Cuántos asperjadores deben configurarse en paralelo, para alcanzar esta confiabilidad de operación, si se sabe que la probabilidad de que uno cualquiera de los asperjadores funcione adecuadamente es de 0.95?
 (supóngase que los asperjadores funcionan independiente entre sí).
 
-* Definimos la probabilidad que se debe hallar como P(A)
-A: Sistema el sistema de riego funcione adecuadamente con un rendimiento por encima del promedio.
+$$ A_1: \text{ Probabilidad de que el asperjador 1 funcione adecuadamente }$$
+$$ A_i: \text{ Probabilidad de que el asperjador i funcione adecuadamente }$$
+$$i = 1,2,\dots,k$$
 
-$$ B_1: \text{ Probabilidad de que el asperjador 1 funcione adecuadamente }$$
-$$ B_2: \text{ Probabilidad de que el asperjador 2 funcione adecuadamente }$$
-y así sucesivamente,
 
-$$P(A)> 0.99999 $$
-$$P(A)= P(B_1\cap B_2\dots\cap B_k)= 0.95^k $$
-* Como las probabilidades de funcionamiento adecuado de los asperjadores son iguales y son independientes entre si, solo hay que despejar k
+* Definimos la probabilidad que se debe hallar como P(B)
+B: el conjunto de aspersores funciona adecuadamente con un rendimiento por encima del promedio.
 
-$$ k\text{log} (0.95) = log (0.99999) $$
-```{r}
+![](./aspersores.jpg)
 
-log10(0.99999)/log10(0.95)
-```
+Entonces,
 
-*k = 0.000195, no es posible llegar a esa probabilidad de 0.99999 con esa probabilidad de que el asperjador 1 funcione adecuadamente.
+$$
+p(A_i) = 0.95
+$$
 
+$$
+p(B) =p(A_1 \cup A_2 \cup \dots \cup A_k)
+$$
+
+
+$$
+p(B) = 1 - p(B)^c
+$$
+$$
+p(B) = 1 - p(A_1 \cup A_2 \cup \dots \cup A_k)^c
+$$
+utilizando la ley de deMorgan:
+
+$$
+p(B) = 1 - p(A_1^c \cap A_2^c \cap \dots \cap A_k^c)
+$$
+Ya que los eventos $$A_1,A_2, \dots, A_k$$ son independientes:
+
+$$
+p(B) = 1 - \left( p(A_1^c)\cdot p(A_2^c)\dots p(A_k^c) \right)
+$$
+$$
+p(B) = 1 - \left( (1- p(A_1)) *(1- p(A_2)) \cdot \cdot \cdot *\; (1- p(A_k)) \right)
+$$
+
+
+$$
+p(B) = 1 - \left( 0.05 *0.05 \cdot \cdot \cdot *\; 0.05 \right)
+$$
+$$
+p(B) = 1 - \left( 0.05^k\right)
+$$
+
+$$
+0.99999 = 1 -  0.05^k
+$$
+restamos 1 a ambos lados
+
+$$
+0.99999 -1 = 1 -  0.05^k -1
+$$
+
+$$
+0.99999 -1 =   -0.05^k 
+$$
+
+$$
+- 0.00001 =  - 0.05^k 
+$$
+multiplicamos por -1 a ambos lados:
+$$
+ 0.00001 =   0.05^k 
+$$
+usamos logaritmo para encontrar la potencia k:
+$$
+log(0.00001) =   log(0.05^k) 
+$$
+$$
+log( 0.00001) =   k *log(0.05) 
+$$
+$$
+\frac{log( 0.00001 )}{log(0.05)} =   k 
+$$
+$$
+\frac{-5}{-1.301029996} =   k 
+$$
+$$
+3.84 =   k \approx 4
+$$
+Es posible utilizar 4 asperjadores para asegurar una probabilidad de que todos funcionen por encima del promedio mayor a 0.99999.
 
 # Tercer punto
 3. Un médico veterinario ha decidido recetar dos nuevos medicamentos a 100 animales
