@@ -148,7 +148,7 @@ prob_data <- data.frame(pathString = c(
           0.6,
           0.4
           ))
-# knitr::kable(prob_data)
+
 ```
 
 ## Creando variables de ayuda
@@ -262,6 +262,8 @@ make_my_tree <- function(mydf, display_level = NULL, show_rank = FALSE, directio
 
 
 make_my_tree(prob_data)
+
+
 
 
 ```

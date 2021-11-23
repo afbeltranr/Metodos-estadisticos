@@ -12,7 +12,11 @@ classoption:
 
 # Conceptos básicos de estadística
 
+# Muestreo
 
+## Muestreo probabilistico: misma probabilidad para todos los elementos de ser seleccionados en la poblacion muestral.
+
+## Muestreo no probabilistico: Seleccion arbitraria seleccionada por el investigador
 # Población (universo o colectivo)
 
 Es el conjunto total de ELEMENTOS de la misma naturaleza cualquera que sea, que son de interés para un problema dado
@@ -1006,6 +1010,42 @@ $$
 
 Cuando se usa un estimador no parametrico, se le asigna a las observaciones rangos.
 
+## Ejemplo de coeficiente intelectual y horas de TV
+
+Primero, se tiene el set de datos:
+
+![](./img/CI1.jpg)
+Luego, se le asigna un orden o un rango a cada uno de los datos. En este caso en especial el coeficiente intelectual (CI) ya está organizado de manera ascendente, entonces podemos asignar un orden de la siguiente manera:
+
+![](./img/CI2.jpg)
+
+En donde el numero 100 se repote 2 veces, entonces se reparte el rango 4 y 6 entre los dos. Por esto, los dos comparten el rango promedio que es 4,5. Lo musmo sucede con el numero 113 al final, que en las dos últimas posiciones comparte el rango 9.5, promedio de 9 y 10.
+
+Lo mismo se puede hacer para las horas de TV:
+
+![](./img/CI3.jpg)
+
+Una vez se tienen los rangos, se pueden calcular las diferencias entre los rangos:
+
+![](./img/CI4.jpg)
+
+
+y las diferencias entre los rangos al cuadrado, asi como su suma:
+
+![](./img/CI5.jpg)
+Una vez tenemos este valor, podemos calcular el coeficiente de spearman como sigue:
+
+$$
+r_s = 1 - [6[d_i^2/(n^3-n)]]
+$$
+$$
+r_s = 1 - [6[196/(10^3-10)]]
+$$
+$$
+r_s = 0.1879
+$$
+Para saber si la correlaciones significativa o no, se busca un valor tabulado para n=10 y $\alpha = 0.05$
+
 Para este estimador se utiliza una prueba de hipótesis:
 
 $$
@@ -1019,3 +1059,112 @@ $$
 H_1: r_s \neq 0 \;,\; \text{hay correlacion}
 \end{array}
 $$
+
+Buscando en los valores tabulados encontramos que el valor critico para este tamaño de muestra y este nivel de significancia es:
+
+$$
+0.648
+$$
+![](./img/spearmantabulado.jpg)
+
+dado que el valor experimental es menor al tabulado, no se obtiene un valor suficientemente grande respecto al obtenido cuando la hipotesis nula es verdadera. Entonces, no es posible rechazarla. Entonces, no hay evidencia suficiente para decir que hay correlacion entre las variables, o que $r_s \neq 0$.
+
+## Ejemplo en R
+
+primero creamos las dos variables:
+
+```{r}
+x<-c(2,3,4,5,6,7)
+y<-c(0.05,0.09,0.11,0.13,0.17,0.2)
+```
+
+Podemos calcular la covarianza y correlacion con las funciones `cov` y `cor`, y seleccionando el método con el argumento `method`
+
+```{r}
+covx<-cov(x, y, method = c("pearson"))
+corx<-cor(x, y, method = c("pearson"))
+corx<-cor(x, y, method = c("spearman"))
+corx<-cor(x, y, method = c("kendall"))
+```
+
+A su vez, es posible realizar pruebas de hipótesis para la significancia de cada una de las corelaciones:
+
+```{r}
+cor.test(x, y,
+         alternative = c("two.sided", 
+                         "less",  # ver si es menor a cero
+                         "greater"), # si es mayor a cero
+         method = c("pearson", "kendall", "spearman"),
+         exact = NULL, conf.level = 0.95, continuity = FALSE, ...)
+```
+
+```{r}
+cor.test(x, y, method="kendall","two.sided")
+cor.test(x, y, method="spearman")
+cor.test(x, y, method="pearson")
+```
+
+
+### Ejemplo de correlacion en R - pearson
+
+Primero creamos las variables
+```{r}
+# ejemplo Pearson
+x<-c(2,3,4,5,6,7)
+y<-c(0.05,0.09,0.11,0.13,0.17,0.2)
+```
+Luego calculamos la correlacion de pearson:
+```{r}
+corp<-cor(x, y, method = c("pearson"))
+corp
+
+```  
+y la covarianza:
+
+```{r}
+covp<-cov(x, y, method = c("pearson")) # covarianza Pearson
+covp
+```
+y tambien podemos realizar la prueba de hipotesis
+```{r}
+cor.test(x, y, method="pearson")
+
+```
+* Calculo manual
+
+```{r}
+sumXi <- sum(x)
+sumXi2 <- sum(x^2)
+
+sumYi <- sum(y)
+sumYi2 <- sum(y^2)
+
+sumXiYi <- sum(x*y)
+r <- sumXiYi/sqrt(sumXi2*sumYi2)
+r
+```
+
+
+### Ejemplo de correlacion en R - spearman
+
+```{r}
+CI<-c(106,86,100,100,99,103,97,113,113,110)
+horastv<-c(7,0,28,50,28,28,20,12,7,17)
+cor.test(CI, horastv, method="spearman","two.sided")
+cors<-cor(CI, horastv, method = "spearman")
+```
+
+# Coeficiente tau de kendall
+
+
+$$
+\tau = \frac{S_a-S_b}{n(n-1)/2}
+$$
+En donde:
+$\tau$ = estadistico de kendall
+n = numero de casos o tamaño de muestra
+$S_a$ = sumatoria de los rangos mas altos
+$S_b$ = sumatoria de los rangos mas bajos
+
+
+
