@@ -890,7 +890,7 @@ Podemos realizar una análigo del análisis en R.
 
 Primero, importamos la tabla:
 
-```{r}
+```{r, warning = FALSE}
 library(readxl)
 datos <- read_excel("./datostabla.xlsx")
 tabla <- table(datos)
@@ -1166,5 +1166,112 @@ n = numero de casos o tamaño de muestra
 $S_a$ = sumatoria de los rangos mas altos
 $S_b$ = sumatoria de los rangos mas bajos
 
+## Ejemplo correlacion de kendall
+
+En una evaluacion de los jugadores delanteros de futbol en un pais, hay 9 de ellos catalogados como mas intensos para marcar goles. para analizar esta intensidad durante un periodo de una temporatda se registrio sistematicamente el grado de intensidad de cada uno de estos delanteros tanto en juegos a nivel nacional (NP = puntaje nacional) como a nivel internacional (IP = puntaje en juegos internacionales) Ademas, se registrarion los rangos a nivel nacional (NR = rango nacional) y a nivel internacional (IR = rango a nivel internacional)
+
+tenemos entonces la tabla con los rangos:
+
+![](./img/kendall1.jpg)
+
+Tambien podemos crear la tabla en R:
+
+```{r}
+jugador <- 1:9
+NP <- c(84,80,78,76,70,64,62,50,47)
+IP <- c(60,64,71,61,58,57,54,55,52)
+RN <- 1:9
+RI <- c(4,2,1,3,5,6,8,7,9)
+
+jugadores <- data.frame(
+  jugador = jugador,
+  NP = NP,
+  IP = IP,
+  RN = RN,
+  RI = RI
+)
+head(jugadores)
+```
+
+para hallar los valores $S_a$ y $S_b$ podemos hacer lo siguiente
+
+### calculo de $S_a$ y $S_b$
+
+* *manual:* para el rango de interes, se cuentan cuantos rangos son mayores al rango en cuestion:
 
 
+![](./img/kendall2.jpg)
+
+En este caso serian 5, $S_{a,1} = 5$.
+
+* en R:
+
+```{r}
+which(jugadores$RI[1:9] > jugadores$RI[1])
+length(which(jugadores$RI[1:9] > jugadores$RI[1]))
+```
+
+Podemos iterar esta operacion y crear la columna $S_a$:
+
+```{r}
+for(i in 1:9){
+ jugadores$Sa[i] <-  length(which(jugadores$RI[i:9] > jugadores$RI[i]))
+}
+
+```
+
+de manera analoga $S_b$:
+
+```{r}
+for(i in 1:9){
+ jugadores$Sb[i] <-  length(which(jugadores$RI[i:9] < jugadores$RI[i]))
+}
+
+```
+
+y luego hayamos las sumatorias:
+
+* para $S_a$:
+
+```{r}
+sumSa <- sum(jugadores$Sa)
+sumSa
+```
+
+* para $S_b$:
+
+```{r}
+sumSb <- sum(jugadores$Sb)
+sumSb
+```
+
+Una vez tenemos las sumatorias podemos calcular el estadistico:
+$$
+\tau = \frac{S_a-S_b}{n(n-1)/2}
+$$
+```{r}
+n <- 9
+tauJugadores <- (sumSa-sumSb)/((n*(n-1))/2)
+tauJugadores
+```
+el coeficiente tao de kendall es de 0.72
+
+### Calculo de tau utilizando funciones de R
+
+
+```{r}
+cor.test(NP, IP, method="kendall","two.sided")
+```
+# Coeficiente de kendal para concordancia
+
+Es un promedio de coeficientes de spearman. varía entre 0 y 1. 
+
+$$
+W = \frac{12 * \Sigma R * D^2}{m^2 * n * (n^2-1)}
+$$
+
+En donde:
+
+* $D = $
+*
+*
