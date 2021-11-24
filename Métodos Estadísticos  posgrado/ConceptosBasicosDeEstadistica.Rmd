@@ -1089,7 +1089,7 @@ corx<-cor(x, y, method = c("kendall"))
 
 A su vez, es posible realizar pruebas de hipótesis para la significancia de cada una de las corelaciones:
 
-```{r}
+```{r, eval = FALSE}
 cor.test(x, y,
          alternative = c("two.sided", 
                          "less",  # ver si es menor a cero
