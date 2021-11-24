@@ -1232,7 +1232,7 @@ for(i in 1:9){
      which(
        jugadores$RI[i:9] < jugadores$RI[i]))
 }
-
+jugadores
 ```
 
 y luego hayamos las sumatorias:
