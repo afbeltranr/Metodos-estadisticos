@@ -1215,7 +1215,10 @@ Podemos iterar esta operacion y crear la columna $S_a$:
 
 ```{r}
 for(i in 1:9){
- jugadores$Sa[i] <-  length(which(jugadores$RI[i:9] > jugadores$RI[i]))
+ jugadores$Sa[i] <-  
+   length(
+   which(
+     jugadores$RI[i:9] > jugadores$RI[i]))
 }
 
 ```
@@ -1224,7 +1227,10 @@ de manera analoga $S_b$:
 
 ```{r}
 for(i in 1:9){
- jugadores$Sb[i] <-  length(which(jugadores$RI[i:9] < jugadores$RI[i]))
+ jugadores$Sb[i] <-  
+   length(
+     which(
+       jugadores$RI[i:9] < jugadores$RI[i]))
 }
 
 ```
