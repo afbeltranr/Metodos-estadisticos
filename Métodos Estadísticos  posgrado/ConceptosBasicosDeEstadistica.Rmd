@@ -1268,16 +1268,35 @@ el coeficiente tao de kendall es de 0.72
 ```{r}
 cor.test(NP, IP, method="kendall","two.sided")
 ```
+![](./img/pruebaTau.jpg)
+
+dado que el p-value es menor al nivel de 0.05, se rechaza la hipótesis nula. Ya que solo un 0.5% de las veces de casos en los que la nula se cumple, es posible obtener un valor de tau igual o mayor al obtenido en el experimento. Es decir, es significativa la correlacion entre el puntaje nacional y el puntaje internacional, presentando un 72.2% de correlacion.
+
+
+
 # Coeficiente de kendal para concordancia
 
-Es un promedio de coeficientes de spearman. varía entre 0 y 1. 
+Es un promedio de un grupo de coeficientes de spearman.  Es una medida del grado de acuerdo o concordancia entre m conjuntos de n rangos.
+varía entre 0 y 1. 
+
+Por ejemplo, para n objetos evaluados por un grupo de me jueces, es posible revisar el grado de concordancia en la evaluacion de los objetos entre los jueces.
 
 $$
-W = \frac{12 * \Sigma R * D^2}{m^2 * n * (n^2-1)}
+W = \frac{12 * \Sigma  D^2}{m^2 * n * (n^2-1)}
 $$
 
 En donde:
 
-* $D = $
-*
-*
+ $$D = \sum R - (\sum R / n )$$
+ 
+$$m = \text{rango de evaluadores}$$
+
+$$n = \text{numero de objetos}$$
+
+$$\sum R = \text{suma de rangos}$$
+
+
+las hipotesis serian:
+
+$$H_0 : \text{no hay concordancia,} \;\omega = 0$$
+$$H_1 : \text{ hay concordancia,}\; \omega \neq 0$$
