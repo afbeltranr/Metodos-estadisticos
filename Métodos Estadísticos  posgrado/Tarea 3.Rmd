@@ -302,6 +302,7 @@ d. A lo más 4 califiquen para tarifas más favorables.
 
 
 
+
 ```{r }
 
 ```
