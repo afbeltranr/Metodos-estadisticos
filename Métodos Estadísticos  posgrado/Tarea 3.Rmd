@@ -274,15 +274,43 @@ points(table4$x, table4$`P(x)`, pch=16)
 
 ## Punto 6
 6. En una investigación realizada entre estudiantes de Biología aspirantes al grado de maestría, 75 por ciento declararon que esperaban ser promovidos a un puesto más alto un mes después de obtener el grado. Si este porcentaje representa a toda la población, encontrar para una muestra de 15, la probabilidad de que el número de personas que esperan una promoción un mes después de obtener el grado sean:
+
+* Sigue una distribucion binomial con p = 0.75 y n = 15:
+X: Numero de personas que esperan una promocion 
+
+$$ P(𝑥)=
+\begin{cases} 
+\binom{15}{x} (0.75)^x (0.25)^{15-x}  \text{     si }  x = 0,1,2,3,...,15 \\ 
+0  \text{ en otro caso} 
+\end{cases} $$ 
+
 a. Seis
+$$ P(X = 6) $$
+```{r }
+dbinom(6, 15, 0.75)
+```
+
+
 b. Al menos siete
+$$ P(X ≥ 7) = 1- P(X≤6) $$
+```{r }
+1-pbinom(6, 15, 0.75)
+```
 c. No más de cinco
+$$ P(X≤5) $$
+```{r }
+pbinom(5, 15, 0.75)
+```
+
 d. Entre seis y nueve
 
-
+$$ P(6≤X≤9) = P(X≤9)-P(X≤5) $$
 ```{r }
-
+pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 ```
+
+
+
 ## Punto 7
 7. En un estudio sobre la efectividad de un insecticida contra cierto insecto, se fumigo una gran área de tierra, que más tarde se examinó por cuadrantes elegidos aleatoriamente y en la que se contó el número de insectos vivos por sección. Experiencias previas han demostrado que el número promedio de insectos vivos por cuadrante, después de fumigar, es de 0.5. Cuál es la probabilidad de que cierto cuadrante elegido tenga:
 a. Exactamente un insecto vivo
