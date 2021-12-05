@@ -305,6 +305,7 @@ d. A lo más 4 califiquen para tarifas más favorables.
 ```{r }
 
 ```
+
 ## Punto 9
 9. Un examen de respuestas múltiples contiene 15 preguntas y cada pregunta cinco respuestas posibles; el examen se aprueba contestando por lo menos el 60% de las preguntas correctamente. Si un estudiante no se preparó para el examen. Cuál es la probabilidad de que dicho estudiante pierda el examen?
 
@@ -362,14 +363,46 @@ ppois(7, lambda=10 )-ppois(5, lambda=10 )
 
 ## Punto 11
 11. Una concentración particular de una sustancia química, encontrada en agua contaminada resulto ser mortal para el 20% de los peces expuestos a esta concentración durante 24 horas. Se colocan 20 peces en un tanque que contiene agua con esta concentración del producto químico.
+
+* Sigue una distribucion binomial con p = 0.8 y n = 20:
+X: Numero de peces que sobreviven en el tanque con el agua contaminada
+
+$$ P(𝑥)=
+\begin{cases} 
+\binom{20}{x} (0.8)^x (0.2)^{20-x}  \text{     si }  x = 0,1,2,3,...,20 \\ 
+0  \text{ en otro caso} 
+\end{cases} $$ 
+
 a. Determine la probabilidad de que exactamente 14 sobrevivan.
+
+$$ P(X = 14) $$
+```{r }
+dbinom(14, 20, 0.8)
+```
 b. Determine la probabilidad de que por lo menos el 50% de los peces sobrevivan.
+$$ P(X ≥ 10) = 1- P(X≤9) $$
+```{r }
+1-pbinom(9, 20, 0.8)
+```
 c. Obtenga la probabilidad de que a lo más 16 sobrevivan.
+$$ P(X≤16)  $$
+```{r }
+pbinom(16, 20, 0.8)
+```
+
 d. Obtenga la media y la varianza del número de peces que sobreviven.
 
 
-```{r }
+$$E(x)= n*p $$
+```{r}
+20*0.8
+```
+* El valor esperado es 16, se espera que 16 peces sobrevivan 
 
+$$\sigma^2_x = V(x)= n*p*(1-p)    $$
+
+```{r }
+20*0.8*0.2
 ```
 
 ## Punto 12
