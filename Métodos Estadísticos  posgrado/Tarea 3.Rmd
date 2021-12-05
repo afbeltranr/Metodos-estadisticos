@@ -318,6 +318,7 @@ $$ P(𝑥)=
 \end{cases} $$ 
 
 Para pasar el examen debe acertar en 9 preguntas, entonces la probabilidad de que lo pierda es:
+
 $$ P(X< 9)= P(X≤8) $$
 ```{r }
 pbinom(8, 15, 0.2)
