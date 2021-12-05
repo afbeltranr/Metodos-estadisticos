@@ -313,14 +313,41 @@ pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 
 ## Punto 7
 7. En un estudio sobre la efectividad de un insecticida contra cierto insecto, se fumigo una gran área de tierra, que más tarde se examinó por cuadrantes elegidos aleatoriamente y en la que se contó el número de insectos vivos por sección. Experiencias previas han demostrado que el número promedio de insectos vivos por cuadrante, después de fumigar, es de 0.5. Cuál es la probabilidad de que cierto cuadrante elegido tenga:
+
+* En este caso sigue la distribucion de Poisson con 𝜆= 0.5:
+
+$$ P(𝑥)=
+\begin{cases} 
+\frac {e^{-0.5} 0.5^x} {x!}  \text{     si }  x = 0,1,2,3,... \\ 
+0  \text{ en otro caso} 
+\end{cases} $$
+
 a. Exactamente un insecto vivo
+$$P(X=1)   $$
+```{r }
+dpois(1, lambda= 0.5 )
+```
+
 b. Cero insectos vivos
+$$P(X=0)   $$
+```{r }
+dpois(0, lambda= 0.5 )
+```
 c. Exactamente cuatro insectos vivos
+
+$$P(X=4)   $$
+```{r }
+dpois(4, lambda= 0.5 )
+```
 d. Al menos un insecto vivo
 
+$$P(X≥ 1) = 1- P(X≤ 0) $$
 ```{r }
-
+1-ppois(0, lambda=10 )
 ```
+
+
+
 ## Punto 8
 8. Muchas compañías de energía eléctrica han empezado a promover el ahorro de energía al favorecer descuentos a consumidores que mantienen el consumo de energía por debajo de ciertas normas de subsidio establecidas. Un reciente reporte informa que el 70% de los habitantes de cierta área han reducido suficientemente el uso de energía para poder disfrutar de los descuentos. Si se selecciona al azar cinco residentes del área en mención, encuentre la probabilidad de que:
 
@@ -334,16 +361,28 @@ $$ P(𝑥)=
 \end{cases} $$ 
 
 a. Los cinco califiquen para tarifas más favorables.
-b. Al menos cuatro califiquen para tarifas más favorables.
-c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
-d. A lo más 4 califiquen para tarifas más favorables.
-
-
-
-
+$$ P(X = 5) $$
 ```{r }
-
+dbinom(5, 5, 0.7)
 ```
+
+b. Al menos cuatro califiquen para tarifas más favorables.
+
+$$ P(X ≥ 4) = 1- P(X≤3) $$
+```{r }
+1-pbinom(3, 5, 0.7)
+```
+c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
+$$ P(2≤X≤4) = P(X≤4) - P(X≤1) $$
+```{r }
+pbinom(4, 5, 0.7) - pbinom(1, 5, 0.7)
+```
+d. A lo más 4 califiquen para tarifas más favorables.
+$$ P(X≤4)  $$
+```{r }
+pbinom(4, 5, 0.7)
+```
+
 
 ## Punto 9
 9. Un examen de respuestas múltiples contiene 15 preguntas y cada pregunta cinco respuestas posibles; el examen se aprueba contestando por lo menos el 60% de las preguntas correctamente. Si un estudiante no se preparó para el examen. Cuál es la probabilidad de que dicho estudiante pierda el examen?
@@ -376,14 +415,13 @@ $$ P(𝑥)=
 
 a. Seis o menos.
 
-$$P(X≤ 6) = [P(X=0)+P(X=1)+P(X=2)+P(X=3)+P(X=4)+P(X=5)+P(X=6)]  $$
+$$P(X≤ 6)   $$
 ```{r }
 ppois(6, lambda=10 )
 ```
 
 b. Siete o más
-$$P(X≥ 7) = 1- P(X≤ 6)\\  
-P(X≥ 7) = 1-[P(X=0)+P(X=1)+P(X=2)+P(X=3)+P(X=4)+P(X=5)+P(X=6)]\\ $$
+$$P(X≥ 7) = 1- P(X≤ 6) $$
 ```{r }
 1-ppois(6, lambda=10 )
 ```
