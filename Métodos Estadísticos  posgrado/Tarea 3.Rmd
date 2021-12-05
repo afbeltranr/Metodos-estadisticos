@@ -313,7 +313,17 @@ d. A lo más 4 califiquen para tarifas más favorables.
 ```
 ## Punto 10
 10. En promedio, cinco fumadores pasan por la esquina de cierta calle cada 10 minutos. Cuál es la probabilidad de que durante un periodo dado de 20 minutos el número de fumadores que pasen sea de:
+
+* En este caso sigue la distribucion de Poisson con 𝜆= 10:
+
+$$ 𝑓(𝑥)=
+\begin{cases} 
+\frac {e^{-10} 10^x} {x!}  \text{     si }  x = 1,2,3,... \\ 
+0  \text{ en otro caso} 
+\end{cases} $$
+
 a. Seis o menos.
+
 b. Siete o más
 c. Exactamente ocho.
 d. Entre seis y siete.
@@ -332,6 +342,7 @@ d. Obtenga la media y la varianza del número de peces que sobreviven.
 ```{r }
 
 ```
+
 ## Punto 12
 12. Un profesor conoce que la nota final de sus estudiantes sigue una distribución aproximadamente normal y además sabe que en general el 2.28% de sus estudiantes sacan menos de uno y que el 15.87% sacan más de cuatro. Cuál es el promedio y la desviación estándar de la nota final de los estudiantes del profesor en mención.
 
@@ -372,6 +383,7 @@ $$\mu=1+1.99 \sigma\\
 ```{r }
 qnorm(c(0.03), mean = 10, sd = 2, lower.tail = T)
 ```
+
 ## Punto 14
 14 Una compañía constructora paga a sus trabajadores un salario promedio de 15.80 dólares/hora con una desviación estándar de 1.50 dólares/hora. Si los salarios se distribuyen aproximadamente normal.
 a. Qué proporción de los trabajadores recibe salario entre  13.75 y  16.22 dólares/hora?
@@ -388,9 +400,7 @@ qnorm(c(0.05), mean = 15.8, sd = 1.5, lower.tail = F)
 ```
 
 
-```{r }
 
-```
 ## Punto 15
 15 Se regula una máquina despachadora de refresco para que sirva en promedio 200 mililitros por vaso. Si la cantidad de bebida se distribuye normalmente con una desviación estándar igual a 15 mililitros,
 a. Qué fracción de los vasos contendrán más de 224 mililitros?
