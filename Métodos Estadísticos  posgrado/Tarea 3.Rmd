@@ -308,15 +308,26 @@ d. A lo más 4 califiquen para tarifas más favorables.
 ## Punto 9
 9. Un examen de respuestas múltiples contiene 15 preguntas y cada pregunta cinco respuestas posibles; el examen se aprueba contestando por lo menos el 60% de las preguntas correctamente. Si un estudiante no se preparó para el examen. Cuál es la probabilidad de que dicho estudiante pierda el examen?
 
-```{r }
+* Sigue una distribucion binomial con p = 0.2 y n = 15:
+X: Numero de aciertos que tendra el estudiante al contestar el examen al azar
 
+$$ P(𝑥)=
+\begin{cases} 
+\binom{15}{x} (0.2)^x (0.8)^{15-x}  \text{     si }  x = 0,1,2,3,...,15 \\ 
+0  \text{ en otro caso} 
+\end{cases} $$ 
+
+Para pasar el examen debe acertar en 9 preguntas, entonces la probabilidad de que lo pierda es:
+$$ P(X< 9)= P(X≤8) $$
+```{r }
+pbinom(8, 15, 0.2)
 ```
 ## Punto 10
 10. En promedio, cinco fumadores pasan por la esquina de cierta calle cada 10 minutos. Cuál es la probabilidad de que durante un periodo dado de 20 minutos el número de fumadores que pasen sea de:
 
 * En este caso sigue la distribucion de Poisson con 𝜆= 10:
 
-$$ 𝑓(𝑥)=
+$$ P(𝑥)=
 \begin{cases} 
 \frac {e^{-10} 10^x} {x!}  \text{     si }  x = 0,1,2,3,... \\ 
 0  \text{ en otro caso} 
