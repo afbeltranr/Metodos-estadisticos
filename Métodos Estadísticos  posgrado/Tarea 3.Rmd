@@ -318,19 +318,36 @@ d. A lo más 4 califiquen para tarifas más favorables.
 
 $$ 𝑓(𝑥)=
 \begin{cases} 
-\frac {e^{-10} 10^x} {x!}  \text{     si }  x = 1,2,3,... \\ 
+\frac {e^{-10} 10^x} {x!}  \text{     si }  x = 0,1,2,3,... \\ 
 0  \text{ en otro caso} 
 \end{cases} $$
 
 a. Seis o menos.
 
-b. Siete o más
-c. Exactamente ocho.
-d. Entre seis y siete.
-
+$$P(X≤ 6) = [P(X=0)+P(X=1)+P(X=2)+P(X=3)+P(X=4)+P(X=5)+P(X=6)]  $$
 ```{r }
-
+ppois(6, lambda=10 )
 ```
+
+b. Siete o más
+$$P(X≥ 7) = 1- P(X≤ 6)\\  
+P(X≥ 7) = 1-[P(X=0)+P(X=1)+P(X=2)+P(X=3)+P(X=4)+P(X=5)+P(X=6)]\\ $$
+```{r }
+1-ppois(6, lambda=10 )
+```
+
+c. Exactamente ocho.
+$$P(X=8)   $$
+```{r }
+dpois(8, lambda=10 )
+```
+d. Entre seis y siete.
+$$P(6≤X≤ 7) =  P(X≤ 7)- P(X≤ 5) $$
+```{r }
+ppois(7, lambda=10 )-ppois(5, lambda=10 )
+```
+
+
 ## Punto 11
 11. Una concentración particular de una sustancia química, encontrada en agua contaminada resulto ser mortal para el 20% de los peces expuestos a esta concentración durante 24 horas. Se colocan 20 peces en un tanque que contiene agua con esta concentración del producto químico.
 a. Determine la probabilidad de que exactamente 14 sobrevivan.
