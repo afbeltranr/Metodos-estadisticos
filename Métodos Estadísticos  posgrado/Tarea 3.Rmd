@@ -323,6 +323,16 @@ d. Al menos un insecto vivo
 ```
 ## Punto 8
 8. Muchas compañías de energía eléctrica han empezado a promover el ahorro de energía al favorecer descuentos a consumidores que mantienen el consumo de energía por debajo de ciertas normas de subsidio establecidas. Un reciente reporte informa que el 70% de los habitantes de cierta área han reducido suficientemente el uso de energía para poder disfrutar de los descuentos. Si se selecciona al azar cinco residentes del área en mención, encuentre la probabilidad de que:
+
+* Sigue una distribucion binomial con p = 0.7 y n = 5:
+X: Numero de personas que califican para tarifas mas favorables
+
+$$ P(𝑥)=
+\begin{cases} 
+\binom{5}{x} (0.7)^x (0.3)^{5-x}  \text{     si }  x = 0,1,2,...,5 \\ 
+0  \text{ en otro caso} 
+\end{cases} $$ 
+
 a. Los cinco califiquen para tarifas más favorables.
 b. Al menos cuatro califiquen para tarifas más favorables.
 c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
