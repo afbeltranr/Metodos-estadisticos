@@ -7,12 +7,44 @@ output: word_document
 # EJERCICIOS DE DISTRIBUCIONES DE PROBABILIDAD PARA MÉTODOS ESTADÍSTICOS
 
 ## Punto 1 
-1. Existen dos cajas con diferentes tipos de semillas para ser sembradas en forma aleatoria en diferentes parcelas para un experimento de campo. Se extrae al azar una semilla de la primera caja y dos de la segunda caja. En la primera caja hay dos semillas de arveja, una de frijol y una de lenteja. En la segunda caja hay dos semillas de fríjol, una semilla de lenteja y una semilla de arveja.
+1. Existen dos cajas con diferentes tipos de semillas para ser sembradas en forma aleatoria en diferentes parcelas para un experimento de campo. 
+
+![](./img/cajas.jpg)
+
+Se extrae al azar una semilla de la primera caja y dos de la segunda caja. 
+
+En la primera caja hay dos semillas de arveja, una de frijol y una de lenteja.
+
+En la segunda caja hay dos semillas de fríjol, una semilla de lenteja y una semilla de arveja.
+
 Defina una variable aleatoria como el número de semillas de arveja extraídas y encuentre:
+
+$$
+x : \text{número de semillas de arveja}
+$$
+
+$$
+y : \text{número de semillas de arveja que salen de la caja 1}
+$$
+
+$$
+z :\text{número de semillas de arveja que salen de la caja 2}
+$$
+
+## a: distribución de probabilidad
+
+
+## b: Media de la variable aleatoria
+
+## c: Desviación estándar de la variable aleatoria
+
+## d: probabilidad de obtener por lo menos dos semillas de arveja
+
 * El numero de semillas de arveja que se pueden extraer es 0,1 y 2, para calcular las probabilidades de sacar 0,1 o 2 semillas se definen 2 eventos:
 
-A: De la primera bolsa se extrae 1 semilla de arveja
-B: De la segunda bolsa se extrae 1 semilla de arveja
+A: De la primera caja se extrae 1 semilla de arveja
+
+B: De la segunda caja se extrae 1 semilla de arveja
 
 $$P(A) = 2/4=0.5 $$
 $$P(B) = 3/6=0.5 $$
@@ -43,7 +75,49 @@ fx<-c(0.25,0.5,0.25)
 table<-data.frame(x,fx)
 colnames(table)<-c("x","P(x)")
 ```
+
 a. Distribución de probabilidad
+Dado que el experimento ocurre una sola vez, cuando se toma una muestra de semilla no se vuelve a guardar en la caja, entonces es un muestreo sin reemplazo, o una semilla no puede ser seleccionada dos veces. 
+
+Al tener categorías, contamos con una variable discreta nominal.
+
+La población de la cual se toman las muestras es finita, y existe un número definido de objetos que entran en cada categoría.
+
+A su vez, en este experimento se examina un caso de éxito o fracaso, cada vez que una semilla resulta ser de cierta especie, en este caso de alverja.
+
+Una distribución adecuada para describir esta variable sería la distribución hipergeométrica:
+
+$$
+Pr(X = k) = \frac{{K \choose k}{{N-K \choose n-k}} }{{N \choose n}}
+$$
+En donde:
+
+* N es el tamaño de la población (el numero total de semillas)
+* K es el numero total de alverjas
+* n es la cantidad de semillas recolectadas en cada muestra
+* k es el numero de semillas en la muestra que son alverjas
+
+para y (numero de alverjas en la caja 1):
+
+* N = 4 semillas
+* K = 2 alverjas
+* n = 1 semilla
+* k = variable y (cuantas alverjas salen en la muestra de la caja 1)
+
+$$
+Pr(Y = k) = \frac{{2 \choose k}{{4-2 \choose 1-k}} }{{4 \choose 1}}
+$$
+para z (numero de alverjas en la caja 2): 
+
+* N = 4 semillas
+* K = 1 alverja
+* n = 2 semillas
+* k = variable z  (cuantas alverjas salen en la muestra de la caja 1)
+
+$$
+Pr(Z = k) = \frac{{1 \choose k}{{4-1 \choose 2-k}} }{{4 \choose 2}}
+$$
+Si X es la cantidad de alverjas total al sacar muestras de 
 
 ```{r}
 knitr::kable(table,"simple")
