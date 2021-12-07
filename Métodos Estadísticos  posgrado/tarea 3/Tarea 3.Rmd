@@ -50,7 +50,7 @@ $$ \text{La probabilidad de que se extraigan 0 semillas de arveja es } P(A\cup B
 ```
 *La probabilidad de extraer 0 semillas de arveja es de 0.25
 
-```{r echo=FALSE,message=FALSE}
+```{r }
 x<-c(0,1,2)
 fx<-c(0.25,0.5,0.25)
 table<-data.frame(x,fx)
@@ -234,7 +234,7 @@ Para este caso, pueden pasar dos cosas:
 Defina una variable aleatoria X como la nota de una persona cualquiera en el curso de Métodos Estadísticos.
 
 * Primero asignamos todas las probabilidades, para encontrar las de las notas: 
-```{r echo=FALSE,message=FALSE}
+```{r }
 Biologia<-c(0.03,0.15,0.12,0.3)
 Ing.Quimica<-c(0.01,0.09,0.1,0.2)
 Agronomia<-c(0.1,0.25,0.15,0.5)
@@ -288,7 +288,7 @@ c. Si el profesor decide regalarle a todos los estudiantes del curso 0.5 sobre l
 
 * Con los nuevos datos se saca la distribucion de probabilidad
 
-```{r echo=FALSE,message=FALSE}
+```{r }
 x2<-c(2.5,3.5,4.5)
 fx2<-c(0.14,0.49,0.37)
 table3<-data.frame(x2,fx2)
@@ -506,7 +506,7 @@ La probabilidad de que al seleccionar 2 articulos al azar ambos tengan defectos 
 5. Cinco pelotas enumeradas 1,2,3,4,y 5 se encuentran en una urna. Se sacan dos pelotas al azar de las cinco sin reemplazo y se anotan sus números. Encuentre la distribución de probabilidad para:
 
 a. El mayor de los números seleccionados.
-```{r echo=FALSE,message=FALSE}
+```{r }
 x4<-seq(2,5)
 fx4<-seq(1,4)
 table5<-data.frame(x4,fx4)
@@ -528,7 +528,7 @@ points(table5$x, table5$`P(x)`, pch=16)
 
 b. La suma de los números seleccionados.
 
-```{r echo=FALSE,message=FALSE}
+```{r }
 x3<-seq(3,9)
 fx3<-rep(c(0.1,0.2,0.1), times= c(2,3,2))
 table4<-data.frame(x3,fx3)
