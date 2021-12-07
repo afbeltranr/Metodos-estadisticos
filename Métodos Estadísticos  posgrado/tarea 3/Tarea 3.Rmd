@@ -381,19 +381,24 @@ La probabilidad de que entre los elegidos haya al menos un estudiante de suelos 
 
 c. Cuál es la probabilidad de que hayan dos estudiantes de Fitopatología, uno de suelos y uno de entomología?
 
-$$
-\text{X = Numero de estudiantes de fitopatologia seleccionados}\\
-\text{Y = Numero de estudiantes de suelos seleccionados}\\
-\text{Z = Numero de estudiantes de entomología seleccionados}
-$$
+
 Dado que las tres variables son independientes, podemos calcular su intersección como el producto de las tres probabilidades.
 
 $$
-P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{40-20 \choose 4-2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}}
+P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) =
 $$
 
 $$
-P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{20 \choose 2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{35 \choose 3}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{25 \choose 3}} }{{40 \choose 4}}
+\frac{{20 \choose 2}{{40-20 \choose 4-2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}}
+$$
+
+
+$$
+P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) =
+$$
+
+$$
+\frac{{20 \choose 2}{{20 \choose 2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{35 \choose 3}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{25 \choose 3}} }{{40 \choose 4}}
 $$
 
 ```{r}
@@ -548,21 +553,27 @@ points(table4$x, table4$`P(x)`, pch=16)
 * Sigue una distribucion binomial con p = 0.75 y n = 15:
 X: Numero de personas que esperan una promocion 
 
-$$ P(𝑥)=
+$$
+P(𝑥)=
 \begin{cases} 
 \binom{15}{x} (0.75)^x (0.25)^{15-x}  \text{     si }  x = 0,1,2,3,...,15 \\ 
 0  \text{ en otro caso} 
-\end{cases} $$ 
+\end{cases} 
+$$ 
 
 a. Seis
-$$ P(X = 6) $$
+$$
+P(X = 6) 
+$$
 ```{r }
 dbinom(6, 15, 0.75)
 ```
 * La probabilidad de que 6 personas esperan una promoción un mes después de obtener el grado  es 0.0034
 
 b. Al menos siete
-$$ P(X ≥ 7) = 1- P(X≤6) $$
+$$
+P(X ≥ 7) = 1- P(X≤6) 
+$$
 ```{r }
 1-pbinom(6, 15, 0.75)
 ```
@@ -570,7 +581,9 @@ $$ P(X ≥ 7) = 1- P(X≤6) $$
 * La probabilidad de que al menos 7 personas esperan una promoción un mes después de obtener el grado  es 0.996
 
 c. No más de cinco
-$$ P(X≤5) $$
+$$
+P(X≤5) 
+$$
 ```{r }
 pbinom(5, 15, 0.75)
 ```
@@ -580,7 +593,9 @@ pbinom(5, 15, 0.75)
 
 d. Entre seis y nueve
 
-$$ P(6≤X≤9) = P(X≤9)-P(X≤5) $$
+$$ 
+P(6≤X≤9) = P(X≤9)-P(X≤5) 
+$$
 ```{r }
 pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 ```
@@ -595,14 +610,18 @@ pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 
 * En este caso sigue la distribucion de Poisson con 𝜆= 0.5:
 
-$$ P(𝑥)=
+$$
+P(𝑥)=
 \begin{cases} 
 \frac {e^{-0.5} 0.5^x} {x!}  \text{     si }  x = 0,1,2,3,... \\ 
 0  \text{ en otro caso} 
-\end{cases} $$
+\end{cases} 
+$$
 
 a. Exactamente un insecto vivo
-$$P(X=1)   $$
+$$
+P(X=1)   
+$$
 ```{r }
 dpois(1, lambda= 0.5 )
 ```
@@ -610,7 +629,9 @@ dpois(1, lambda= 0.5 )
 * La probabilidad de que cierto cuadrante elegido tenga exactamente un insecto vivo es  0.303
 
 b. Cero insectos vivos
-$$P(X=0)   $$
+$$
+P(X=0)   
+$$
 ```{r }
 dpois(0, lambda= 0.5 )
 ```
@@ -619,7 +640,9 @@ dpois(0, lambda= 0.5 )
 
 c. Exactamente cuatro insectos vivos
 
-$$P(X=4)   $$
+$$
+P(X=4)  
+$$
 ```{r }
 dpois(4, lambda= 0.5 )
 ```
@@ -628,7 +651,9 @@ dpois(4, lambda= 0.5 )
 
 d. Al menos un insecto vivo
 
-$$P(X≥ 1) = 1- P(X≤ 0) $$
+$$
+P(X≥ 1) = 1- P(X≤ 0) 
+$$
 ```{r }
 1-ppois(0, lambda=10 )
 ```
@@ -643,14 +668,18 @@ $$P(X≥ 1) = 1- P(X≤ 0) $$
 * Sigue una distribucion binomial con p = 0.7 y n = 5:
 X: Numero de personas que califican para tarifas mas favorables
 
-$$ P(𝑥)=
+$$ 
+P(𝑥)=
 \begin{cases} 
 \binom{5}{x} (0.7)^x (0.3)^{5-x}  \text{     si }  x = 0,1,2,...,5 \\ 
 0  \text{ en otro caso} 
-\end{cases} $$ 
+\end{cases} 
+$$ 
 
 a. Los cinco califiquen para tarifas más favorables.
-$$ P(X = 5) $$
+$$
+P(X = 5) 
+$$
 ```{r }
 dbinom(5, 5, 0.7)
 ```
@@ -659,7 +688,9 @@ dbinom(5, 5, 0.7)
 
 b. Al menos cuatro califiquen para tarifas más favorables.
 
-$$ P(X ≥ 4) = 1- P(X≤3) $$
+$$
+P(X ≥ 4) = 1- P(X≤3) 
+$$
 ```{r }
 1-pbinom(3, 5, 0.7)
 ```
@@ -667,7 +698,9 @@ $$ P(X ≥ 4) = 1- P(X≤3) $$
 * La probabilidad de que al menos cuatro califiquen para tarifas más favorables es de 0.528
 
 c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
-$$ P(2≤X≤4) = P(X≤4) - P(X≤1) $$
+$$
+P(2≤X≤4) = P(X≤4) - P(X≤1)
+$$
 ```{r }
 pbinom(4, 5, 0.7) - pbinom(1, 5, 0.7)
 ```
@@ -675,7 +708,9 @@ pbinom(4, 5, 0.7) - pbinom(1, 5, 0.7)
 * La probabilidad de que al menos 2, pero no más de 4 califiquen para tarifas más favorables es de 0.801
 
 d. A lo más 4 califiquen para tarifas más favorables.
-$$ P(X≤4)  $$
+$$
+P(X≤4)  
+$$
 ```{r }
 pbinom(4, 5, 0.7)
 ```
@@ -689,15 +724,19 @@ pbinom(4, 5, 0.7)
 * Sigue una distribucion binomial con p = 0.2 y n = 15:
 X: Numero de aciertos que tendra el estudiante al contestar el examen al azar
 
-$$ P(𝑥)=
+$$ 
+P(𝑥)=
 \begin{cases} 
 \binom{15}{x} (0.2)^x (0.8)^{15-x}  \text{     si }  x = 0,1,2,3,...,15 \\ 
 0  \text{ en otro caso} 
-\end{cases} $$ 
+\end{cases} 
+$$ 
 
 Para pasar el examen debe acertar en 9 preguntas, entonces la probabilidad de que lo pierda es 0.999
 
-$$ P(X< 9)= P(X≤8) $$
+$$
+P(X< 9)= P(X≤8) 
+$$
 ```{r }
 pbinom(8, 15, 0.2)
 ```
@@ -707,15 +746,19 @@ pbinom(8, 15, 0.2)
 
 * En este caso sigue la distribucion de Poisson con 𝜆= 10:
 
-$$ P(𝑥)=
+$$
+P(𝑥)=
 \begin{cases} 
 \frac {e^{-10} 10^x} {x!}  \text{     si }  x = 0,1,2,3,... \\ 
 0  \text{ en otro caso} 
-\end{cases} $$
+\end{cases} 
+$$
 
 a. Seis o menos.
 
-$$P(X≤ 6)   $$
+$$
+P(X≤ 6)   
+$$
 ```{r }
 ppois(6, lambda=10 )
 ```
@@ -723,7 +766,9 @@ ppois(6, lambda=10 )
 * La probabilidad de que durante 20 minutos seis o menos fumadores pasen es de 0.130
 
 b. Siete o más
-$$P(X≥ 7) = 1- P(X≤ 6) $$
+$$
+P(X≥ 7) = 1- P(X≤ 6) 
+$$
 ```{r }
 1-ppois(6, lambda=10 )
 ```
@@ -731,7 +776,9 @@ $$P(X≥ 7) = 1- P(X≤ 6) $$
 * La probabilidad de que durante 20 minutos siete o más fumadores pasen es de 0.869
 
 c. Exactamente ocho.
-$$P(X=8)   $$
+$$
+P(X=8)   
+$$
 ```{r }
 dpois(8, lambda=10 )
 ```
@@ -740,7 +787,10 @@ dpois(8, lambda=10 )
 
 
 d. Entre seis y siete.
-$$P(6≤X≤ 7) =  P(X≤ 7)- P(X≤ 5) $$
+
+$$
+P(6≤X≤ 7) =  P(X≤ 7)- P(X≤ 5) 
+$$
 ```{r }
 ppois(7, lambda=10 )-ppois(5, lambda=10 )
 ```
@@ -753,22 +803,28 @@ ppois(7, lambda=10 )-ppois(5, lambda=10 )
 * Sigue una distribucion binomial con p = 0.8 y n = 20:
 X: Numero de peces que sobreviven en el tanque con el agua contaminada
 
-$$ P(𝑥)=
+$$
+P(𝑥)=
 \begin{cases} 
 \binom{20}{x} (0.8)^x (0.2)^{20-x}  \text{     si }  x = 0,1,2,3,...,20 \\ 
 0  \text{ en otro caso} 
-\end{cases} $$ 
+\end{cases} 
+$$ 
 
 a. Determine la probabilidad de que exactamente 14 sobrevivan.
 
-$$ P(X = 14) $$
+$$ 
+P(X = 14) 
+$$
 ```{r }
 dbinom(14, 20, 0.8)
 ```
 * La probabilidad de que exactamente 14 sobrevivan es de 0.109
 
 b. Determine la probabilidad de que por lo menos el 50% de los peces sobrevivan.
-$$ P(X ≥ 10) = 1- P(X≤9) $$
+$$ 
+P(X ≥ 10) = 1- P(X≤9) 
+$$
 ```{r }
 1-pbinom(9, 20, 0.8)
 ```
@@ -776,7 +832,9 @@ $$ P(X ≥ 10) = 1- P(X≤9) $$
 * La probabilidad de que por lo menos el 50% de los peces sobrevivan es de 0.999
 
 c. Obtenga la probabilidad de que a lo más 16 sobrevivan.
-$$ P(X≤16)  $$
+$$
+P(X≤16)  
+$$
 ```{r }
 pbinom(16, 20, 0.8)
 ```
@@ -784,13 +842,17 @@ pbinom(16, 20, 0.8)
 * La probabilidad de que a lo más 16 sobrevivan es de 0.588
 
 d. Obtenga la media y la varianza del número de peces que sobreviven.
-$$E(x)= n*p $$
+$$
+E(x)= n*p 
+$$
 ```{r}
 20*0.8
 ```
 * El valor esperado es 16, se espera que 16 peces sobrevivan 
 
-$$\sigma^2_x = V(x)= n*p*(1-p)    $$
+$$
+\sigma^2_x = V(x)= n*p*(1-p)    
+$$
 
 ```{r }
 20*0.8*0.2
@@ -812,32 +874,52 @@ qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F)
 
 3/(-qnorm(c(0.0228), mean = 0, sd = 1, lower.tail = T)+ qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F))+1+qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F)
 ```
+
+
 $$ 
-P( z ≤ \frac {1 - \mu} {\sigma})=0.0228\\
-P( z ≤ z_0) = 0.0228 \\
- z_0 = -1.99 \\
--1.99 =\frac {1- \mu} {\sigma}\\
+P( z ≤ \frac {1 - \mu} {\sigma})=0.0228
+$$
+$$
+P( z ≤ z_0) = 0.0228 
+$$
+$$
+ z_0 = -1.99 
+$$
+$$
+-1.99 =\frac {1- \mu} {\sigma}
+$$
+$$
 \mu=1+1.99 \sigma
 $$
 
-***
 
 $$ 
-P( z ≥ \frac {4- \mu} {\sigma})=0.1587\\
-P( z ≥ z_0) = 0.1587 \\
-z_0 = 0.9998 \\
-0.9998 =\frac {4- \mu} {\sigma}\\
-0.9998 =\frac {4- 1+1.99\sigma} {\sigma}\\
+P( z ≥ \frac {4- \mu} {\sigma})=0.1587 
+$$
+$$
+P( z ≥ z_0) = 0.1587
+$$
+$$
+z_0 = 0.9998
+$$
+$$
+0.9998 =\frac {4- \mu} {\sigma}
+$$
+$$
+0.9998 =\frac {4- 1+1.99\sigma} {\sigma}
+$$
+$$
 \sigma = \frac {3} {1.99+0.9998} = 1.00
 $$
 
-***
+
 
 
 $$
 \mu=1+1.99 \sigma\\
 \mu=1+1.99 (1.00) = 3.00 
 $$
+
 
 
 * El promedio es de 3 y la desviación estándar es de 1 de la nota final de los estudiantes del profesor 
@@ -919,11 +1001,22 @@ qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = T)
 
 ```
 
-$$ P( z ≥ \frac {70- \mu} {10})=0.0985\\
-P( z ≥ z_0) = 0.0985 \\
- z_0 = 1.29 \\
-1.29 =\frac {70- \mu} {10}\\
-\mu=70-12.9 =57.098$$
+$$ 
+P( z ≥ \frac {70- \mu} {10})=0.0985
+$$
+$$
+P( z ≥ z_0) = 0.0985
+$$
+$$ 
+z_0 = 1.29 
+$$
+$$
+1.29 =\frac {70- \mu} {10}
+$$
+$$
+\mu=70-12.9 =57.098
+$$
+
 
 la media de X es 57.098
 
@@ -947,6 +1040,7 @@ hh0<-pbinom(xh0,size=20, prob=0.6)
 plot(xh0, hh0, type="h", xlab = "x", ylab = "F(x)", main = "Funcion de distribucion acumulada Binomial")
 points(xh0, hh0, pch=16)
 ```
+
 * Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Binomial se pueden aproximar a una distribucion normal, presentando una forma de campana alrededor de 12 para la funcion de masa de probabilidad y una forma de s para la función de probabilidad acumulada.
 
 ## Punto 18
@@ -968,60 +1062,105 @@ points(xh, hh, pch=16)
 ## Punto 19
 
 19. Sea 𝑓 la función dada por:
-$$ 𝑓(𝑥)=
+$$ 
+𝑓(𝑥)=
 \begin{cases} 
 𝛼𝑥^2(1−𝑥)  \text{     si }  0≤𝑥≤1 \\ 
 0  \text{ en otro caso} 
-\end{cases} $$
+\end{cases} 
+$$
 a. Determine el valor de 𝛼, para que 𝑓 sea función de densidad de probabilidad de una variable aleatoria continua 𝑋.
 
 * Para que f sea funcion de densidad de probabilidad:
 
-$$\int_0^1 \alpha x^2(1-x) dx =1 \\
-\alpha\int_0^1  x^2-x^3 dx =1 \\
-\alpha  \left(\int_0^1  x^2 dx-\int_0^1x^3 dx \right) =1 \\
- \left[\left. \frac {x^3} {3} \right|_{0}^{1} = \frac {1} {3}\right] - \left[ \left. \frac {x^4} {4} \right|_{0}^{1} = \frac {1} {4}\right] \\
- \alpha = \frac {1} {\frac {1} {3}-\frac {1} {4}}\\
- \alpha = 12$$
+$$
+\int_0^1 \alpha x^2(1-x) dx =1 
+$$
+$$
+\alpha\int_0^1  x^2-x^3 dx =1 
+$$
+$$
+\alpha  \left(\int_0^1  x^2 dx-\int_0^1x^3 dx \right) =1
+$$
+$$ 
+\left[\left. \frac {x^3} {3} \right|_{0}^{1} = \frac {1} {3}\right] - \left[ \left. \frac {x^4} {4} \right|_{0}^{1} = \frac {1} {4}\right] 
+$$
+$$
+ \alpha = \frac {1} {\frac {1} {3}-\frac {1} {4}}
+$$
+ 
+
+ 
  
  
 * Para que sea funcion de probabilidad 𝛼 es 12
 
 b. Halle la función de distribución acumulada 𝐹(𝑥).
-$$F(x)= \int_0^x 12 (t^2-t^3) dt  \\
-F(x)= 12  \left(\int_0^x  t^2 dt-\int_0^x t^3 dt \right)  \\
- F(x)= \left[12\left. \frac {t^3} {3} \right|_{0}^{x} = 4x^3\right] - \left[12\left. \frac {t^4} {4} \right|_{0}^{x} = 3x^4 \right] \\
- F(x)= 4x^3-3x^4$$
+
+$$
+F(x)= \int_0^x 12 (t^2-t^3) dt  
+$$
+$$
+F(x)= 12  \left(\int_0^x  t^2 dt-\int_0^x t^3 dt \right)  
+$$
+$$
+ F(x)= \left[12\left. \frac {t^3} {3} \right|_{0}^{x} = 4x^3\right] - \left[12\left. \frac {t^4} {4} 
+$$ 
+$$
+ F(x)= 4x^3-3x^4
+$$
  
-$$ F(x)=
+$$ 
+F(x)=
 \begin{cases} 
 0 \text{ si} & 𝑥<0 \\ 
 4x^3-3x^4 \text{ si}& 0≤x<1\\ 
 1  \text{ si} & 1≤x
-\end{cases} $$ 
+\end{cases} 
+$$ 
+
 
 c. Calcule la 𝑝(𝑋≥1/2)
-$$ P(𝑋≥0.5) \\
-=  \int_{0.5}^{1} 12x^2-12x^3\\
-=\left[12\left. \frac {x^3} {3} \right|_{0.5}^{1} = 4-4(0.5)^3 \right] - \left[12\left. \frac {x^4} {4} \right|_{0.5}^{1} = 3-3(0.5)^4 \right] \\
-= 3.5 - 2.8125 = 0.6875$$
+
+$$ 
+P(𝑋≥0.5)
+$$
+$$
+=  \int_{0.5}^{1} 12x^2-12x^3
+$$
+$$
+=\left[12\left. \frac {x^3} {3} \right|_{0.5}^{1} = 4-4(0.5)^3 \right] - \left[12\left. \frac {x^4} {4} \right|_{0.5}^{1} = 3-3(0.5)^4 \right]
+$$
+$$
+= 3.5 - 2.8125 = 0.6875
+$$
 
 d. Calcule 𝑝(−3≤𝑋<1)
-$$ P(-3≤𝑋<1 ) \\
-= \int_{-\infty}^0 0 dx + \int_0^1 12x^2-12x^3\\
-=\left[12\left. \frac {x^3} {3} \right|_{0}^{1} = 4\right] - \left[12\left. \frac {x^4} {4} \right|_{0}^{1} = 3 \right] \\
-= 4-3 = 1$$
+$$ 
+P(-3≤𝑋<1 )
+$$
+$$
+= \int_{-\infty}^0 0 dx + \int_0^1 12x^2-12x^3
+$$
+$$
+=\left[12\left. \frac {x^3} {3} \right|_{0}^{1} = 4\right] - \left[12\left. \frac {x^4} {4} \right|_{0}^{1} = 3 \right] 
+$$
+$$
+= 4-3 = 1
+$$
 
 
 ## Punto 20
 
 20. La función de distribución acumulada de una variable aleatoria 𝑋 está dada por:
-$$ F(𝑥)=
+$$ 
+F(𝑥)=
 \begin{cases} 
 0 \text{ si} & 𝑥<0 \\ 
 2𝑥−𝑥^2 \text{ si}& 0≤𝑥≤1\\ 
 1  \text{ si} &𝑥>1
-\end{cases} $$
+\end{cases} 
+$$
 
 a. Graficar 𝐹(𝑥)
 ```{r }
@@ -1032,16 +1171,29 @@ lines(c(1,2),c(1,1), col="blue", lwd=2)
 ```
 
 b. Determinar 𝑓(𝑥)
-$$\frac {d} {dx} (2x-x^2)=\\
-\frac {d} {dx}(2x)- \frac {d} {dx}(x^2)= 2-2x\\
-f(x)= 2-2x$$
+$$
+\frac {d} {dx} (2x-x^2)=
+$$
+$$
+\frac {d} {dx}(2x)- \frac {d} {dx}(x^2)= 2-2x
+$$
+$$
+f(x)= 2-2x
+$$
 
 
 c. Obtener 𝑝(𝑥≥3/2)
 
-$$ P(x ≥3/2 ) \\
-= \int_{1.5}^{\infty} 1 dx\\
-=1 $$
+$$ 
+P(x ≥3/2 ) 
+$$
+$$
+= \int_{1.5}^{\infty} 1 dx
+$$
+
+$$
+=1 
+$$
 
 
 
