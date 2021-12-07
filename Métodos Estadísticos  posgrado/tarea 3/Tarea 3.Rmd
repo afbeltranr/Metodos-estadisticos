@@ -459,22 +459,32 @@ $$ P(X = 5) $$
 dbinom(5, 5, 0.7)
 ```
 
+* La probabilidad de que los cinco califiquen para tarifas más favorables es de 0.168
+
 b. Al menos cuatro califiquen para tarifas más favorables.
 
 $$ P(X ≥ 4) = 1- P(X≤3) $$
 ```{r }
 1-pbinom(3, 5, 0.7)
 ```
+
+* La probabilidad de que al menos cuatro califiquen para tarifas más favorables es de 0.528
+
 c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
 $$ P(2≤X≤4) = P(X≤4) - P(X≤1) $$
 ```{r }
 pbinom(4, 5, 0.7) - pbinom(1, 5, 0.7)
 ```
+
+* La probabilidad de que al menos 2, pero no más de 4 califiquen para tarifas más favorables es de 0.801
+
 d. A lo más 4 califiquen para tarifas más favorables.
 $$ P(X≤4)  $$
 ```{r }
 pbinom(4, 5, 0.7)
 ```
+
+* La probabilidad de que a lo más 4 califiquen para tarifas más favorables 0.832
 
 
 ## Punto 9
