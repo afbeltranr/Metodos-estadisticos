@@ -411,23 +411,33 @@ $$P(X=1)   $$
 dpois(1, lambda= 0.5 )
 ```
 
+* La probabilidad de que cierto cuadrante elegido tenga exactamente un insecto vivo es  0.303
+
 b. Cero insectos vivos
 $$P(X=0)   $$
 ```{r }
 dpois(0, lambda= 0.5 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga 0 insectos vivos es 0.606
+
 c. Exactamente cuatro insectos vivos
 
 $$P(X=4)   $$
 ```{r }
 dpois(4, lambda= 0.5 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga exactamente cuatro insectos vivos es 0.0016
+
 d. Al menos un insecto vivo
 
 $$P(X≥ 1) = 1- P(X≤ 0) $$
 ```{r }
 1-ppois(0, lambda=10 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga al menos un insecto vivo es 0.999
 
 
 
