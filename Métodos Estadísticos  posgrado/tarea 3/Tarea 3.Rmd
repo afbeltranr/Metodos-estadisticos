@@ -674,26 +674,37 @@ qnorm(c(0.05), mean = 15.8, sd = 1.5, lower.tail = F)
 
 ## Punto 15
 15 Se regula una máquina despachadora de refresco para que sirva en promedio 200 mililitros por vaso. Si la cantidad de bebida se distribuye normalmente con una desviación estándar igual a 15 mililitros,
+
 a. Qué fracción de los vasos contendrán más de 224 mililitros?
 ```{r }
 pnorm(224, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)
 ```
+
+* 0.945 de los vasos contendrán más de 224 mililitros
+
 b. Cuál es la probabilidad de que un vaso contenga entre 191 y 209 mililitros?
 ```{r }
 pnorm(209, mean = 200, sd = 15, lower.tail = T, log.p = FALSE)-pnorm(191, mean = 200, sd = 15, lower.tail = T, log.p = FALSE)
 ```
+
+* La probabilidad de que un vaso contenga entre 191 y 209 mililitros es de 0.451
+
 c. Cuántos vasos probablemente se derramarán si se utilizan vasos de 230 mililitros para las siguientes 1000 bebidas?
 ```{r }
 pnorm(230, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)
 pnorm(230, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)*1000
 ```
 
+* 977 vasos probablemente se derramarán si se utilizan vasos de 230 mililitros para las siguientes 1000 bebidas
+
 d. Por debajo de qué valor obtendremos 25% de las bebidas más pequeñas?
-
-
 ```{r }
 qnorm(c(0.25), mean = 200, sd = 15, lower.tail = T)
 ```
+
+* Por debajo de 189.88 obtendremos 25% de las bebidas más pequeñas
+
+
 ## Punto 16
 16. Suponga que una variable aleatoria X se distribuye normalmente con una desviación estándar de 10. Dado que 0.0985 de los valores de X son mayores que 70. Cuál es el valor de la media de X?
 
@@ -760,7 +771,9 @@ $$\int_0^1 \alpha x^2(1-x) dx =1 \\
  \left[\left. \frac {x^3} {3} \right|_{0}^{1} = \frac {1} {3}\right] - \left[ \left. \frac {x^4} {4} \right|_{0}^{1} = \frac {1} {4}\right] \\
  \alpha = \frac {1} {\frac {1} {3}-\frac {1} {4}}\\
  \alpha = 12$$
-
+ 
+ 
+* Para que sea funcion de probabilidad 𝛼 es 12
 
 b. Halle la función de distribución acumulada 𝐹(𝑥).
 $$F(x)= \int_0^x 12 (t^2-t^3) dt  \\
