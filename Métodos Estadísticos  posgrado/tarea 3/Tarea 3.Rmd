@@ -711,8 +711,8 @@ qnorm(c(0.25), mean = 200, sd = 15, lower.tail = T)
 * Es necesario estandarizar:
 
 ```{r }
-qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)
-70-(qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)*10)
+qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = T)
+70-(-(qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)*10))
 
 ```
 
@@ -722,6 +722,7 @@ P( z ≥ z_0) = 0.0985 \\
 1.29 =\frac {70- \mu} {10}\\
 \mu=70-12.9 =57.098$$
 
+la media de X es 57.298
 
 
 
