@@ -334,7 +334,7 @@ table4<-data.frame(x3,fx3)
 colnames(table4)<-c("x","P(x)")
 ```
 
-*La distribucion de probabilidad de la suma de los numeros seleccionados:
+* La distribucion de probabilidad de la suma de los numeros seleccionados:
 ```{r}
 knitr::kable(table4,"simple")
 ```
@@ -363,18 +363,24 @@ $$ P(X = 6) $$
 ```{r }
 dbinom(6, 15, 0.75)
 ```
-
+* La probabilidad de que 6 personas esperan una promoción un mes después de obtener el grado  es 0.0034
 
 b. Al menos siete
 $$ P(X ≥ 7) = 1- P(X≤6) $$
 ```{r }
 1-pbinom(6, 15, 0.75)
 ```
+
+* La probabilidad de que al menos 7 personas esperan una promoción un mes después de obtener el grado  es 0.996
+
 c. No más de cinco
 $$ P(X≤5) $$
 ```{r }
 pbinom(5, 15, 0.75)
 ```
+
+* La probabilidad de que no más de 5 personas esperan una promoción un mes después de obtener el grado  es 0.00079
+
 
 d. Entre seis y nueve
 
@@ -382,6 +388,9 @@ $$ P(6≤X≤9) = P(X≤9)-P(X≤5) $$
 ```{r }
 pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 ```
+
+* La probabilidad de que entre 6 y 9 personas esperan una promoción un mes después de obtener el grado  es 0.147
+
 
 
 
