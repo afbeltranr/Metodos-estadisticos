@@ -381,7 +381,7 @@ table4<-data.frame(x3,fx3)
 colnames(table4)<-c("x","P(x)")
 ```
 
-*La distribucion de probabilidad de la suma de los numeros seleccionados:
+* La distribucion de probabilidad de la suma de los numeros seleccionados:
 ```{r}
 knitr::kable(table4,"simple")
 ```
@@ -410,18 +410,24 @@ $$ P(X = 6) $$
 ```{r }
 dbinom(6, 15, 0.75)
 ```
-
+* La probabilidad de que 6 personas esperan una promoción un mes después de obtener el grado  es 0.0034
 
 b. Al menos siete
 $$ P(X ≥ 7) = 1- P(X≤6) $$
 ```{r }
 1-pbinom(6, 15, 0.75)
 ```
+
+* La probabilidad de que al menos 7 personas esperan una promoción un mes después de obtener el grado  es 0.996
+
 c. No más de cinco
 $$ P(X≤5) $$
 ```{r }
 pbinom(5, 15, 0.75)
 ```
+
+* La probabilidad de que no más de 5 personas esperan una promoción un mes después de obtener el grado  es 0.00079
+
 
 d. Entre seis y nueve
 
@@ -429,6 +435,9 @@ $$ P(6≤X≤9) = P(X≤9)-P(X≤5) $$
 ```{r }
 pbinom(9, 15, 0.75)-pbinom(5, 15, 0.75)
 ```
+
+* La probabilidad de que entre 6 y 9 personas esperan una promoción un mes después de obtener el grado  es 0.147
+
 
 
 
@@ -449,23 +458,33 @@ $$P(X=1)   $$
 dpois(1, lambda= 0.5 )
 ```
 
+* La probabilidad de que cierto cuadrante elegido tenga exactamente un insecto vivo es  0.303
+
 b. Cero insectos vivos
 $$P(X=0)   $$
 ```{r }
 dpois(0, lambda= 0.5 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga 0 insectos vivos es 0.606
+
 c. Exactamente cuatro insectos vivos
 
 $$P(X=4)   $$
 ```{r }
 dpois(4, lambda= 0.5 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga exactamente cuatro insectos vivos es 0.0016
+
 d. Al menos un insecto vivo
 
 $$P(X≥ 1) = 1- P(X≤ 0) $$
 ```{r }
 1-ppois(0, lambda=10 )
 ```
+
+* La probabilidad de que cierto cuadrante elegido tenga al menos un insecto vivo es 0.999
 
 
 
@@ -487,22 +506,32 @@ $$ P(X = 5) $$
 dbinom(5, 5, 0.7)
 ```
 
+* La probabilidad de que los cinco califiquen para tarifas más favorables es de 0.168
+
 b. Al menos cuatro califiquen para tarifas más favorables.
 
 $$ P(X ≥ 4) = 1- P(X≤3) $$
 ```{r }
 1-pbinom(3, 5, 0.7)
 ```
+
+* La probabilidad de que al menos cuatro califiquen para tarifas más favorables es de 0.528
+
 c. Al menos 2, pero no más de 4 califiquen para tarifas más favorables.
 $$ P(2≤X≤4) = P(X≤4) - P(X≤1) $$
 ```{r }
 pbinom(4, 5, 0.7) - pbinom(1, 5, 0.7)
 ```
+
+* La probabilidad de que al menos 2, pero no más de 4 califiquen para tarifas más favorables es de 0.801
+
 d. A lo más 4 califiquen para tarifas más favorables.
 $$ P(X≤4)  $$
 ```{r }
 pbinom(4, 5, 0.7)
 ```
+
+* La probabilidad de que a lo más 4 califiquen para tarifas más favorables 0.832
 
 
 ## Punto 9
@@ -517,12 +546,13 @@ $$ P(𝑥)=
 0  \text{ en otro caso} 
 \end{cases} $$ 
 
-Para pasar el examen debe acertar en 9 preguntas, entonces la probabilidad de que lo pierda es:
+Para pasar el examen debe acertar en 9 preguntas, entonces la probabilidad de que lo pierda es 0.999
 
 $$ P(X< 9)= P(X≤8) $$
 ```{r }
 pbinom(8, 15, 0.2)
 ```
+
 ## Punto 10
 10. En promedio, cinco fumadores pasan por la esquina de cierta calle cada 10 minutos. Cuál es la probabilidad de que durante un periodo dado de 20 minutos el número de fumadores que pasen sea de:
 
@@ -541,23 +571,32 @@ $$P(X≤ 6)   $$
 ppois(6, lambda=10 )
 ```
 
+* La probabilidad de que durante 20 minutos seis o menos fumadores pasen es de 0.130
+
 b. Siete o más
 $$P(X≥ 7) = 1- P(X≤ 6) $$
 ```{r }
 1-ppois(6, lambda=10 )
 ```
 
+* La probabilidad de que durante 20 minutos siete o más fumadores pasen es de 0.869
+
 c. Exactamente ocho.
 $$P(X=8)   $$
 ```{r }
 dpois(8, lambda=10 )
 ```
+
+* La probabilidad de que durante 20 minutos exactamente ocho fumadores pasen es de 0.1126
+
+
 d. Entre seis y siete.
 $$P(6≤X≤ 7) =  P(X≤ 7)- P(X≤ 5) $$
 ```{r }
 ppois(7, lambda=10 )-ppois(5, lambda=10 )
 ```
 
+* La probabilidad de que durante 20 minutos entre seis y siete fumadores pasen es de 0.153
 
 ## Punto 11
 11. Una concentración particular de una sustancia química, encontrada en agua contaminada resulto ser mortal para el 20% de los peces expuestos a esta concentración durante 24 horas. Se colocan 20 peces en un tanque que contiene agua con esta concentración del producto químico.
@@ -577,20 +616,25 @@ $$ P(X = 14) $$
 ```{r }
 dbinom(14, 20, 0.8)
 ```
+* La probabilidad de que exactamente 14 sobrevivan es de 0.109
+
 b. Determine la probabilidad de que por lo menos el 50% de los peces sobrevivan.
 $$ P(X ≥ 10) = 1- P(X≤9) $$
 ```{r }
 1-pbinom(9, 20, 0.8)
 ```
+
+* La probabilidad de que por lo menos el 50% de los peces sobrevivan es de 0.999
+
 c. Obtenga la probabilidad de que a lo más 16 sobrevivan.
 $$ P(X≤16)  $$
 ```{r }
 pbinom(16, 20, 0.8)
 ```
 
+* La probabilidad de que a lo más 16 sobrevivan es de 0.588
+
 d. Obtenga la media y la varianza del número de peces que sobreviven.
-
-
 $$E(x)= n*p $$
 ```{r}
 20*0.8
@@ -602,6 +646,9 @@ $$\sigma^2_x = V(x)= n*p*(1-p)    $$
 ```{r }
 20*0.8*0.2
 ```
+
+* La varianza es de 3.2
+
 
 ## Punto 12
 12. Un profesor conoce que la nota final de sus estudiantes sigue una distribución aproximadamente normal y además sabe que en general el 2.28% de sus estudiantes sacan menos de uno y que el 15.87% sacan más de cuatro. Cuál es el promedio y la desviación estándar de la nota final de los estudiantes del profesor en mención.
@@ -636,6 +683,9 @@ z_0 = 0.9998 \\
 $$\mu=1+1.99 \sigma\\
 \mu=1+1.99 (1.00) = 3.00 $$
 
+
+* El promedio es de 3 y la desviación estándar es de 1 de la nota final de los estudiantes del profesor 
+
 ## Punto 13
 13. La vida promedio de cierto tipo de motor pequeño tiene una distribución normal con promedio de 10 años y desviación estándar de dos años. El fabricante reemplaza gratis todos los motores que fallen dentro del tiempo de garantía. Si está dispuesto a reemplazar solo el 3% de los motores que fallan. Qué tan larga debe ser la garantía que otorgue?
 
@@ -643,54 +693,73 @@ $$\mu=1+1.99 \sigma\\
 ```{r }
 qnorm(c(0.03), mean = 10, sd = 2, lower.tail = T)
 ```
+* La garantia debe ser de 6.23 años
 
 ## Punto 14
 14 Una compañía constructora paga a sus trabajadores un salario promedio de 15.80 dólares/hora con una desviación estándar de 1.50 dólares/hora. Si los salarios se distribuyen aproximadamente normal.
+
 a. Qué proporción de los trabajadores recibe salario entre  13.75 y  16.22 dólares/hora?
 ```{r }
 pnorm(16.22, mean = 15.8, sd = 1.5, lower.tail = T, log.p = FALSE)-pnorm(13.75, mean = 15.8, sd = 1.5, lower.tail = T, log.p = FALSE)
 ```
+
+* 0.524 de los trabajadores recibe salario entre  13.75 y  16.22 dólares/hora
+
 b. El 10% de los salarios más bajos no superan a qué cantidad?
 ```{r }
 qnorm(c(0.1), mean = 15.8, sd = 1.5, lower.tail = T)
 ```
+
+* El 10% de los salarios más bajos no superan a 13.8 dólares/hora
+
 c. El 5 % de los empleados mejor remunerados ganan mínimo qué cantidad?
 ```{r }
 qnorm(c(0.05), mean = 15.8, sd = 1.5, lower.tail = F)
 ```
-
+* El 5 % de los empleados mejor remunerados ganan mínimo 13.33 dólares/hora
 
 
 ## Punto 15
 15 Se regula una máquina despachadora de refresco para que sirva en promedio 200 mililitros por vaso. Si la cantidad de bebida se distribuye normalmente con una desviación estándar igual a 15 mililitros,
+
 a. Qué fracción de los vasos contendrán más de 224 mililitros?
 ```{r }
 pnorm(224, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)
 ```
+
+* 0.945 de los vasos contendrán más de 224 mililitros
+
 b. Cuál es la probabilidad de que un vaso contenga entre 191 y 209 mililitros?
 ```{r }
 pnorm(209, mean = 200, sd = 15, lower.tail = T, log.p = FALSE)-pnorm(191, mean = 200, sd = 15, lower.tail = T, log.p = FALSE)
 ```
+
+* La probabilidad de que un vaso contenga entre 191 y 209 mililitros es de 0.451
+
 c. Cuántos vasos probablemente se derramarán si se utilizan vasos de 230 mililitros para las siguientes 1000 bebidas?
 ```{r }
 pnorm(230, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)
 pnorm(230, mean = 200, sd = 15, lower.tail = F, log.p = FALSE)*1000
 ```
 
+* 977 vasos probablemente se derramarán si se utilizan vasos de 230 mililitros para las siguientes 1000 bebidas
+
 d. Por debajo de qué valor obtendremos 25% de las bebidas más pequeñas?
-
-
 ```{r }
 qnorm(c(0.25), mean = 200, sd = 15, lower.tail = T)
 ```
+
+* Por debajo de 189.88 obtendremos 25% de las bebidas más pequeñas
+
+
 ## Punto 16
 16. Suponga que una variable aleatoria X se distribuye normalmente con una desviación estándar de 10. Dado que 0.0985 de los valores de X son mayores que 70. Cuál es el valor de la media de X?
 
 * Es necesario estandarizar:
 
 ```{r }
-qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)
-70-(qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)*10)
+qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = T)
+70-(-(qnorm(c(0.0985), mean = 0, sd = 1, lower.tail = F)*10))
 
 ```
 
@@ -700,6 +769,7 @@ P( z ≥ z_0) = 0.0985 \\
 1.29 =\frac {70- \mu} {10}\\
 \mu=70-12.9 =57.098$$
 
+la media de X es 57.298
 
 
 
@@ -749,7 +819,9 @@ $$\int_0^1 \alpha x^2(1-x) dx =1 \\
  \left[\left. \frac {x^3} {3} \right|_{0}^{1} = \frac {1} {3}\right] - \left[ \left. \frac {x^4} {4} \right|_{0}^{1} = \frac {1} {4}\right] \\
  \alpha = \frac {1} {\frac {1} {3}-\frac {1} {4}}\\
  \alpha = 12$$
-
+ 
+ 
+* Para que sea funcion de probabilidad 𝛼 es 12
 
 b. Halle la función de distribución acumulada 𝐹(𝑥).
 $$F(x)= \int_0^x 12 (t^2-t^3) dt  \\
