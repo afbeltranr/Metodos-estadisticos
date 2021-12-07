@@ -800,6 +800,7 @@ $$\sigma^2_x = V(x)= n*p*(1-p)    $$
 
 
 ## Punto 12
+
 12. Un profesor conoce que la nota final de sus estudiantes sigue una distribución aproximadamente normal y además sabe que en general el 2.28% de sus estudiantes sacan menos de uno y que el 15.87% sacan más de cuatro. Cuál es el promedio y la desviación estándar de la nota final de los estudiantes del profesor en mención.
 
 * Es necesario estandarizar:
@@ -811,26 +812,32 @@ qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F)
 
 3/(-qnorm(c(0.0228), mean = 0, sd = 1, lower.tail = T)+ qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F))+1+qnorm(c(0.1587), mean = 0, sd = 1, lower.tail = F)
 ```
-$$ P( z ≤ \frac {1 - \mu} {\sigma})=0.0228\\
+$$ 
+P( z ≤ \frac {1 - \mu} {\sigma})=0.0228\\
 P( z ≤ z_0) = 0.0228 \\
  z_0 = -1.99 \\
 -1.99 =\frac {1- \mu} {\sigma}\\
-\mu=1+1.99 \sigma$$
+\mu=1+1.99 \sigma
+$$
 
 ***
 
-$$ P( z ≥ \frac {4- \mu} {\sigma})=0.1587\\
+$$ 
+P( z ≥ \frac {4- \mu} {\sigma})=0.1587\\
 P( z ≥ z_0) = 0.1587 \\
 z_0 = 0.9998 \\
 0.9998 =\frac {4- \mu} {\sigma}\\
 0.9998 =\frac {4- 1+1.99\sigma} {\sigma}\\
-\sigma = \frac {3} {1.99+0.9998} = 1.00$$
+\sigma = \frac {3} {1.99+0.9998} = 1.00
+$$
 
 ***
 
 
-$$\mu=1+1.99 \sigma\\
-\mu=1+1.99 (1.00) = 3.00 $$
+$$
+\mu=1+1.99 \sigma\\
+\mu=1+1.99 (1.00) = 3.00 
+$$
 
 
 * El promedio es de 3 y la desviación estándar es de 1 de la nota final de los estudiantes del profesor 
