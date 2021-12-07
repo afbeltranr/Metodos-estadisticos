@@ -830,30 +830,32 @@ la media de X es 57.298
 ## Punto 17
 17. Construya los gráficos de la función de masa de probabilidad y función de distribución acumulada para una variable aleatoria con distribución Binomial de parámetros n=20 y p=0.6. Qué puede decir de las distribuciones obtenidas? Concluya.
 
-
-
 ```{r }
 xh0 <- rbinom(100,size=20, prob=0.6)
 yv0<-dbinom(xh0,size=20, prob=0.6)
-plot(xh0, yv0, type="h", xlab = "x", ylab = "f(x)")
+plot(xh0, yv0, type="h", xlab = "x", ylab = "f(x)", main = "Funcion de masa de Probabilidad Binomial")
 points(xh0, yv0, pch=16)
-hh<-pbinom(xh0,size=20, prob=0.6)
-plot(xh0, hh, type="h", xlab = "x", ylab = "F(x)")
-points(xh0, hh, pch=16)
+hh0<-pbinom(xh0,size=20, prob=0.6)
+plot(xh0, hh0, type="h", xlab = "x", ylab = "F(x)", main = "Funcion de distribucion acumulada Binomial")
+points(xh0, hh0, pch=16)
 ```
+* Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Binomial se pueden aproximar a una distribucion normal, las formas son muy similares.
+
 ## Punto 18
 18. Construya los gráficos de la función de masa de probabilidad y función de distribución acumulada para una variable aleatoria con distribución Poisson de parámetro 𝜆=4.5 .Qué puede decir de las distribuciones obtenidas? Concluya.
 
 ```{r }
 xh <- rpois(100, lambda = 4.5)
 yv<-dpois(xh, lambda = 4.5, log = F)
-plot(xh, yv, type="h", xlab = "x", ylab = "f(x)")
+plot(xh, yv, type="h", xlab = "x", ylab = "f(x)", main = "Funcion de masa de Probabilidad Poisson")
 points(xh, yv, pch=16)
 hh<-ppois(xh,lambda = 4.5, log.p = F, lower.tail = T)
-plot(xh, hh, type="h", xlab = "x", ylab = "F(x)")
+plot(xh, hh, type="h", xlab = "x", ylab = "F(x)", main = "Funcion de distribucion acumulada Poisson")
 points(xh, hh, pch=16)
-
 ```
+
+* Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Poisson se pueden aproximar a una distribucion normal, las formas son muy similares.
+
 
 ## Punto 19
 
