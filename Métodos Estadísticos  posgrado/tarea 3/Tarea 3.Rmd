@@ -800,6 +800,8 @@ plot(xh, hh, type="h", xlab = "x", ylab = "F(x)", main = "Funcion de distribucio
 points(xh, hh, pch=16)
 ```
 
+* Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Poisson se pueden aproximar a una distribucion normal, las formas son muy similares.
+
 
 ## Punto 19
 
