@@ -183,6 +183,7 @@ $$
 Pr(Y = k) = \frac{{2 \choose 0}{{2 \choose 1
 }} }{{4 \choose 1}}
 $$
+
 $$
 Pr(Y = k) = \frac{1 \cdot 2 }{4} = \frac{1}{2} = 0.5
 $$
@@ -191,6 +192,7 @@ $$
 $$
 Pr(Z = k) = \frac{{1 \choose k}{{4-1 \choose 2-k}} }{{4 \choose 2}}
 $$
+
 $$
 Pr(Z = k) = \frac{{1 \choose 0}{{4-1 \choose 2-0}} }{{4 \choose 2}}
 $$
@@ -198,6 +200,7 @@ $$
 $$
 Pr(Z = k) = \frac{{1 \choose 0}{{3 \choose 2}} }{{4 \choose 2}}
 $$
+
 $$
 Pr(Z = k) = \frac{{1 \choose 0}{{3 \choose 2}} }{{4 \choose 2}}
 $$
@@ -205,6 +208,7 @@ $$
 $$
 Pr(Z = k) = \frac{1 \cdot 3}{6} = \frac{1}{2} = 0.5
 $$
+
 teniendo en cuenta que son cajas diferentes, el evento de sacar una alverja en la caja 1 es independiente al de sacar una alverja en la caja 2:
 
 $$
@@ -216,6 +220,13 @@ Entonces, la probabilidad de sacar cero alverjas al tomar una muestra de cada ca
 $$
 P(X= 0) = 0.5 \cdot 0.5 = 0.25
 $$
+
+#### Cuando al tomar muestra de las dos cajas, se obtiene una alverja
+
+Para este caso, pueden pasar dos cosas:
+
+1. 
+        + y 
 
 
 ## Punto 2
@@ -266,10 +277,10 @@ b. Calcule la varianza y desviación estándar de la variable aleatoria X.
 $$\sigma^2_x = V(x)= E(x^2)-E^2(x)    $$
 $$E(x^2)=\sum_{x=2}^4 x^2P(x) $$
 ```{r}
-(4*0.14)+(9*0.49)+(16*0.37)-(3.23*3.23)
+(4*0.1)+(9*0.49)+(16*0.37)-(3.23*3.23)
 ((4*0.14)+(9*0.49)+(16*0.37)-(3.23*3.23))^0.5
 ```
-
+4
 * La varianza de la variable aleatoria es 0.4571, y la desviacion estandar es 0.6761, la desviacion de los datos respecto a la media o el valor esperado es de 0.6761
 
 
@@ -907,7 +918,7 @@ P( z ≥ z_0) = 0.0985 \\
 1.29 =\frac {70- \mu} {10}\\
 \mu=70-12.9 =57.098$$
 
-la media de X es 57.298
+la media de X es 57.098
 
 
 
@@ -916,14 +927,20 @@ la media de X es 57.298
 
 ```{r }
 xh0 <- rbinom(100,size=20, prob=0.6)
-yv0<-dbinom(xh0,size=20, prob=0.6)
-plot(xh0, yv0, type="h", xlab = "x", ylab = "f(x)", main = "Funcion de masa de Probabilidad Binomial")
+yv0 <- dbinom(xh0,size=20, prob=0.6)
+plot(xh0, 
+     yv0, 
+     type="h", 
+     xlab = "x", 
+     ylab = "f(x)", 
+     main = "Funcion de masa de Probabilidad Binomial",
+     xlim = c(0,24))
 points(xh0, yv0, pch=16)
 hh0<-pbinom(xh0,size=20, prob=0.6)
 plot(xh0, hh0, type="h", xlab = "x", ylab = "F(x)", main = "Funcion de distribucion acumulada Binomial")
 points(xh0, hh0, pch=16)
 ```
-* Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Binomial se pueden aproximar a una distribucion normal, las formas son muy similares.
+* Tanto la funcion de masa de probabilidad, como la funcion de distribucion acumulada para una variable aleatoria con distribucion Binomial se pueden aproximar a una distribucion normal, presentando una forma de campana alrededor de 12 para la funcion de masa de probabilidad y una forma de s para la función de probabilidad acumulada.
 
 ## Punto 18
 18. Construya los gráficos de la función de masa de probabilidad y función de distribución acumulada para una variable aleatoria con distribución Poisson de parámetro 𝜆=4.5 .Qué puede decir de las distribuciones obtenidas? Concluya.
