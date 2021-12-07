@@ -636,6 +636,9 @@ z_0 = 0.9998 \\
 $$\mu=1+1.99 \sigma\\
 \mu=1+1.99 (1.00) = 3.00 $$
 
+
+* El promedio es de 3 y la desviación estándar es de 1 de la nota final de los estudiantes del profesor 
+
 ## Punto 13
 13. La vida promedio de cierto tipo de motor pequeño tiene una distribución normal con promedio de 10 años y desviación estándar de dos años. El fabricante reemplaza gratis todos los motores que fallen dentro del tiempo de garantía. Si está dispuesto a reemplazar solo el 3% de los motores que fallan. Qué tan larga debe ser la garantía que otorgue?
 
@@ -643,22 +646,30 @@ $$\mu=1+1.99 \sigma\\
 ```{r }
 qnorm(c(0.03), mean = 10, sd = 2, lower.tail = T)
 ```
+* La garantia debe ser de 6.23 años
 
 ## Punto 14
 14 Una compañía constructora paga a sus trabajadores un salario promedio de 15.80 dólares/hora con una desviación estándar de 1.50 dólares/hora. Si los salarios se distribuyen aproximadamente normal.
+
 a. Qué proporción de los trabajadores recibe salario entre  13.75 y  16.22 dólares/hora?
 ```{r }
 pnorm(16.22, mean = 15.8, sd = 1.5, lower.tail = T, log.p = FALSE)-pnorm(13.75, mean = 15.8, sd = 1.5, lower.tail = T, log.p = FALSE)
 ```
+
+* 0.524 de los trabajadores recibe salario entre  13.75 y  16.22 dólares/hora
+
 b. El 10% de los salarios más bajos no superan a qué cantidad?
 ```{r }
 qnorm(c(0.1), mean = 15.8, sd = 1.5, lower.tail = T)
 ```
+
+* El 10% de los salarios más bajos no superan a 13.8 dólares/hora
+
 c. El 5 % de los empleados mejor remunerados ganan mínimo qué cantidad?
 ```{r }
 qnorm(c(0.05), mean = 15.8, sd = 1.5, lower.tail = F)
 ```
-
+* El 5 % de los empleados mejor remunerados ganan mínimo 13.33 dólares/hora
 
 
 ## Punto 15
