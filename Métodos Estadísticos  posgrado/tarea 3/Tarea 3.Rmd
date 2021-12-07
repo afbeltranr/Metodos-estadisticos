@@ -19,26 +19,7 @@ En la segunda caja hay dos semillas de fríjol, una semilla de lenteja y una sem
 
 Defina una variable aleatoria como el número de semillas de arveja extraídas y encuentre:
 
-$$
-x : \text{número de semillas de arveja}
-$$
-
-$$
-y : \text{número de semillas de arveja que salen de la caja 1}
-$$
-
-$$
-z :\text{número de semillas de arveja que salen de la caja 2}
-$$
-
-## a: distribución de probabilidad
-
-
-## b: Media de la variable aleatoria
-
-## c: Desviación estándar de la variable aleatoria
-
-## d: probabilidad de obtener por lo menos dos semillas de arveja
+### Existen dos posibles aproximaciones a este problema. La primera:
 
 * El numero de semillas de arveja que se pueden extraer es 0,1 y 2, para calcular las probabilidades de sacar 0,1 o 2 semillas se definen 2 eventos:
 
@@ -76,48 +57,6 @@ table<-data.frame(x,fx)
 colnames(table)<-c("x","P(x)")
 ```
 
-a. Distribución de probabilidad
-Dado que el experimento ocurre una sola vez, cuando se toma una muestra de semilla no se vuelve a guardar en la caja, entonces es un muestreo sin reemplazo, o una semilla no puede ser seleccionada dos veces. 
-
-Al tener categorías, contamos con una variable discreta nominal.
-
-La población de la cual se toman las muestras es finita, y existe un número definido de objetos que entran en cada categoría.
-
-A su vez, en este experimento se examina un caso de éxito o fracaso, cada vez que una semilla resulta ser de cierta especie, en este caso de alverja.
-
-Una distribución adecuada para describir esta variable sería la distribución hipergeométrica:
-
-$$
-Pr(X = k) = \frac{{K \choose k}{{N-K \choose n-k}} }{{N \choose n}}
-$$
-En donde:
-
-* N es el tamaño de la población (el numero total de semillas)
-* K es el numero total de alverjas
-* n es la cantidad de semillas recolectadas en cada muestra
-* k es el numero de semillas en la muestra que son alverjas
-
-para y (numero de alverjas en la caja 1):
-
-* N = 4 semillas
-* K = 2 alverjas
-* n = 1 semilla
-* k = variable y (cuantas alverjas salen en la muestra de la caja 1)
-
-$$
-Pr(Y = k) = \frac{{2 \choose k}{{4-2 \choose 1-k}} }{{4 \choose 1}}
-$$
-para z (numero de alverjas en la caja 2): 
-
-* N = 4 semillas
-* K = 1 alverja
-* n = 2 semillas
-* k = variable z  (cuantas alverjas salen en la muestra de la caja 1)
-
-$$
-Pr(Z = k) = \frac{{1 \choose k}{{4-1 \choose 2-k}} }{{4 \choose 2}}
-$$
-Si X es la cantidad de alverjas total al sacar muestras de 
 
 ```{r}
 knitr::kable(table,"simple")
@@ -165,6 +104,114 @@ $$ F(𝑥)=
 
 $$P(2 ≤ x)= 1 - P(x≤ 1) = 1-0.75 = 0.25$$
 * la probabilidad de obtener por lo menos dos semillas de arveja es de 0.25
+
+### La segunda:
+
+definiendo las variables:
+
+$$
+x : \text{número de semillas de arveja}
+$$
+
+$$
+y : \text{número de semillas de arveja que salen de la caja 1}
+$$
+
+$$
+z :\text{número de semillas de arveja que salen de la caja 2}
+$$
+
+a. Distribución de probabilidad
+
+Dado que el experimento ocurre una sola vez, cuando se toma una muestra de semilla no se vuelve a guardar en la caja, entonces es un muestreo sin reemplazo, o una semilla no puede ser seleccionada dos veces. 
+
+Al tener categorías, contamos con una variable discreta nominal.
+
+La población de la cual se toman las muestras es finita, y existe un número definido de objetos que entran en cada categoría.
+
+A su vez, en este experimento se examina un caso de éxito o fracaso, cada vez que una semilla resulta ser de cierta especie, en este caso de alverja.
+
+Una distribución adecuada para describir esta variable sería la distribución hipergeométrica:
+
+$$
+Pr(X = k) = \frac{{K \choose k}{{N-K \choose n-k}} }{{N \choose n}}
+$$
+En donde:
+
+* N es el tamaño de la población (el numero total de semillas)
+* K es el numero total de alverjas
+* n es la cantidad de semillas recolectadas en cada muestra
+* k es el numero de semillas en la muestra que son alverjas
+
+para y (numero de alverjas en la caja 1):
+
+* N = 4 semillas
+* K = 2 alverjas
+* n = 1 semilla
+* k = variable y (cuantas alverjas salen en la muestra de la caja 1)
+
+$$
+Pr(Y = k) = \frac{{2 \choose k}{{4-2 \choose 1-k}} }{{4 \choose 1}}
+$$
+
+para z (numero de alverjas en la caja 2): 
+
+* N = 4 semillas
+* K = 1 alverja
+* n = 2 semillas
+* k = variable z  (cuantas alverjas salen en la muestra de la caja 1)
+
+$$
+Pr(Z = k) = \frac{{1 \choose k}{{4-1 \choose 2-k}} }{{4 \choose 2}}
+$$
+
+Si X es la cantidad de alverjas total al sacar muestras de ambas cajas, se pueden obtener resultados de 0,1y 2. Entonces podemos calcular la probabilidad de cada resultado usando la función
+
+#### Cuando al tomar muestra de las dos cajas, ninguna de ellas es una alverja. x = 0
+
+En este caso la variable y = 0 y la variable z = 0
+
+$$
+Pr(Y = k) = \frac{{2 \choose k}{{4-2 \choose 1-k}} }{{4 \choose 1}}
+$$
+
+$$
+Pr(Y = k) = \frac{{2 \choose 0}{{4-2 \choose 1-0}} }{{4 \choose 1}}
+$$
+
+$$
+Pr(Y = k) = \frac{{2 \choose 0}{{2 \choose 1
+}} }{{4 \choose 1}}
+$$
+$$
+Pr(Y = k) = \frac{1 \cdot 2 }{4} = \frac{1}{2} = 0.5
+$$
+
+
+$$
+Pr(Z = k) = \frac{{1 \choose k}{{4-1 \choose 2-k}} }{{4 \choose 2}}
+$$
+$$
+Pr(Z = k) = \frac{{1 \choose 0}{{4-1 \choose 2-0}} }{{4 \choose 2}}
+$$
+
+$$
+Pr(Z = k) = \frac{{1 \choose 0}{{3 \choose 2}} }{{4 \choose 2}}
+$$
+$$
+Pr(Z = k) = \frac{{1 \choose 0}{{3 \choose 2}} }{{4 \choose 2}}
+$$
+
+$$
+Pr(Z = k) = \frac{1 \cdot 3}{6} = \frac{1}{2} = 0.5
+$$
+teniendo en cuenta que son cajas diferentes, el evento de sacar una alverja en la caja 1 es independiente al de sacar una alverja en la caja 2:
+
+$$
+P(A \cap B) = P(A) \cdot P(B)
+$$
+Entonces, la probabilidad de sacar cero frijoles al tomar una muestra de cada caja es:
+
 
 
 ## Punto 2
