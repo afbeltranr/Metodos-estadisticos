@@ -334,6 +334,7 @@ para este caso podemos definir $x$ como el número de estudiantes de fitopatolog
 $$
 Pr(X = 4) = \frac{{20 \choose 4}{{40-20 \choose 4-4}} }{{40 \choose 4}}
 $$
+
 $$
 Pr(X = 4) = \frac{{20 \choose 4}{{40-20 \choose 4-4}} }{{40 \choose 4}}
 $$
@@ -379,6 +380,7 @@ Dado que las tres variables son independientes, podemos calcular su intersecció
 $$
 P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{40-20 \choose 4-2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}}
 $$
+
 $$
 P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{20 \choose 2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{35 \choose 3}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{25 \choose 3}} }{{40 \choose 4}}
 $$
@@ -390,17 +392,99 @@ La probabilidad de que sean 2 estudiantes de fitopatologia, 1 de suelos y 1 de e
 
 ## Punto 4
 4. Un lote consta de 10 artículos sin defecto, 4 con pequeños defectos y 2 con defectos graves. Si se elige un artículo al azar, encuentre la probabilidad de que:
+
+
 a. No tenga defectos
+
+$$
+X = \text{el numero de articulos seleccionado que no tienen defectos}
+$$
+
+$$
+Pr(X = k) = \frac{{K \choose k}{{N-K \choose n-k}} }{{N \choose n}}
+$$
+* N = 16 articulos
+* K = 10 articulos sin defecto
+* n = 1 articulo seleccionado 
+* k = 1 articulo seleccionado sin defectos
+
+$$
+Pr(X = k) = \frac{{10 \choose 1}{{16 -10 \choose 1-1}} }{{16 \choose 1}}
+$$
+$$
+Pr(X = k) = \frac{{10 \choose 1}{{6 \choose 0}} }{{16 \choose 1}}
+$$
+```{r}
+(choose(10,1)*choose(6,0))/(choose(16,1))
+```
+La probabilidad de que un articulo que se escogio al azar no tenga defectos es de  0.625
+
+
 b. No tenga defecto o tenga un defecto grave.
+
+Podemos calcular la probabilidad de cda uno de los eventos:
+
+1. que no tenga defectos = 0.625
+
+2. que tenga un defecto grave:
+
+* N = 16 articulos
+* K = 2 articulos sin defecto
+* n = 1 articulo seleccionado 
+* k = 1 articulo seleccionado sin defectos
+
+$$
+Pr(X = k) = \frac{{2 \choose 1}{{16 -2 \choose 1-1}} }{{16 \choose 1}}
+$$
+```{r}
+(choose(2,1)*choose(16-2,0))/(choose(16,1))
+```
+calculamos la probabilidad de que ocurra un evento O el otro como la unión, sumando las probabilidades:
+
+```{r}
+0.625 + 0.125
+```
+La probabilidad de que el articulo seleccionado no tenga defectos o tenga un defecto grave es de 0.75
+
 Si se eligen dos artículos al azar, encontrar la probabilidad de que:
+
 c. Al menos uno sea bueno.
+
+Podemos usar las propiedades de las funciones de probabilidad:
+
+$$
+P(X \geq 1) = 1 - P(X \leq 1 -1) 1 - P(X \leq 0)
+$$
+* N = 16 articulos
+* K = 10 articulos sin defecto
+* n = 2 articulo seleccionados
+* k = 0 articulo seleccionado sin defectos
+
+$$
+Pr(X = k) = \frac{{10 \choose 0}{{6 \choose 2}} }{{16 \choose 2}}
+$$
+```{r}
+(choose(10,0)*choose(16-10,2))/(choose(16,2))
+```
+La probabilidad de que al seleccionar dos articulos al azar al menos uno sea bueno (sin defectos) es de 0.125
 d. Exactamente uno sea bueno.
+
 e. Ambos tengan defectos graves.
 
+
+* N = 16 articulos
+* K = 2 articulos con defectos graves
+* n = 2 articulo seleccionados
+* k = 2 articulo seleccionado sin defectos
+
+$$
+Pr(X = k) = \frac{{2 \choose 2}{{16-2 \choose 2-2}} }{{16 \choose 2}}
+$$
+
 ```{r }
-
+(choose(2,2)*choose(16-2,2-2))/(choose(16,2))
 ```
-
+La probabilidad de que al seleccionar 2 articulos al azar ambos tengan defectos graves es de 0.0083
 
 ## Punto 5
 5. Cinco pelotas enumeradas 1,2,3,4,y 5 se encuentran en una urna. Se sacan dos pelotas al azar de las cinco sin reemplazo y se anotan sus números. Encuentre la distribución de probabilidad para:
