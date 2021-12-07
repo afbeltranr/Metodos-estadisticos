@@ -208,10 +208,14 @@ $$
 teniendo en cuenta que son cajas diferentes, el evento de sacar una alverja en la caja 1 es independiente al de sacar una alverja en la caja 2:
 
 $$
-P(A \cap B) = P(A) \cdot P(B)
+P(X= 0) = (Y=0 \cap Z = 0 ) = P(Z = 0) \cdot P(Y  = 0 )
 $$
-Entonces, la probabilidad de sacar cero frijoles al tomar una muestra de cada caja es:
+Entonces, la probabilidad de sacar cero alverjas al tomar una muestra de cada caja es:
 
+
+$$
+P(X= 0) = 0.5 \cdot 0.5 = 0.25
+$$
 
 
 ## Punto 2
@@ -304,35 +308,85 @@ $$\sigma^2_x = V(x)= E(x^2)-E^2(x)    $$
 3. En un curso de la universidad hay 40 estudiantes, de los cuales 20 estudian Fitopatología, 15 estudian Entomología y 5 estudian Suelos.
 El profesor decidió regalar cinco décimas de la nota del parcial a cuatro estudiantes diferentes.
 
+Dado que se seleccionan solo cuatro estudiantes diferentes, los nombres no pueden repetirse, por lo tanto se hace un muestreo sin reemplazo.
 
+Al ser estudiantes de 3 distintas carreras, se trabaja con una variable discreta nominal.
 
+La población, el número total de estudiantes es finito, y existe un número definido de estudiantes que entran en cada categoría.
 
-```{r}
+Cuando se selecciona a un estudiante, puede haber éxito o fracaso en que sea de una carrera u otra.
 
-```
+Una distribución adecuada para describir esta variable puede ser la distribución hipergeométrica.
+
+$$
+Pr(X = k) = \frac{{K \choose k}{{N-K \choose n-k}} }{{N \choose n}}
+$$
 
 a. Cuál es la probabilidad de que los elegidos sean todos de Fitopatología?
 
+para este caso podemos definir $x$ como el número de estudiantes de fitopatologia escogidos 
 
+* N = 40 estudiantes
+* K = 20 estudiantes de fitopatologia
+* n = 4 estudiantes seleccionados
+* k = 4 estudiantes de la muestra que son de fitopatología
+
+$$
+Pr(X = 4) = \frac{{20 \choose 4}{{40-20 \choose 4-4}} }{{40 \choose 4}}
+$$
+$$
+Pr(X = 4) = \frac{{20 \choose 4}{{40-20 \choose 4-4}} }{{40 \choose 4}}
+$$
 ```{r}
-
+(choose(20,4)*choose(20,0))/choose(40,4)
 ```
  
 
 b. Cuál es la probabilidad de que entre los elegidos haya al menos un estudiante de suelos?
+X = numero de estudiantes de suelos que fueron seleccionados en la muestra
 
 
+Gracias a las propiedades de las funciones de probabilidad:
 
+$$
+Pr(X \geq 1) =  1 - Pr(X \leq 1 - 1) = 1 - Pr(X \leq 0)
+$$
+
+* N = 40 estudiantes
+* K = 5 estudiantes de suelos
+* n = 4 estudiantes seleccionados
+* k = 0 estudiantes de la muestra que son de suelos (por propiedades de funciones de probabilidad)
+
+$$
+Pr(X = k) = \frac{{5 \choose 0}{{40-5 \choose 4-0}} }{{40 \choose 4}}
+$$
 
 ```{r}
-
+P0 <- (choose(5,0)*choose(35,4))/choose(40,4)
+1-P0
 ```
+La probabilidad de que entre los elegidos haya al menos un estudiante de suelos es de 0.43
 
 c. Cuál es la probabilidad de que hayan dos estudiantes de Fitopatología, uno de suelos y uno de entomología?
 
-```{r }
+$$
+\text{X = Numero de estudiantes de fitopatologia seleccionados}\\
+\text{Y = Numero de estudiantes de suelos seleccionados}\\
+\text{Z = Numero de estudiantes de entomología seleccionados}
+$$
+Dado que las tres variables son independientes, podemos calcular su intersección como el producto de las tres probabilidades.
 
+$$
+P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{40-20 \choose 4-2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{40-20 \choose 4-1}} }{{40 \choose 4}}
+$$
+$$
+P(X = 2) \cdot P(Y = 1) \cdot P(Z = 1) = \\ \frac{{20 \choose 2}{{20 \choose 2}} }{{40 \choose 4}} \cdot  \frac{{5 \choose 1}{{35 \choose 3}} }{{40 \choose 4}} \cdot  \frac{{15 \choose 1}{{25 \choose 3}} }{{40 \choose 4}}
+$$
+
+```{r}
+((choose(20,2)*choose(20,2))/choose(40,4)) *((choose(5,1)*choose(35,3))/choose(40,4))* ((choose(15,1)*choose(25,3))/choose(40,4))
 ```
+La probabilidad de que sean 2 estudiantes de fitopatologia, 1 de suelos y 1 de entomologia.
 
 ## Punto 4
 4. Un lote consta de 10 artículos sin defecto, 4 con pequeños defectos y 2 con defectos graves. Si se elige un artículo al azar, encuentre la probabilidad de que:
