@@ -1,5 +1,5 @@
 ---
-title: "Using more LaTeX packages"
+title: "resumen Estadistica descriptiva"
 output: 
   pdf_document:
     extra_dependencies: ["amsmath", "threeparttable"]

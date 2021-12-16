@@ -1,0 +1,128 @@
+---
+title: "parcial 2 parte 2"
+author: "Andres Felipe Beltran Rodriguez"
+date: "12/16/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+# Punto 1
+
+En un estudio realizado en una finca donde se sembraron árboles de la misma especie 20 en total. Se obtuvieron los siguientes resultados para el diámetro en centímetros de los árboles después de seis meses de sembrados:
+
+## a 
+Seleccione una muestra aleatoria sistemática de tamaño 8 y estime el parámetro de la media. Construya un intervalo del 99% de confianza para la media, hallar el error de muestreo e intérprete el resultado claramente (tome los 3 primeros aleatorios para el arranque). Detallar la muestra seleccionada.
+
+## b
+
+Seleccione una muestra aleatoria simple de tamaño 10 y estime el parámetro del total. Construya un intervalo del 95% de confianza, calcule el porcentaje de error de muestreo e interprete el resultado. Detallar la muestra seleccionada.
+
+# Segundo punto 
+
+Un estudiante va todos los días de su trabajo a clase de Estadística en  la universidad Nacional. El tiempo promedio para un viaje de ida es 24 minutos, con una varianza de 14.44 minutos. Suponga que la distribución de los tiempos de viaje está distribuida normalmente. (usar dos decimales en los valores estandarizados Z).
+
+## a
+
+Cuál es la probabilidad de que en un viaje tome al menos ½ hora.
+
+media hora son 30 minutos:
+
+Teniendo en cuenta que la variable se distribuye como: 
+
+
+$$
+\text{tiempo} \sim N(\mu = 24,\sigma^2 =14.44)
+$$
+Se puede calcular el cuantil $z$ para 30 minutos de la siguiente manera:
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+```{r}
+z <- (30-24)/sqrt(14.44)
+z
+```
+teniendo el cuantil de $1.578947 \approx 1.58$
+
+```{r}
+z <- round(z,2)
+z
+```
+
+podemos calcular la probabilidad de que obtener un valor mayor o igual al experimental, es decir, $1-P(z)$:
+
+```{r}
+p <- 1-pnorm(1.58)
+p
+p2 <- 1-pnorm(30, mean = 24, sd = sqrt(14.44))
+p2
+```
+La probabilidad de que el estudiante se demore en su viaje del trabajo a la universidad un tiempo de por lo menos $\frac{1}{2}$ hora es de $0.057$
+
+![](2a.jpg)
+
+
+## b 
+Si la clase inicia a las 6:00 PM y él sale del trabajo para la universidad a las 5:45 PM, ¿Qué porcentaje de las veces llega tarde a la universidad?
+
+Para saber esto, debemos tener en cuenta que el viaje no debe durar más de 15 minutos.
+
+Lo que pregunta el enunciado, es la probabilidad de obtener un tiempo de viaje mayor a 15 minutos:
+
+![](2b.jpg)
+
+Podemos entonces calcular la probabilidad:
+
+```{r}
+p15 <- pnorm(15, mean = 24, sd = sqrt(14.44))
+p15
+p15*100
+```
+Dado que la clase inicia a las 6:00 PM y el estudiante sale de trabajar a las 5:45 PM, el porcentaje de veces que llega tarde a la clase es de $0.89\%$.
+
+## c
+
+Si sale de su trabajo a las 6:15 PM y el profesor hace quiz de 6:20 PM a 6:40 PM. Cuál es la probabilidad de que el estudiante pierda la oportunidad de presentar el quiz ?
+
+Podemos calcular el tiempo de viaje en cada limite de tiempo del quiz:
+
+$$
+6:20 - 6:15 = 5 \; minutos
+$$
+
+$$
+6:40 - 6:15 = 25 \; minutos
+$$
+
+Entonces debemos hallar:
+
+![](2c1.jpg)
+
+Para hallar el area entre los límites 5 y 25 podemos:
+
+1. hallar el area de menos infinito a 25
+2. hallar el aria de menos infinito a 5
+3 . restarle el area de menos infinito a 5 al area de menos infinito a 25
+
+```{r}
+pquiz <- pnorm(25, mean = 24 , sd = sqrt(14.44)) - pnorm(5,mean = 24 , sd = sqrt(14.44))
+pquiz
+```
+La probabilidad de que el estudiante puerda la oportunidad de presentar el quiz agendado de 6:20 PM a 6:40 PM es de 0.60. 
+
+d. Encuentre la longitud de tiempo por arriba de la cual encontramos el 15% de los viajes más lentos. 
+
+Los viajes más lentos, son aquellos que duran más tiempo. podemos entonces calcular el area de todo excepto lo resaltado:
+
+
+![](2d.jpg)
+
+```{r}
+tLentos <- qnorm(0.15, mean = 24, sd = sqrt(14.44))
+tLentos
+```
+El 15% de los viajes más lentos, tienen un tiempo de viaje de por lo menos 20.06 minutos.
+
+
