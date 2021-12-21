@@ -156,13 +156,13 @@ Sea T una estadística, la distribución de T es la función de densidad de prob
 
 ## Teorema 1: Distribución de muestreo de $\bar{x}$ varianza conocida, normalidad
 
-Sea $x$ una vriable normalmente distribuida y $x_1, x_2, \dots , x_n $ una muestra aleatoria, con promedio $E(x_i)= \mu$ y varianza $V(x_i)= \sigma^2$, $i = 1,2, \dots, n$,
+Sea $x$ una variable normalmente distribuida y $x_1, x_2, \dots , x_n $ una muestra aleatoria, con promedio $E(x_i)= \mu$ y varianza $V(x_i)= \sigma^2$, $i = 1,2, \dots, n$,
 
 
-Entonces la distribución de $\bar{x}$ es también *normal*, con promedio $E(\bar{x}) = \mu$ y varianza $\frac{\sigma^2}{n}$
+Entonces la distribución de $\bar{x}$ es también ***normal**, con promedio $E(\bar{x}) = \mu$ y varianza $\frac{\sigma^2}{n}$
 
 Es decir, si $x \sim N(\mu, \sigma^2)$,
-Entonces $x \sim N(\mu, \sigma^2/n)$ de donde
+Entonces $\bar{x}  \sim N(\mu, \sigma^2/n)$ de donde
 
 $$
 Z = \frac{\bar{x}-\mu}{\frac{\sigma^2}{\sqrt{n}}} \sim N(0,1)
@@ -170,16 +170,17 @@ $$
 
 ## Teorema 2 (Teorema del límite central):
 
-Sea $x$ una variable con distribución no especificada y $x_1, x_2, \dots , x_n $ una muestra aleatoria, con promedio $E(x_i)= \mu$ y varianza $V(x_i)= \sigma^2$, $i = 1,2, \dots, n$, teniendo $\mu$ y $\sigma^2$ finitas, entonces $\bar{x}$ tiene una distribución que tiende a $\sim t(\mu, s^2/n)$
+Sea $x$ una variable con distribución no especificada y $x_1, x_2, \dots , x_n $ una muestra aleatoria, con promedio $E(x_i)= \mu$ y varianza $V(x_i)= \sigma^2$, $i = 1,2, \dots, n$, teniendo $\mu$ y $\sigma^2$ finitas, entonces $\bar{x}$ tiene una distribución que tiende a $\sim t(\mu, s^2/n)$ cuando $n \rightarrow \infty$
 
 Entonces:
 
 $$
 T = \frac{\bar{x} - \mu }{s/ \sqrt{n}} \sim \text{t student con n-1 grados de libertad}
 $$
-## ** obserbación **
 
-Cuando el tamaño de muestra tiende a infinito:
+## ** observación **
+
+Cuando el tamaño de muestra tiende a infinito (después de 30):
 
 cuando $n \rightarrow \infty$:
 
@@ -187,7 +188,20 @@ $$
 z = \frac{\bar{x} - \mu }{s/ \sqrt{n}} \sim N(0,1)
 $$
 
-# Distribucion de muestreo para varianza $\sigma^2$
+# Teorema 3: Distribución de muestreo para la media $\bar{x}$ con varianza desconocida.
+
+Sea $x$ una variable que se distribuye como una distribución normal, $x \sim N(\mu, \sigma^2)$ entonces la media se distribuye como: $\bar{x} \sim t(\mu, s^2/n)$. De manera que el estadistico se calcula:
+
+$$
+T = \frac{\bar{x} - \mu}{s/\sqrt{n}} \sim t-student \; (n-1\; g.l.)
+$$
+Y cuando la muestra es más grande, $n \rightarrow \infty$, el estadístico es:
+
+$$
+z = \frac{\bar{x} - \mu}{s/\sqrt{n}} \sim N(0,1)
+$$
+
+# Teorema 4. Distribucion de muestreo para varianza $\sigma^2$
 
 Si $x \sim N(\mu, \sigma^2)$ entonces:
 
@@ -199,6 +213,94 @@ $$
 
 Dado que $\chi^2$ es asimetrica, las estimaciones no son tan buenas como cuando se trabaja con distribuciones simetricas. El intervalo de confianza va a ser amplio debido al sesgo de la distribución.
 
-#  Distribucion de muestreo
- 
+# Teorema 5: Distribucion de muestreo para diferencia de medias
+
+Si $x \sim N(\mu_x, \sigma^2_x)$ y $y \sim N(\mu_y, \sigma^2_y)$ y se toman dos muestras aleatorias independientes de tamaños $n_x$ y $n_y$ respectivamente
+
+## a) Si $\sigma^2_x$ y $\sigma^2_y$ son conocidas
+
+$$
+Z = \frac{\bar{x}-\bar{y}-(\mu_x-\mu_y)}{\sqrt{\frac{\sigma^2_x}{n_x}+\frac{\sigma_y^2}{n_y}}} \sim N(0,1)
+$$
+
+## b) Si $\sigma^2_x$ y $\sigma^2_y$ son conocidas e iguales, $\sigma^2_x = \sigma^2_y = \sigma^2$  entonces (Para saber si son iguales,hay hacer una prueba de hipótesis o calcular un intervalo de confianza para confirmar)
+
+$$
+z = \frac{\bar{x}-\bar{y}-(\mu_x-\mu_y)}{\sigma \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}} \sim N(0,1)
+$$
+## c) Si $\sigma^2_x$ y $\sigma^2_y$ son desconocidas, y el tama;o de muestra lo sufciientemente grande como para usar la convergencia de la distribucion t a la normal se tiene que 
+
+$$
+z = \frac{\bar{x}-\bar{y}-(\mu_x-\mu_y)}{\sqrt{\frac{s^2_x}{n_x}+\frac{s_y^2}{n_y}}} \sim_{n\rightarrow \infty} N(0,1)\ 
+$$
+
+## c) Si $\sigma^2_x$ y $\sigma^2_y$ son desconocidas, pero supuestamente iguales, y el tamaño de muestra no es lo suficientemente grande como para usar la convergencia de la distribución t a la normal se tiene que
+
+$$
+T = \frac{\bar{x}-\bar{y}-(\mu_x-\mu_y)}{S_p \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}} \sim t_{(n_x+ n_y -2)}
+$$
+
+En donde 
+
+$$
+S^2_p = \frac{(n_x-1)S^2_x+(n_y-1)S_y^2}{n_x+n_y -2} 
+$$
+Es la varianza conjunta estimada.
+
+# Teorema 6. Distribución para la proporción
+
+Sea $X$ el número de elementos (objetos o individuos) que presentan la característica y $n$ el número total de elementos investigados; la proporción estimada se calcula mediante el cociente entre el número de elementos en la muestra que presentan la característica de interés )$x$ entre n. Ésta cantidad se denota con $\hat{p} = \frac{x}{n}$
+
+$$
+\hat{p} \sim N(P, \frac{PQ}{n})
+$$
+
+es decir:
+
+$$
+Z = \frac{\hat{P}-P}{\sqrt{\frac{PQ}{n}}} \sim N(0,1)
+$$
+# Teorema 7. Distribución para la diferencia de proporciones
+
+sea X el núimero de elementos que presentan la característica en la población 1 y Y el número de elementos que presentan la característica en la población 2, con $n_x$ y $n_y$ el núumero total de elementos investigados en la población 1 y 2 respectivamente. La proporción estimadad de la característica en cada una de las poblaciones es $\hat{P}_x= \frac{x}{n}$ y $\hat{P}_y= \frac{y}{n}$ entonces la distribución para la distribución de proporciones es:
+
+$$
+Z = \frac{\hat{P}_x - \hat{P}_y - (P_x - P_y)}{\sqrt{\frac{p_xq_x}{n_x}}+ \sqrt{\frac{p_yq_y}{n_y}}}
+$$
+
+# Teorema 8 Distribución para el cociente de varianzas
+
+Si $x \sim N(\mu_x, \sigma^2_x)$ y $x \sim N(\mu_y, \sigma^2_y)$, y se toman dos muestras aleatorias independientes de tamaños $n_x$ y $n_y$ respectivamente:
+
+$$
+F = \frac{\frac{S^2_x}{\sigma^2_x}}{\frac{S^2_y}{\sigma^2_y}} = \frac{S^2_x \sigma^2_y}{S^2_y\sigma^2_x} \sim = F_{(n_x -1, n_y-1)}
+$$
+
+# Generación de distribuciones de muestreo en `R`
+
+## distribución normal
+
+para generar una muestra aleatoria de una distribución normal con promedio $\mu =121.8$ y desviación estándar $s =14.99$
+
+```{r}
+muestra1 <- rnorm(100,121.8, 14.99)
+```
+
+### Estimación de momentos de la esperanza de x E(x)
+
+La varianza de x puede expresarse como:
+
+$$
+s^2 = E(x^2) = E^2(x) 
+$$
+Podemos hacer el cálculo en R:
+
+```{r}
+m1 <- mean(muestra1)
+m2 <- (1/100)*sum(muestra1^2)
+emsigma2 <- m2-m1^2
+emsigma2
+```
+
+
 

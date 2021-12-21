@@ -1,0 +1,72 @@
+---
+title: "tarea 4 - muestreo"
+author: "Valentina Gonzalez - Andres Felipe Beltran Rodriguez"
+date: "12/19/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+# Primer punto
+
+Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fueron pesados en (libras) y posteriormente fueron sometidos a una dieta durante 30 días, con el objetivo de determinar si el tratamiento genera una ganancia de peso en los animales, los animales fueron medidos al final del estudio y se obtuvo X2, el peso final.
+
+## a
+
+Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
+
+## b
+
+Con la misma muestra aleatoria simple de tamaño 50, estime con la variable X2 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya. Podría afirmar que hubo ganancia en el peso?
+c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
+
+# Segundo punto 
+
+## a
+
+Los datos anexos representan libras de grasa de leche producida para dos poblaciones independientes, donde se midieron las libras de grasa de leche para 100 vacas Holstein y 100 vacas Normando. 
+
+Seleccionar una muestra aleatoria de tamaño 60 de cada población por un muestreo aleatorio simple por el método de coordinado negativo. Estime la media de libras de grasa de leche para cada una de las poblaciones de interés, construya un intervalo de confianza del 95%, y calcule el coeficiente de variación estimado. Interpretar los resultados obtenidos. 
+
+
+## b
+
+Los datos anexos corresponden al precio de papa de dos variedades (Parda Pastusa y Diacol Capiro). Los datos medidos comprenden los años 1995 y 2011 en Colombia. Con los datos seleccionar una muestra aleatoria de tamaño 40 por el método de muestreo aleatorio sistemático y estimar el precio promedio de las dos variedades de papa y el porcentaje de error de muestreo cometido e interpretar los resultados obtenidos.
+
+# tercer punto
+
+Los datos anexos representan una población de 120 plantas de arveja de dos variedades, las cuales fueron inoculadas para determinar si sobrevivían o no a la inoculación.
+
+## a 
+
+Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 70 por medio de un muestreo sistemático, estime la proporción de plantas que sobreviven de la variedad 1. Construir el intervalo de confianza al 99% para hacer inferencia y el porcentaje de error de muestreo concluya.
+
+Los datos anexos en la misma hoja representan una muestra aleatoria de 100 plantas de arroz las cuales fueron transformadas con un gen que protege potencialmente a las plantas de la salinidad. Posteriormente se le adicionaron 300 mm de Cloruro de Sodio, se observo si germino o no la planta. Se codifico como (1) si tolera la salinidad, (0) si no la tolera.
+
+## b 
+
+Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 50 por medio de un muestreo sistemático, estime la proporción de plantas que no toleran la salinidad. Construya el intervalo de confianza, estime el error de muestreo e interprete.
+
+# Cuarto punto
+
+Se midieron tres especies de árboles (alnus acuminata Aa, acacia decurrens Ad, sambucus S). En cada una de ella se midieron en diferentes fechas durante 15 días la altura en centímetros y el diámetro basal en centímetros. Suponga que se va a realizar un muestreo estratificado y en cada estrato un muestreo aleatorio simple. Tome como variable de estratificación el tipo de especie y seleccione una muestra aleatoria simple  de tamaño 70 y haga una asignación proporcional al tamaño del estrato, utilice el método coordinado negativo para la selección de la muestra en cada estrato, suponga que el total de elementos en cada estrato es la población. Suponga que los tamaños de los estratos son los que se forman. 
+
+Con la altura y el diámetro basal (cm) para el día 150 estime la media para las dos variables de interés en cada estrato y estime la media total para toda la población. Construya un intervalo de confianza del 95% para la media en cada estrato y para la media de toda la población, calcule el coeficiente de variación estimado en cada estrato y el de toda la población y concluya.
+
+
+# quinto punto
+
+## a 
+
+Suponga que necesita hacer un estudio en un cultivo de flores y necesita determinar el tamaño de muestra apropiado para realizar un estudio en las plantas. Si en total se tienen 400 rosas de una variedad de interés y desea cometer un error máximo relativo del 10% bajo una confianza del 95%. Cuál es el número de rosas a estudiar. Tenga en cuenta que se tenía información auxiliar que identificaba en una muestra de 45 de estas rosas si tenían o no el diámetro apropiado y de estás 25 si alcanzaban el diámetro esperado. Concluya.
+
+
+## b
+
+Suponga la misma información de a y adicionalmente un deff de 1,32. Calcule el tamaño de muestra apropiado.
+
+En todos los casos construya los intervalos de confianza apropiados para hacer inferencia, el error de muestreo e interprete.
+
+ 
+
