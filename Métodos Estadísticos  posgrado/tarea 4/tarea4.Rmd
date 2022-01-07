@@ -16,10 +16,36 @@ Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fu
 library(readxl)
 library(TeachingSampling)
 library(sampling)
+Ej1 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+     sheet = "ejercicio1", skip = 3)
 
-fgd
+Ej1$X1
+seleccion<-S.SI(200,50)
+Muestra<-Ej1$X1[seleccion]
 
+(1-0.90)/2
+qnorm(0.05, mean = 0, sd = 1, lower.tail = F)
 
+sum(Muestra)/50
+
+msa.m=function(N,n,media,desv,total)  
+{ f=n/N
+ varmed=(desv^2/n)*(1-f)
+ desmed=sqrt(varmed)
+ vartotal=N*N*(desv^2/n)*(1-f)
+ destotal=sqrt(vartotal)
+ a1=media-1.644854*desmed
+ b1=media+1.644854*desmed
+ a2=total-1.644854*destotal
+ b2=total+1.644854*destotal
+ cat("media: IC = ",a1, "--",b1,"\n")
+ #cat("total: IC = ",a2, "--",b2,"\n")
+}
+
+msa.m(200,50,mean(Muestra),sqrt(var(Muestra)),sum(Muestra))
+
+CVE<- (sqrt(var(Muestra)*(1-(50/200))/50))/sum(Muestra)*100
+CVE
 ```
 
 
