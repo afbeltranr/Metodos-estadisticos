@@ -12,6 +12,16 @@ output:
 
 Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fueron pesados en (libras) y posteriormente fueron sometidos a una dieta durante 30 días, con el objetivo de determinar si el tratamiento genera una ganancia de peso en los animales, los animales fueron medidos al final del estudio y se obtuvo X2, el peso final.
 
+```{r}
+library(readxl)
+library(TeachingSampling)
+library(sampling)
+
+
+```
+
+
+
 ## a
 
 Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
