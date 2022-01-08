@@ -12,52 +12,104 @@ output:
 
 Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fueron pesados en (libras) y posteriormente fueron sometidos a una dieta durante 30 días, con el objetivo de determinar si el tratamiento genera una ganancia de peso en los animales, los animales fueron medidos al final del estudio y se obtuvo X2, el peso final.
 
-```{r}
-library(readxl)
-library(TeachingSampling)
-library(sampling)
-Ej1 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
-     sheet = "ejercicio1", skip = 3)
-
-Ej1$X1
-seleccion<-S.SI(200,50)
-Muestra<-Ej1$X1[seleccion]
-
-(1-0.90)/2
-qnorm(0.05, mean = 0, sd = 1, lower.tail = F)
-
-sum(Muestra)/50
-
-msa.m=function(N,n,media,desv,total)  
-{ f=n/N
- varmed=(desv^2/n)*(1-f)
- desmed=sqrt(varmed)
- vartotal=N*N*(desv^2/n)*(1-f)
- destotal=sqrt(vartotal)
- a1=media-1.644854*desmed
- b1=media+1.644854*desmed
- a2=total-1.644854*destotal
- b2=total+1.644854*destotal
- cat("media: IC = ",a1, "--",b1,"\n")
- #cat("total: IC = ",a2, "--",b2,"\n")
-}
-
-msa.m(200,50,mean(Muestra),sqrt(var(Muestra)),sum(Muestra))
-
-CVE<- (sqrt(var(Muestra)*(1-(50/200))/50))/sum(Muestra)*100
-CVE
-```
-
 
 
 ## a
 
 Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
 
+```{r}
+library(readxl)
+library(TeachingSampling)
+library(sampling)
+Ej1 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+     sheet = "ejercicio1", skip = 3)
+set.seed(1)
+seleccion<-S.SI(200,50)
+Muestra<-Ej1$X1[seleccion]
+
+
+sum(Muestra)/50
+
+Estimacion_media=function(N,n,media,desv,PorcentajeConf)  
+{ f=n/N
+alf=(1-(PorcentajeConf/100))/2
+alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+ varmed=(desv^2/n)*(1-f)
+ desmed=sqrt(varmed)
+ a1=media-alfmed*desmed
+ b1=media+alfmed*desmed
+ cat("media: IC = ",a1, "--",b1,"\n")
+}
+
+Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),90)
+
+CVE_media=function(N,n,muestras)  
+{ f=n/N
+w=(sqrt(var(muestras)*(1-f)/n))/mean(muestras)*100
+ cat(w)
+}
+
+
+CVE_media(200,50,Muestra)
+```
+
+
+
 ## b
 
 Con la misma muestra aleatoria simple de tamaño 50, estime con la variable X2 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya. Podría afirmar que hubo ganancia en el peso?
+
+```{r}
+set.seed(2)
+seleccion1<-S.SI(200,50)
+Muestra2<-Ej1$X2[seleccion1]
+
+sum(Muestra2)/50
+
+Estimacion_media(200,50,mean(Muestra2),sqrt(var(Muestra2)),90)
+
+CVE_media(200,50,Muestra2)
+```
+
+
 c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
+
+
+```{r}
+sum(Muestra)/(50/200)
+
+Estimacion_total=function(N,n,desv,total,PorcentajeConf)  
+{ f=n/N
+alf=(1-(PorcentajeConf/100))/2
+alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+ vartotal=N*N*(desv^2/n)*(1-f)
+ destotal=sqrt(vartotal)
+ a2=total-alfmed*destotal
+ b2=total+alfmed*destotal
+ cat("total: IC = ",a2, "--",b2,"\n")
+}
+Estimacion_total(200,50, sqrt(var(Muestra)),10380,95)
+
+CVE_total=function(N,n,muestras)  
+{ f=n/N
+v= (sqrt(N*N*(var(muestras)/n)*(1-f)))/(sum(muestras)/(50/200))    
+ cat(v)
+}
+
+CVE_total(200,50,Muestra)
+
+Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),95)
+
+CVE_media(200,50,Muestra)
+
+```
+
+
+
+
+
+
 
 # Segundo punto 
 
@@ -67,10 +119,38 @@ Los datos anexos representan libras de grasa de leche producida para dos poblaci
 
 Seleccionar una muestra aleatoria de tamaño 60 de cada población por un muestreo aleatorio simple por el método de coordinado negativo. Estime la media de libras de grasa de leche para cada una de las poblaciones de interés, construya un intervalo de confianza del 95%, y calcule el coeficiente de variación estimado. Interpretar los resultados obtenidos. 
 
+```{r}
+
+```
+
+
+
 
 ## b
 
 Los datos anexos corresponden al precio de papa de dos variedades (Parda Pastusa y Diacol Capiro). Los datos medidos comprenden los años 1995 y 2011 en Colombia. Con los datos seleccionar una muestra aleatoria de tamaño 40 por el método de muestreo aleatorio sistemático y estimar el precio promedio de las dos variedades de papa y el porcentaje de error de muestreo cometido e interpretar los resultados obtenidos.
+
+```{r}
+Ej2.b <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+    sheet = "ejercicio2.1")
+set.seed(3)
+seleccion2<-S.SY(60,2)
+Seleccion2.1<-seleccion2
+ca<-seq(1, 20, 2)
+seleccion2.2<-c(Seleccion2.1,ca)
+Muestra4.1<-Ej2.b[seleccion2.2,]
+
+
+Estimacion_media(60,40,mean)
+
+
+
+
+
+
+
+
+```
 
 # tercer punto
 
