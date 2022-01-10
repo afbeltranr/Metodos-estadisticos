@@ -121,6 +121,29 @@ Seleccionar una muestra aleatoria de tamaño 60 de cada población por un muestr
 
 ```{r}
 
+Ej.2 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+    sheet = "ejercicio2", skip = 2)
+View(Ej.2)
+set.seed(8)
+seleccion1<-srswor(60,100) 
+Muestra3<-Ej.2$X1[seleccion1==1]
+Muestra3.2<-Ej.2$X2[seleccion1==1]
+
+mean(Muestra3)
+Estimacion_media(100,60,mean(Muestra3),sqrt(var(Muestra3)),95 )
+CVE_media(100,60, Muestra3)
+
+mean(Muestra3.2)
+Estimacion_media(100,60,mean(Muestra3.2),sqrt(var(Muestra3.2)),95 )
+CVE_media(100,60,Muestra3.2)
+
+t.test(
+  x           = Muestra3,
+  y           = Muestra3.2,
+  alternative = "two.sided",
+  mu          = 0,
+  conf.level  = 0.95
+)
 ```
 
 
@@ -133,22 +156,35 @@ Los datos anexos corresponden al precio de papa de dos variedades (Parda Pastusa
 ```{r}
 Ej2.b <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
     sheet = "ejercicio2.1")
+round(60/40,0)
 set.seed(3)
 seleccion2<-S.SY(60,2)
 Seleccion2.1<-seleccion2
 ca<-seq(1, 20, 2)
 seleccion2.2<-c(Seleccion2.1,ca)
-Muestra4.1<-Ej2.b[seleccion2.2,]
+Muestra4.1<-Ej2.b$rendpastusa
+Muestra4.1<-Muestra4.1[seleccion2.2]
 
+Muestra4.2<-Ej2.b$rendicapiro
+Muestra4.2<-Muestra4.2[seleccion2.2]
 
-Estimacion_media(60,40,mean)
+mean(Muestra4.1)
+Estimacion_media(60,40,mean(Muestra4.1),sqrt(var(Muestra4.1)),95 )
+CVE_media(60,40, Muestra4.1)
 
+mean(Muestra4.2)
+Estimacion_media(60,40,mean(Muestra4.2),sqrt(var(Muestra4.2)),95 )
+CVE_media(60,40,Muestra4.2)
 
+t.test(
+  x           = Muestra4.1,
+  y           = Muestra4.2,
+  alternative = "two.sided",
+  mu          = 0,
+  conf.level  = 0.95
+)
 
-
-
-
-
+####Comparacion de medias ? -diferencia de medias corregir
 
 ```
 
@@ -160,11 +196,67 @@ Los datos anexos representan una población de 120 plantas de arveja de dos vari
 
 Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 70 por medio de un muestreo sistemático, estime la proporción de plantas que sobreviven de la variedad 1. Construir el intervalo de confianza al 99% para hacer inferencia y el porcentaje de error de muestreo concluya.
 
+
+```{r}
+Ej.3 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+     sheet = "ejercicio3", col_types = c("numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric"), skip = 3)
+round(120/70,0)
+set.seed(4)
+seleccion3<-S.SY(120,2)
+caa<-seq(2, 20, 2)
+seleccion3.1<-c(seleccion3,caa)
+Muestra5<-Ej.3$`VARIEDAD 1`[seleccion3.1]
+sum(Muestra5)/70
+
+Estimacion_proporcion=function(n,EstProporcion,PorcentajeConf)  
+{ 
+  alf=(1-(PorcentajeConf/100))/2
+alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+ a3=EstProporcion-(alfmed*sqrt((EstProporcion*(1-EstProporcion ))/n) )
+ b3=EstProporcion+(alfmed*sqrt((EstProporcion*(1-EstProporcion ))/n))
+ cat("Proporción: IC = ",a3, "--",b3,"\n")
+}
+
+Estimacion_proporcion(70,sum(Muestra5)/70,99)
+
+
+CVE_proporcion=function(n,EstProporcion)  
+{ 
+w=  (sqrt((EstProporcion*(1-EstProporcion ))/n))/EstProporcion
+ cat(w)
+}
+
+CVE_proporcion(70,sum(Muestra5)/70)
+```
+
+
 Los datos anexos en la misma hoja representan una muestra aleatoria de 100 plantas de arroz las cuales fueron transformadas con un gen que protege potencialmente a las plantas de la salinidad. Posteriormente se le adicionaron 300 mm de Cloruro de Sodio, se observo si germino o no la planta. Se codifico como (1) si tolera la salinidad, (0) si no la tolera.
 
 ## b 
 
 Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 50 por medio de un muestreo sistemático, estime la proporción de plantas que no toleran la salinidad. Construya el intervalo de confianza, estime el error de muestreo e interprete.
+
+```{r}
+Muestra5.5<-Ej.3[c(3:102),5]
+round(100/50,0)
+
+set.seed(5)
+seleccion4<-S.SY(100,2)
+seleccion4.1<-c(seleccion4)
+Muestra5.6<-Muestra5.5[seleccion4.1,]
+1-(sum(Muestra5.6)/50)
+
+
+Estimacion_proporcion(50,1-(sum(Muestra5.6)/50),99)
+
+CVE_proporcion(50,1-(sum(Muestra5.6)/50))
+
+
+```
+
+
 
 # Cuarto punto
 
@@ -173,16 +265,157 @@ Se midieron tres especies de árboles (alnus acuminata Aa, acacia decurrens Ad, 
 Con la altura y el diámetro basal (cm) para el día 150 estime la media para las dos variables de interés en cada estrato y estime la media total para toda la población. Construya un intervalo de confianza del 95% para la media en cada estrato y para la media de toda la población, calcule el coeficiente de variación estimado en cada estrato y el de toda la población y concluya.
 
 
+```{r}
+Ej.4 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+    sheet = "ejercicio4", na = ",")
+View(Ej.4)
+Altura<-Ej.4[c(4:155),c(1,12)]
+colnames(Altura)<-c("Especie","Dia150")
+especies<-Altura$Especie
+Diametro<-Ej.4[c(161:312),c(1,12)]
+colnames(Diametro)<-c("Especie","Dia_150")
+Diametro$Especie<-as.factor(Diametro$Especie)
+
+##Asignacion proporcional
+v1<-c("A.a","A.d","S")
+v2<-c(40,40,72)
+v3<-c(40*100/152,40*100/152,72*100/152)
+v4<-c(40*70/152,40*70/152,72*70/152)
+tabla1<-data.frame(v1,v2,v3,v4)
+colnames(tabla1)<-c("Especie","Nro de arboles", "Proporcion","Nro arboles en la muestra")
+```
+  
+```{r}
+knitr::kable(tabla1,"simple")
+```
+
+
+
+```{r}
+###ALTURA
+
+estratos<-strata(Altura,stratanames = c("Especie"),size = c(18,18,34) ,method = "srswor",description = T)
+
+altura.muestreado <- getdata( Altura, estratos )
+Alturaest1<-altura.muestreado[c(1:18),1]
+Alturaest2<-altura.muestreado[c(19:36),1]
+Alturaest3<-altura.muestreado[c(37:70),1]
+
+## Altura estrato 1
+mean(Alturaest1)
+Estimacion_media(40,18,mean(Alturaest1),sqrt(var(Alturaest1)),95)
+CVE_media(40,18,Alturaest1)
+## Altura estrato 2
+mean(Alturaest2)
+Estimacion_media(40,18,mean(Alturaest2),sqrt(var(Alturaest2)),95)
+CVE_media(40,18,Alturaest2)
+
+## Altura estrato 3
+mean(Alturaest3)
+Estimacion_media(72,34,mean(Alturaest3),sqrt(var(Alturaest3)),95)
+CVE_media(72,34,Alturaest3)
+
+### Altura total
+ta1<-sum(Alturaest1)/(18/40)
+ta2<-sum(Alturaest2)/(18/40)
+ta3<-sum(Alturaest3)/(34/72)
+Medtotal<-sum(ta1,ta2,ta3)/152
+Medtotal
+
+
+vara1<-18*18*(1-(18/40))*var(Alturaest1)/18
+vara2<-18*18*(1-(18/40))*var(Alturaest2)/18
+vara3<-34*34*(1-(34/72))*var(Alturaest3)/34
+varmed<-sum(vara1,vara2,vara3)/(152*152)
+desmed=sqrt(varmed)
+alf=(1-(95/100))/2
+alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+a1=Medtotal-alfmed*desmed
+b1=Medtotal+alfmed*desmed
+cat("media: IC = ",a1, "--",b1,"\n")
+
+
+
+CVE_alt_tot<-sqrt(varmed)/Medtotal*100
+CVE_alt_tot
+
+```
+
+
+
+
+
+
+```{r}
+###ALTURA
+
+estratos1<-strata(Diametro,stratanames = c("Especie"),size = c(18,18,34) ,method = "srswor",description = T)
+
+Diametro.muestreado <- getdata( Diametro, estratos1 )
+Diam_est1<-altura.muestreado[c(1:18),1]
+Diam_est2<-altura.muestreado[c(19:36),1]
+Diam_est3<-altura.muestreado[c(37:70),1]
+
+## Altura estrato 1
+mean(Diam_est1)
+Estimacion_media(40,18,mean(Diam_est1),sqrt(var(Diam_est1)),95)
+CVE_media(40,18,Diam_est1)
+
+## Altura estrato 2
+mean(Diam_est2)
+Estimacion_media(40,18,mean(Diam_est2),sqrt(var(Diam_est2)),95)
+CVE_media(40,18,Diam_est2)
+
+## Altura estrato 3
+mean(Diam_est3)
+Estimacion_media(72,34,mean(Diam_est3),sqrt(var(Diam_est3)),95)
+CVE_media(72,34,Diam_est3)
+
+### Altura total
+td1<-sum(Diam_est1)/(18/40)
+td2<-sum(Diam_est2)/(18/40)
+td3<-sum(Diam_est3)/(34/72)
+Medtotal1<-sum(td1,td2,td3)/152
+Medtotal1
+
+
+vard1<-18*18*(1-(18/40))*var(Diam_est1)/18
+vard2<-18*18*(1-(18/40))*var(Diam_est2)/18
+vard3<-34*34*(1-(34/72))*var(Diam_est3)/34
+varmed1<-sum(vard1,vard2,vard3)/(152*152)
+desmed1<-sqrt(varmed1)
+alf=(1-(95/100))/2
+alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+a2=Medtotal1-alfmed*desmed1
+b2=Medtotal1+alfmed*desmed1
+cat("media: IC = ",a2, "--",b2,"\n")
+
+
+CVE_diam_tot<-sqrt(varmed1)/Medtotal1*100
+CVE_diam_tot
+
+```
+
+
 # quinto punto
 
 ## a 
 
 Suponga que necesita hacer un estudio en un cultivo de flores y necesita determinar el tamaño de muestra apropiado para realizar un estudio en las plantas. Si en total se tienen 400 rosas de una variedad de interés y desea cometer un error máximo relativo del 10% bajo una confianza del 95%. Cuál es el número de rosas a estudiar. Tenga en cuenta que se tenía información auxiliar que identificaba en una muestra de 45 de estas rosas si tenían o no el diámetro apropiado y de estás 25 si alcanzaban el diámetro esperado. Concluya.
+```{r}
+z<-qnorm((1-(95/100))/2, mean = 0, sd = 1, lower.tail = F)
+E<-4545450.1
 
+
+```
 
 ## b
 
 Suponga la misma información de a y adicionalmente un deff de 1,32. Calcule el tamaño de muestra apropiado.
+```{r}
+
+```
+
 
 En todos los casos construya los intervalos de confianza apropiados para hacer inferencia, el error de muestreo e interprete.
 
