@@ -22,7 +22,7 @@ Suponga que los 200 cerdos representan la población de interés. Seleccione una
 library(readxl)
 library(TeachingSampling)
 library(sampling)
-Ej1 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+Ej1 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio1", skip = 3)
 set.seed(1)
 seleccion<-S.SI(200,50)
@@ -121,7 +121,7 @@ Seleccionar una muestra aleatoria de tamaño 60 de cada población por un muestr
 
 ```{r}
 
-Ej.2 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+Ej.2 <- read_excel("./TAREA4.xls", 
     sheet = "ejercicio2", skip = 2)
 View(Ej.2)
 set.seed(8)
@@ -154,7 +154,7 @@ t.test(
 Los datos anexos corresponden al precio de papa de dos variedades (Parda Pastusa y Diacol Capiro). Los datos medidos comprenden los años 1995 y 2011 en Colombia. Con los datos seleccionar una muestra aleatoria de tamaño 40 por el método de muestreo aleatorio sistemático y estimar el precio promedio de las dos variedades de papa y el porcentaje de error de muestreo cometido e interpretar los resultados obtenidos.
 
 ```{r}
-Ej2.b <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+Ej2.b <- read_excel("./TAREA4.xls", 
     sheet = "ejercicio2.1")
 round(60/40,0)
 set.seed(3)
@@ -198,7 +198,7 @@ Suponga que los datos representan la población. Seleccione una muestra aleatori
 
 
 ```{r}
-Ej.3 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+Ej.3 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio3", col_types = c("numeric", 
         "numeric", "numeric", "numeric", 
         "numeric"), skip = 3)
@@ -266,7 +266,7 @@ Con la altura y el diámetro basal (cm) para el día 150 estime la media para la
 
 
 ```{r}
-Ej.4 <- read_excel("C:/Users/lavag/Downloads/TAREA4.xls", 
+Ej.4 <- read_excel("./TAREA4.xls", 
     sheet = "ejercicio4", na = ",")
 View(Ej.4)
 Altura<-Ej.4[c(4:155),c(1,12)]
