@@ -140,7 +140,7 @@ Estimacion_total(200,50, sqrt(var(Muestra)),10380,95)
 
 CVE_total=function(N,n,muestras)  
 { f=n/N
-v= (sqrt(N*N*(var(muestras)/n)*(1-f)))/(sum(muestras)/(50/200))    
+v= (sqrt(N*N*(var(muestras)/n)*(1-f)))/(sum(muestras)/(50/200))*100    
  cat(v)
 }
 
