@@ -18,42 +18,89 @@ Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fu
 
 Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
 
-```{r}
+Primero cargamos los paquetes
+```{r, message =FALSE, warning=FALSE}
 library(readxl)
 library(TeachingSampling)
 library(sampling)
+```
+
+Luego cargamos los datos en la tabla de datos, `TAREA4.xls` en la hoja `ejercicio1` saltando las tres primeras lineas:
+
+```{r}
 Ej1 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio1", skip = 3)
+```
+Luego fijamos la semilla para la generación de números pseudo aleatoreos con la fución `set.seed()`:
+
+
+
+La función `S.SI` realiza un muestreo aleatorio simple sin reemplazo con una muestra de tamaño $n = 50$ con el metodo de selección-rechazo [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667). 
+
+```{r}
 set.seed(1)
 seleccion<-S.SI(200,50)
+```
+
+Una vez tenemos el vector `seleccion`, podemos usarlo para extraer las posiciones asociadas a la muestra desde la población, `Ej1$X1`:
+
+```{r}
 Muestra<-Ej1$X1[seleccion]
+```
 
+Al tener la muestra, podemos determinar el estimador de la media al sumar todos sus elementos y dividir por el número de elementos, `length(Muestra)` = $n = 50$
 
-sum(Muestra)/50
+```{r}
+sum(Muestra)/length(Muestra)
+```
+Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para la media, la cual depende de los siguientes argumentos:
 
-Estimacion_media=function(N,n,media,desv,PorcentajeConf)  
-{ f=n/N
-alf=(1-(PorcentajeConf/100))/2
-alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
- varmed=(desv^2/n)*(1-f)
- desmed=sqrt(varmed)
- a1=media-alfmed*desmed
- b1=media+alfmed*desmed
- cat("media: IC = ",a1, "--",b1,"\n")
-}
+* N = número de elementos en la población
+* n = número de elementos en la muestra
+* media = la media estimada mediante los elementos de la muestra
+* desv = la desviación estándar de la muestra
+* PorcentajeConf = El porcentaje de confianza utilizado para el cálculo de los cuantiles, necesarios para calcular el intervalo de confianza.
 
+```{r}
+Estimacion_media <- function(N,n,media,desv,PorcentajeConf)  
+  { 
+  
+    f <- n/N
+    alf <- (1-(PorcentajeConf/100))/2
+    alfmed <- qnorm(alf, mean = 0, sd = 1, lower.tail = F)
+    varmed <- (desv^2/n)*(1-f)
+    desmed <- sqrt(varmed)
+    a1 <- media-alfmed*desmed
+    b1 <- media+alfmed*desmed
+    cat("media: IC = ",a1, "--",b1,"\n")
+  }
+```
+
+Podemos entonces utilizar la función `Estimacion_media` con los argumentos asignados para este ejercicio:
+
+* N = 200 cerditos totales
+* n = 50 cerditos en la muestra 
+* media = `mean(Muestra)`
+* desv = `sqrt(var(Muestra))`
+* PorcentajeConf = 90 $\%$
+
+```{r}
 Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),90)
+```
+Para determinar el error de muestreo, o el coeficiente de variación estimado podemos también crear una función:
 
+```{r}
 CVE_media=function(N,n,muestras)  
-{ f=n/N
-w=(sqrt(var(muestras)*(1-f)/n))/mean(muestras)*100
- cat(w)
-}
+    { 
+      f=n/N
+      w=(sqrt(var(muestras)*(1-f)/n))/mean(muestras)*100
+      cat(w)
+    }
 
 
 CVE_media(200,50,Muestra)
 ```
-
+El error de muestreo cuando se determina la masa media al seleccionar una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo descrito por [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667) es del 1.76 $\%$
 
 
 ## b

@@ -1,0 +1,212 @@
+---
+title: "Tarea 4, Métodos estadísticos"
+author: "Maria Camila Gonzalez Basto, Jessica Lorena Smith Osorio"
+date: "1/7/2022"
+output:
+  word_document: default
+  html_document: default
+---
+
+1. Los datos anexos representan en X1 una población de 200 cerdos los cuales fueron pesados en (libras) y posteriormente fueron sometidos a una dieta durante 30 días, con el objetivo de determinar si el tratamiento genera una ganancia de peso en los animales, los animales fueron medidos al final del estudio y se obtuvo X2, el peso final.
+
+a. Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
+
+Agregamos librerias 
+```{r}
+rm(list=ls())## Remover la lista de variables y todas las listas
+getwd()
+library(ggplot2)
+library("readxl") # Para abrir archivos .xls
+library(dplyr)
+library(nlstools)
+library(foreign)
+library(plotrix)
+library(RColorBrewer)
+library("zoo")
+library(minpack.lm)
+library(tibble)  # para agregar mas cifras significativas 
+library(ggstatsplot)
+library(gapminder)
+library("car")
+library(sampling)
+options(pillar.sigfig = 5)
+cols <- brewer.pal(12, "Paired")
+ library(gridExtra)
+set.seed(123)
+```
+
+```{r}
+ejercicio1 <- read_xlsx("Tarea4.xlsx", sheet= "ejercicio1")
+s=srswor1(50,200)  ### Este comando esta basado en el algoritmo de Fan-Muller https://www.rdocumentation.org/packages/sampling/versions/2.9/topics/srswor1 # compilar una única vez
+```
+
+```{r}
+maleatoria  <- as.vector(ejercicio1$X1[s==1]) #La muestra aleatoria tomada para x1, porfavor no volver a compilarlo o todos los valores inmediatamente cambiaran y el analisis de datos será erroneo
+maleatoria
+mean(maleatoria)
+var(maleatoria)
+sd(maleatoria)
+cv1 <- 100*sd(maleatoria)/mean(maleatoria)
+cv1
+t.test(maleatoria, conf.level = 0.90)$"conf.int"
+```
+Se toma una muestra aleatoria de n= 50 para los pesos de los cerdos antes de iniciar la dieta y se encuentra que la media estimada es de 52.34 libras con una varianza de 51.86 y una desviación estandar de 7.20, a lo que se atribuye un coeficiente de variación del 7.20% y se establece que un intervalo de confianza del 90% en donde podemos asumir que tendremos el 90% de probabilidad que al tomar un valor de masa de cerdo antes de iniciar la dieta, esta masa estará entre 50.62252 y 54.047 libras. 
+
+
+b. Con la misma muestra aleatoria simple de tamaño 50, estime con la variable X2 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya. Podría afirmar que hubo ganancia en el peso?
+```{r}
+maleatoria2  <- as.vector(ejercicio1$X2[s==1]) #La muestra aleatoria tomada para x2, porfavor compilar una vez 
+maleatoria2
+mean(maleatoria2)
+var(maleatoria2)
+sd(maleatoria2)
+cv2 <- 100*sd(maleatoria2)/mean(maleatoria2)
+cv2
+t.test(maleatoria2, conf.level = 0.90)$"conf.int"
+```
+Luego de que los cerdos se someten a la dieta de 30 días, tomando la misma muestra aleatoria anterior, se establece que ahora el valor promedio en libras es de 63.3 con una varianza de 125.31 y una desviación estandar de 11.19 a lo que le corresponde un coeficiente de variación del 17%, aquí tenemos la primera diferencia entre la distribución de los datos cuando los cerdos no han iniciado la dieta, ya que el incremento del coeficiente de variación nos indica que el peso de los cerdos luego de la dieta no es tan homogeneo como al principio. 
+El intervalo de confianza también incrementa en peso ya que ahora podemos decir que un individuo tomado al azar y hallarle su masa esta se encontrará entre 60.64 y 65.95 libras a un 90% de confianza. Por lo que podría decirse que hay un incremento en la masa de los cerdos, pero para esto lo mejor es hacer un test entre medias y comparar si estas son iguales o diferentes. 
+
+```{r}
+t.test(maleatoria,maleatoria2, conf.level = 0.90)
+```
+Se analiza el intervalo de confianza de la diferencia de medias al 90% se tiene que este esta entre -14.09 y -7.8289, lo que nos indica que x2 (La masa de los cerdos luego de la dieta de 30 días) es significativamente mayor que la masa de los cerdos antes de iniciar la dieta, por ende SI hay diferencia significativa entre promedios y por ende en la masa de los animales. Lo que responde a la pregunta de SI hubo ganancia de peso. 
+
+c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
+
+```{r}
+esttotal <- 200*sum(maleatoria)/50
+esttotal
+vartotal <- (200^2)-((1-(50/200)*var(maleatoria)))/50
+vartotal
+LS <- esttotal +1.96*sqrt(vartotal)
+LI <- esttotal -1.96*sqrt(vartotal)
+ cat("total: IC = ",LI, "--",LS,"\n")
+```
+-Tomando una muestra aleatoria de 50 individuos se puede hallar el estimador del total, lo que nos indica que las masas totales de los 200 cerdos es de 10468 libras. 
+- Al construir el intervalor de confianza al 95% tenemos que la masa total de los 200 cerdos se encuentra entre 10076 y 10860 libras. 
+
+```{r}
+t.test(maleatoria, conf.level = 0.95)$"conf.int"
+```
+
+-al 95% de confianza se tiene que al tomar un individuo de la población de cerdos su masa antes de iniciar la dieta se encontrará entre 50.29 y 54.39 libras. 
+
+```{r}
+100*sqrt(vartotal)/esttotal
+```
+-El error de muestreo para la población de 200 cerdos antes de iniciar la dieta es del 1.91%. 
+
+
+#3. 
+
+3. Los datos anexos representan una población de 120 plantas de arveja de dos variedades, las cuales fueron inoculadas para determinar si sobrevivían o no a la inoculación.
+
+a. Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 70 por medio de un muestreo sistemático, estime la proporción de plantas que sobreviven de la variedad 1. Construir el intervalo de confianza al 99% para hacer inferencia y el porcentaje de error de muestreo concluya.
+
+```{r}
+library(TeachingSampling)
+ejercicio3 <- read_xlsx("Tarea4.xlsx", sheet= "ejercicio3")
+b          <-rbind(ejercicio3, ejercicio3) ### Unimos dos veces los datos para poder hacer el muestreo sistematico circular
+a          <- dim(ejercicio3)[1]/70
+a          # a= 1.67 entonces lo aproximamos a dos. 
+NVariedad1 <- dim(ejercicio3)[1]
+muestreo <- S.SY(140,2) ## Utilizo 140 por que a*n = 2* 70 = 140 para poder hacer el muestreo
+muestra  <- b[muestreo,]
+
+p      <- mean(muestra$`VARIEDAD 1`)
+p
+Exitos <- sum(muestra$`VARIEDAD 1`)
+Exitos
+msa.p=function(N,n,exitos)
+{ f=n/N
+ p=exitos/n ; q=1-p
+ varp=(p*q/(n-1))*(1-f)
+ desp=sqrt(varp)
+ a=p-2.576*desp
+ b=p+2.576*desp
+ cat("proporcion: IC = ",a, "--",b,"\n")
+ cat("Error;", 100*desp/p)
+}
+msa.p(120,70,Exitos)
+
+```
+
+-De una muestra de 70 individuos mediante muestreo sistematico circular, se tiene que la proporción de plantas que sobreviven es de `r p` 0.5142 ya que de la muestra 36 de los 70 individuos sobrevivieron. 
+-Tomando la cantidad de exitos como que la planta sobreviva, para este muestreo sistematico se encontró un error del 7.55% 
+- A un 99% de confianza podemos inferir que la probabilidad de que un individuo tomado al azar sobreviva se encuentra entre 0.4142 y 0.6143
+
+
+b. Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 50 por medio de un muestreo sistemático, estime la proporción de plantas que no toleran la salinidad. Construya el intervalo de confianza, estime el error de muestreo e interprete.
+
+```{r}
+puntob     <-ejercicio3[c(1:100), c(3)]
+a          <- dim(puntob)[1]/50
+a          # a= 2
+Npuntob <- dim(puntob)[1]
+muestreo <- S.SY(Npuntob,a) 
+muestra  <- puntob[muestreo,]
+
+p      <- mean(muestra$`PUNTO B`)
+p
+Exitos <- sum(muestra$`PUNTO B`)
+Exitos
+msa.p=function(N,n,exitos)
+{ f=n/N
+ p=exitos/n ; q=1-p
+ varp=(p*q/(n-1))*(1-f)
+ desp=sqrt(varp)
+ a=p-1.96*desp
+ b=p+1.96*desp
+ cat("proporcion: IC = ",a, "--",b,"\n")
+ cat("Error;", 100*desp/p)
+}
+msa.p(100,50,Exitos)
+```
+ 
+ -La proporción de plantas que toleran la salinidad del medio es de 0.52 ya que de una muestra aleatoria de 50 individuos, 26 presentaron tolerancia a la salinidad con NaCl. 
+-Si se toma aleatoriamente un individuo la probabilidad de que esta tenga tolerancia a NaCl se encuentra entre 0.42 y 0.61 a un 95% de confianza. 
+- El error de muestreo para esta población es del 9.70% 
+ 
+ 
+ 
+ 
+#5. 
+5. a. Suponga que necesita hacer un estudio en un cultivo de flores y necesita determinar el tamaño de muestra apropiado para realizar un estudio en las plantas. Si en total se tienen 400 rosas de una variedad de interés y desea cometer un error máximo relativo del 10% bajo una confianza del 95%. Cuál es el número de rosas a estudiar. Tenga en cuenta que se tenía información auxiliar que identificaba en una muestra de 45 de estas rosas si tenían o no el diámetro apropiado y de estás 25 si alcanzaban el diámetro esperado. Concluya.
+
+```{r}
+N <- 400 #Número de flores 
+Confianza <- 0.95
+Error     <- 0.10   #Error= Raiz(Varianza)/p, Error*p = SD
+n1         <- 45 # Número de rosas en información auxiliar 
+p         <- 25/45 # Proporción de exito 
+p 
+n0        <- round((1.96)^2*p*(1-p)/(Error^2))
+n0        
+n         <- round(n0/(1+(n0/N)))
+n
+```
+Calculamos el valor de $n_0$ como $n_0 = \frac{Z_{0.025} \cdot p \cdot (1-p)}{error^2}$
+
+$n_0 = 95 $ 
+
+Ahora con el tamaño de la muestra N
+
+$n= \frac{n_0}{1+ \frac{n_o}{N}}$
+$n= 77$
+
+
+b. Suponga la misma información de a y adicionalmente un deff de 1,32. Calcule el tamaño de muestra apropiado.
+
+```{r}
+deff<- 1.32
+n   <- round(N*p*(1-p)*deff/(N*Error^2*p^2+ p*(1-p)*deff))
+n
+```
+Con un deff de 1.32 utilizamos la formula
+
+$n = \frac{N\cdot \hat{p} (1-\hat{p})\cdot deff}{N(e^2\hat{p}^2)+ \hat{p}(1-\hat{p})\cdot deff}= 84$
+
+Entonces el tamaño de muestra adecuado a un 95% de confianza con un error maximo del 10% y un deff de 1.32 es de n= 84
+
+
