@@ -18,8 +18,9 @@ Los datos anexos representan en $x_1$ una población de 200 cerdos los cuales fu
 
 Suponga que los 200 cerdos representan la población de interés. Seleccione una muestra aleatoria simple de tamaño 50 por el método de Fan Muller y estime con X1 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya.
 
-Primero cargamos los paquetes
-```{r, message =FALSE, warning=FALSE}
+Primero cargamos los paquetes requeridos para la carga de datos y para hacer el muestreo:
+
+```{r paquetes, message =FALSE, warning=FALSE}
 library(readxl)
 library(TeachingSampling)
 library(sampling)
@@ -27,7 +28,7 @@ library(sampling)
 
 Luego cargamos los datos en la tabla de datos, `TAREA4.xls` en la hoja `ejercicio1` saltando las tres primeras lineas:
 
-```{r}
+```{r importando datos}
 Ej1 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio1", skip = 3)
 ```
@@ -37,22 +38,25 @@ Luego fijamos la semilla para la generación de números pseudo aleatoreos con l
 
 La función `S.SI` realiza un muestreo aleatorio simple sin reemplazo con una muestra de tamaño $n = 50$ con el metodo de selección-rechazo [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667). 
 
-```{r}
+```{r muestreo seleccion rechazo con S.SI} 
 set.seed(1)
 seleccion<-S.SI(200,50)
 ```
 
 Una vez tenemos el vector `seleccion`, podemos usarlo para extraer las posiciones asociadas a la muestra desde la población, `Ej1$X1`:
 
-```{r}
+```{r seleccion de la muestra en X1}
 Muestra<-Ej1$X1[seleccion]
 ```
 
 Al tener la muestra, podemos determinar el estimador de la media al sumar todos sus elementos y dividir por el número de elementos, `length(Muestra)` = $n = 50$
 
-```{r}
+```{r estimacion del promedio con la muestra}
 sum(Muestra)/length(Muestra)
 ```
+
+Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso medio  antes del tratamiento es de 51.9 kg
+
 Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para la media, la cual depende de los siguientes argumentos:
 
 * N = número de elementos en la población
@@ -61,7 +65,7 @@ Ahora, podemos crear una función que nos permitirá estimar el intervalo de con
 * desv = la desviación estándar de la muestra
 * PorcentajeConf = El porcentaje de confianza utilizado para el cálculo de los cuantiles, necesarios para calcular el intervalo de confianza.
 
-```{r}
+```{r se define Estimacion_media}
 Estimacion_media <- function(N,n,media,desv,PorcentajeConf)  
   { 
   
@@ -84,41 +88,75 @@ Podemos entonces utilizar la función `Estimacion_media` con los argumentos asig
 * desv = `sqrt(var(Muestra))`
 * PorcentajeConf = 90 $\%$
 
-```{r}
+```{r intervalo de confianza antes del tratamiento}
 Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),90)
 ```
-Para determinar el error de muestreo, o el coeficiente de variación estimado podemos también crear una función:
+Al tomar una muestra aleatoria simple de 50 marranos, es posible afirmar con un 90 $\%$ de confianza que el peso medio de los marranos está entre 50.4 y 53.4 kg.
 
-```{r}
-CVE_media=function(N,n,muestras)  
+Para determinar el error de muestreo, o el coeficiente de variación estimado podemos también crear una función llamada `CVE_media`, la cual depende de los siguientes argumentos:
+
+* N = tamaño de la población 
+* n = tamaño de muestra
+* muestras = un vector con los elementos de la muestra
+
+```{r definiendo funcion para error de muestreo}
+CVE_media <- function(N,n,muestras)  
     { 
       f=n/N
       w=(sqrt(var(muestras)*(1-f)/n))/mean(muestras)*100
       cat(w)
     }
+```
 
+dado que ya tenemos la muestra seleccionada en el vector `Muestra` podemos pasarlo como argumento en la función `CVE_media`:
+
+```{r error del muestreo antes del tratamiento}
 
 CVE_media(200,50,Muestra)
 ```
-El error de muestreo cuando se determina la masa media al seleccionar una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo descrito por [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667) es del 1.76 $\%$
+
+
+El error de muestreo cuando se determina la masa media al seleccionar una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo descrito por [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667) es del 1.77 $\%$
 
 
 ## b
 
 Con la misma muestra aleatoria simple de tamaño 50, estime con la variable X2 el peso medio de la población, construya un intervalo de confianza del 90%  para la media, calcule el coeficiente de variación estimado y concluya. Podría afirmar que hubo ganancia en el peso?
 
-```{r}
-set.seed(2)
-seleccion1<-S.SI(200,50)
+Primero fijamos la semilla para obtener la misma muestra aleatoria simple:
+
+```{r fijando semilla}
+set.seed(1)
+```
+
+Luego realizamos la extracción de los datos a partir de la variable X2:
+
+```{r muestreo despues del tratamiento}
+seleccion1 <- S.SI(200,50)
 Muestra2<-Ej1$X2[seleccion1]
+```
 
+Una vez seleccionamos la muestra podemos estimar el valor de peso promedio:
+
+```{r promedio despues del tratamiento}
 sum(Muestra2)/50
+```
 
+A su vez, podemos estimar un intervalo de confianza para la media, y el error de muestreo o coeficiente de variacion estimado:
+
+```{r intervalo y error de muestreo despues del tratamiento}
 Estimacion_media(200,50,mean(Muestra2),sqrt(var(Muestra2)),90)
 
 CVE_media(200,50,Muestra2)
 ```
+Para la misma muestra aleatoria de marranos, se estima que la masa media es de 61.72 kg después del tratamiento.
 
+Para saber si el tratamiento tuvo efecto, es decir, si los marranitos subieron de peso, podemos utilizar los resultados de masa para la muestra seleccionada antes y después del tratamiento, para esto podemos hacer una prueba de hipótesis con la función `t.test`:
+
+```{r prueba de t}
+t.test(Muestra,Muestra2)
+```
+Se puede inferir con un 95% de confianza que el tratamiento tuvo efecto en el engorde de los cerdos, ya que la diferencia entre las medias de la muestra seleccionada antes y después del tratamiento es diferente de cero. 
 
 c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
 
