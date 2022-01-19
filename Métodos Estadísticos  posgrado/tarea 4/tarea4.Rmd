@@ -156,14 +156,26 @@ Para saber si el tratamiento tuvo efecto, es decir, si los marranitos subieron d
 ```{r prueba de t}
 t.test(Muestra,Muestra2)
 ```
-Se puede inferir con un 95% de confianza que el tratamiento tuvo efecto en el engorde de los cerdos, ya que la diferencia entre las medias de la muestra seleccionada antes y después del tratamiento es diferente de cero. 
+Se puede inferir con un 95% de confianza que el tratamiento tuvo efecto en el engorde de los cerdos, ya que la diferencia entre las medias de la muestra seleccionada antes y después del tratamiento es diferente de cero, como lo muestran los valores negativos del intervalo de confianza, X1 - X2 < 0  por lo que X1 < X2, o sea que los marranitos subieron de peso.
 
 c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
 
-
-```{r}
+```{r estimacion del total con la muestra }
 sum(Muestra)/(50/200)
+```
+Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso total antes del tratamiento es de 10380 kg
 
+Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para el total, la cual depende de los siguientes argumentos:
+
+* N = número de elementos en la población
+* n = número de elementos en la muestra
+* media = la media estimada mediante los elementos de la muestra
+* desv = la desviación estándar de la muestra
+* PorcentajeConf = El porcentaje de confianza utilizado para el cálculo de los cuantiles, necesarios para calcular el intervalo de confianza.
+
+
+
+```{r se define Estimacion_total}
 Estimacion_total=function(N,n,desv,total,PorcentajeConf)  
 { f=n/N
 alf=(1-(PorcentajeConf/100))/2
@@ -174,16 +186,49 @@ alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
  b2=total+alfmed*destotal
  cat("total: IC = ",a2, "--",b2,"\n")
 }
-Estimacion_total(200,50, sqrt(var(Muestra)),10380,95)
 
+```
+
+Podemos entonces utilizar la función `Estimacion_total` con los argumentos asignados para este ejercicio:
+
+* N = 200 cerditos totales
+* n = 50 cerditos en la muestra 
+* desv = `sqrt(var(Muestra))`
+* total = `sum(Muestra)/(50/200)`
+* PorcentajeConf = 95 $\%$
+
+```{r Intervalo de confianza del total antes del tratamiento}
+Estimacion_total(200,50, sqrt(var(Muestra)),sum(Muestra)/(50/200),95)
+```
+Se estima con un 95 $\%$ de confianza que el peso total de los 200 marranitos antes del tratamiento esta entre 10020.57 Kg y 10739.43 Kg
+
+
+Para determinar el error de muestreo en la estimacion del total, o el coeficiente de variación estimado podemos también crear una función llamada `CVE_total`, la cual depende de los siguientes argumentos:
+
+* N = tamaño de la población 
+* n = tamaño de muestra
+* muestras = un vector con los elementos de la muestra
+
+
+```{r definiendo funcion para error de muestreo en la estimacion del total}
 CVE_total=function(N,n,muestras)  
 { f=n/N
 v= (sqrt(N*N*(var(muestras)/n)*(1-f)))/(sum(muestras)/(50/200))*100    
  cat(v)
 }
+```
+dado que ya tenemos la muestra seleccionada en el vector `Muestra` podemos pasarlo como argumento en la función `CVE_total`:
 
+
+```{r error del muestreo antes del tratamiento para el total}
 CVE_total(200,50,Muestra)
+```
+El error de muestreo cuando se determina el total seleccionando una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo es del 1.77 $\%$
 
+
+
+
+```{r}
 Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),95)
 
 CVE_media(200,50,Muestra)
