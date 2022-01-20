@@ -26,13 +26,13 @@ library(TeachingSampling)
 library(sampling)
 ```
 
-Luego cargamos los datos en la tabla de datos, `TAREA4.xls` en la hoja `ejercicio1` saltando las tres primeras lineas:
+Luego cargamos los datos en la tabla de datos, `TAREA4.xls` de la hoja `ejercicio1` saltando las tres primeras lineas:
 
 ```{r importando datos}
 Ej1 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio1", skip = 3)
 ```
-Luego fijamos la semilla para la generación de números pseudo aleatoreos con la fución `set.seed()`:
+Luego fijamos la semilla para la generación de números pseudo aleatoreos con la función `set.seed()`:
 
 
 
@@ -55,7 +55,7 @@ Al tener la muestra, podemos determinar el estimador de la media al sumar todos 
 sum(Muestra)/length(Muestra)
 ```
 
-Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso medio  antes del tratamiento es de 51.9 kg
+* Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso medio  antes del tratamiento es de 51.9 kg
 
 Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para la media, la cual depende de los siguientes argumentos:
 
@@ -91,7 +91,7 @@ Podemos entonces utilizar la función `Estimacion_media` con los argumentos asig
 ```{r intervalo de confianza antes del tratamiento}
 Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),90)
 ```
-Al tomar una muestra aleatoria simple de 50 marranos, es posible afirmar con un 90 $\%$ de confianza que el peso medio de los marranos está entre 50.4 y 53.4 kg.
+* Al tomar una muestra aleatoria simple de 50 marranos, es posible afirmar con un 90 $\%$ de confianza que el peso medio de los marranos está entre 50.4 y 53.4 kg.
 
 Para determinar el error de muestreo, o el coeficiente de variación estimado podemos también crear una función llamada `CVE_media`, la cual depende de los siguientes argumentos:
 
@@ -116,7 +116,7 @@ CVE_media(200,50,Muestra)
 ```
 
 
-El error de muestreo cuando se determina la masa media al seleccionar una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo descrito por [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667) es del 1.77 $\%$
+* El error de muestreo cuando se determina la masa media al seleccionar una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo descrito por [(fan, Muller 1962)](https://www.tandfonline.com/doi/abs/10.1080/01621459.1962.10480667) es del 1.77 $\%$, indicando que es un estudio confiable.
 
 
 ## b
@@ -149,21 +149,23 @@ Estimacion_media(200,50,mean(Muestra2),sqrt(var(Muestra2)),90)
 
 CVE_media(200,50,Muestra2)
 ```
-Para la misma muestra aleatoria de marranos, se estima que la masa media es de 61.72 kg después del tratamiento.
+* Para la misma muestra aleatoria de marranos, se estima que la masa media es de 61.72 kg después del tratamiento, y se estima con un 90% de confianza que la masa media de los marranitos luego del tratamiento esta entre 59.47 y 63.97 Kg, con un error de muestreo de 2.21 $%$, indicando que es un estudio confiable.
 
 Para saber si el tratamiento tuvo efecto, es decir, si los marranitos subieron de peso, podemos utilizar los resultados de masa para la muestra seleccionada antes y después del tratamiento, para esto podemos hacer una prueba de hipótesis con la función `t.test`:
 
 ```{r prueba de t}
 t.test(Muestra,Muestra2)
 ```
-Se puede inferir con un 95% de confianza que el tratamiento tuvo efecto en el engorde de los cerdos, ya que la diferencia entre las medias de la muestra seleccionada antes y después del tratamiento es diferente de cero, como lo muestran los valores negativos del intervalo de confianza, X1 - X2 < 0  por lo que X1 < X2, o sea que los marranitos subieron de peso.
+* Se puede inferir con un 95% de confianza que el tratamiento tuvo efecto en el engorde de los cerdos, ya que la diferencia entre las medias de la muestra seleccionada antes y después del tratamiento es diferente de cero, como lo muestran los valores negativos del intervalo de confianza, X1 - X2 < 0  por lo que X1 < X2, o sea que los marranitos subieron de peso.
 
-c. Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
+##c
+
+Estime el parámetro del total bajo un 95% de confianza con la misma muestra X1, concluya. Construya un intervalo de confianza del 95%  para la media, calcule el coeficiente de variación estimado y concluya.
 
 ```{r estimacion del total con la muestra }
 sum(Muestra)/(50/200)
 ```
-Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso total antes del tratamiento es de 10380 kg
+* Al tomar una muestra aleatoria simple de 50 chanchos se puede inferir que el peso total antes del tratamiento es de 10380 kg
 
 Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para el total, la cual depende de los siguientes argumentos:
 
@@ -200,7 +202,7 @@ Podemos entonces utilizar la función `Estimacion_total` con los argumentos asig
 ```{r Intervalo de confianza del total antes del tratamiento}
 Estimacion_total(200,50, sqrt(var(Muestra)),sum(Muestra)/(50/200),95)
 ```
-Se estima con un 95 $\%$ de confianza que el peso total de los 200 marranitos antes del tratamiento esta entre 10020.57 Kg y 10739.43 Kg
+* Se estima con un 95 $\%$ de confianza que el peso total de los 200 marranitos antes del tratamiento esta entre 10020.57 Kg y 10739.43 Kg
 
 
 Para determinar el error de muestreo en la estimacion del total, o el coeficiente de variación estimado podemos también crear una función llamada `CVE_total`, la cual depende de los siguientes argumentos:
@@ -213,31 +215,39 @@ Para determinar el error de muestreo en la estimacion del total, o el coeficient
 ```{r definiendo funcion para error de muestreo en la estimacion del total}
 CVE_total=function(N,n,muestras)  
 { f=n/N
-v= (sqrt(N*N*(var(muestras)/n)*(1-f)))/(sum(muestras)/(50/200))*100    
+v= (sqrt(N*N*var(muestras)*(1-f)/n))/(sum(muestras)/(n/N))*100    
  cat(v)
 }
 ```
+
 dado que ya tenemos la muestra seleccionada en el vector `Muestra` podemos pasarlo como argumento en la función `CVE_total`:
 
 
 ```{r error del muestreo antes del tratamiento para el total}
 CVE_total(200,50,Muestra)
 ```
-El error de muestreo cuando se determina el total seleccionando una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo es del 1.77 $\%$
+* El error de muestreo cuando se determina el total seleccionando una muestra aleatoria simple de 50 marranos a partir de una población de 200 mediante el método de selección - rechazo es del 1.77 $\%$, indicando que es un estudio confiable.
 
 
+Para obtener el intervalo de confianza para estimar la media y el error de muestreo usamos las funciones `Estimacion_media` y `CVE_media`
 
+```{r Estimacion de la media y de su CVE}
 
-```{r}
 Estimacion_media(200,50,mean(Muestra),sqrt(var(Muestra)),95)
-
 CVE_media(200,50,Muestra)
-
 ```
 
+* Se estima con un 95 $\%$ de confianza que el peso promedio de los 200 marranitos antes del tratamiento esta entre 50.10 Kg y 53.70 Kg y que el error de muestreo es de 1.77 $%$, indicando que es un estudio confiable.
 
 
+Los CVE para la media y para el total son iguales debido a que se cumplen las siguientes igualdades:
 
+
+$$ \frac{\sqrt{\frac{N^2*(1-f)*S_y^2}{n}}}{\frac{\sum_{} y_k}{n/N}}= \frac{\sqrt{\frac{(1-f)*S_y^2}{n}}}{\frac{\sum_{} y_k}{n}}     $$
+$$ {\frac{\sum_{} y_k}{n}} {\sqrt{\frac{N^2*(1-f)*S_y^2}{n}}}= {\sqrt{\frac{(1-f)*S_y^2}{n}}}{\frac{\sum_{} y_k}{n/N}}  $$
+$$ {\sqrt{\frac{N^2*(1-f)*S_y^2}{n}}}= N* {\sqrt{\frac{(1-f)*S_y^2}{n}}}  $$
+
+$$ {\frac{N^2*(1-f)*S_y^2}{n}}= N^2* {\frac{(1-f)*S_y^2}{n}}  $$
 
 
 
@@ -249,24 +259,50 @@ Los datos anexos representan libras de grasa de leche producida para dos poblaci
 
 Seleccionar una muestra aleatoria de tamaño 60 de cada población por un muestreo aleatorio simple por el método de coordinado negativo. Estime la media de libras de grasa de leche para cada una de las poblaciones de interés, construya un intervalo de confianza del 95%, y calcule el coeficiente de variación estimado. Interpretar los resultados obtenidos. 
 
-```{r}
+Cargamos los datos en la tabla de datos, `TAREA4.xls` de la hoja `ejercicio2` saltando las dos primeras lineas:
 
+```{r cargar datos del excel}
 Ej.2 <- read_excel("./TAREA4.xls", 
     sheet = "ejercicio2", skip = 2)
-View(Ej.2)
-set.seed(8)
-seleccion1<-srswor(60,100) 
-Muestra3<-Ej.2$X1[seleccion1==1]
-Muestra3.2<-Ej.2$X2[seleccion1==1]
+```
 
+teniendo los datos pasamos a seleccionar la muestra, fijamos la semilla con la función `set.seed()` para la generación de números aleatoreos de una distribución uniforme con la función `runif()`, a cada observacion se le asigna uno de los numeros aleatorios generados, se ordena con la funcion `order()` y finalmente se seleccionan los 60 aleatorios mas pequeños y sus correspondientes datos.
+
+```{r seleccion de muestra por el metodo coordinado negativo}
+set.seed(8)
+aleatorios<-runif(100, min = 0, max = 1)
+Ej.2_1<- cbind(Ej.2,aleatorios)
+Ej.2_1<- as.data.frame(Ej.2_1)
+Ordenados <-Ej.2_1[order(Ej.2_1$aleatorios),]
+
+Muestra3<-Ordenados$X1[1:60]
+Muestra3.2<-Ordenados$X2[1:60]
+```
+
+Primero se va a estimar la media, el intervalo de confianza y el error de muestreo para el grupo de las libras de grasa de leche de 100 vacas Holstein durante un mes. Para lo cual usaremos las funciones `Estimacion_media` y `CVE_media`
+
+```{r estimacion media vacas Holstein}
 mean(Muestra3)
 Estimacion_media(100,60,mean(Muestra3),sqrt(var(Muestra3)),95 )
 CVE_media(100,60, Muestra3)
+```
+* Se estima que las vacas Holstein en promedio produjeron 38.97 libras de grasa de leche durante un mes, y con un 95 $%$ de confianza se estima que la media de libras de grasa de leche producida por las vacas Holstein esta entre 37.17 y 40.76 libras, con un error de muestreo de 2.35 $%$ , indicando que es un estudio confiable.
 
+
+Luego se va a estimar la media, el intervalo de confianza y el error de muestreo para el grupo de las libras de grasa de leche de 100 vacas Normando durante un mes. Para lo cual usaremos las funciones `Estimacion_media` y `CVE_media`
+
+
+```{r Estimacion media vacas Normando}
 mean(Muestra3.2)
 Estimacion_media(100,60,mean(Muestra3.2),sqrt(var(Muestra3.2)),95 )
 CVE_media(100,60,Muestra3.2)
+```
+* Se estima que las vacas Normando en promedio produjeron 48.17 libras de grasa de leche durante un mes, y con un 95 $%$ de confianza se estima que la media de libras de grasa de leche producida por las vacas Normando esta entre 46.19 y 50.14 libras, con un error de muestreo de 2.09 $%$ , indicando que es un estudio confiable.
 
+* La estimacion de la media de grasa de la leche de vacas Normando es mas alta que la de vacas Holstein, pero para comprobar que si hay una diferencia entre las medias hacemos una  prueba de hipótesis con la función `t.test`:
+
+
+```{r}
 t.test(
   x           = Muestra3,
   y           = Muestra3.2,
@@ -275,17 +311,27 @@ t.test(
   conf.level  = 0.95
 )
 ```
-
-
+* Se puede inferir con un 95% de confianza que las medias de la grasa de la lecha de las vacas Normando y las Holstein son diferentes y además como los valores del intervalo de confianza son negativos, indica que la grasa de la leche en las vacas Normando es mayor a la de las vacas Holstein.
 
 
 ## b
 
 Los datos anexos corresponden al precio de papa de dos variedades (Parda Pastusa y Diacol Capiro). Los datos medidos comprenden los años 1995 y 2011 en Colombia. Con los datos seleccionar una muestra aleatoria de tamaño 40 por el método de muestreo aleatorio sistemático y estimar el precio promedio de las dos variedades de papa y el porcentaje de error de muestreo cometido e interpretar los resultados obtenidos.
 
-```{r}
+Cargamos los datos en la tabla de datos, `TAREA4.xls` de la hoja `ejercicio2.1`:
+
+```{r cargando los datos}
 Ej2.b <- read_excel("./TAREA4.xls", 
     sheet = "ejercicio2.1")
+```
+
+
+Luego fijamos la semilla para la generación de números aleatoreos con la función `set.seed()`:
+
+La función `S.SY` realiza un muestreo aleatorio sistematico, en este caso se usa la funcion `round()` para obtener a, ya que la division entre 60 y 40 no es un numero entero es necesario redondear el numero, en este caso a es 2. Para completar el muestreo es necesario crear una secuancia de numeros con la funcion`seq()` : 
+
+
+```{r Muestreo aleatorio sistematico}
 round(60/40,0)
 set.seed(3)
 seleccion2<-S.SY(60,2)
@@ -297,26 +343,39 @@ Muestra4.1<-Muestra4.1[seleccion2.2]
 
 Muestra4.2<-Ej2.b$rendicapiro
 Muestra4.2<-Muestra4.2[seleccion2.2]
+```
+Primero se va a estimar el promedio y el error de muestreo para el precio de papa Parda Pastusa. Para lo cual usaremos las funciones `mean` y `CVE_media`
 
+```{r Estimacion del promedio y CVE papa parda pastusa}
 mean(Muestra4.1)
-Estimacion_media(60,40,mean(Muestra4.1),sqrt(var(Muestra4.1)),95 )
 CVE_media(60,40, Muestra4.1)
+```
+* Se estima que el precio promedio de la papa Parda pastusa durante 1995 y 2011 en Colombia es de 9625.16 pesos y el error de muestreo es de 4.46 $%$, un poco alto pero aceptable.
 
+
+Ahora se va a estimar el promedio y el error de muestreo para el precio de papa Diacol Capiro. Para lo cual usaremos las funciones `mean` y `CVE_media`
+
+```{r Estimacion del promedio y CVE papa diacol capiro}
 mean(Muestra4.2)
-Estimacion_media(60,40,mean(Muestra4.2),sqrt(var(Muestra4.2)),95 )
 CVE_media(60,40,Muestra4.2)
+```
+* Se estima que el precio promedio de la papa Diacol Capiro durante 1995 y 2011 en Colombia es de 18044.94 pesos y el error de muestreo es de 1.98 $%$, indica que es un estudio confiable.
 
+* La estimacion del promedio del precio de la papa Diacol Capiro durante 1995 y 2011 en Colombia es mas alta que el precio promedio de la papa Parda pastuda, pero para comprobar que si hay una diferencia entre las medias hacemos una  prueba de hipótesis con la función `t.test`:
+
+
+```{r Prueba de hipotesis precios papas}
 t.test(
   x           = Muestra4.1,
   y           = Muestra4.2,
   alternative = "two.sided",
   mu          = 0,
-  conf.level  = 0.95
-)
-
-####Comparacion de medias ? -diferencia de medias corregir
-
+  conf.level  = 0.95)
 ```
+* Se puede inferir con un 95% de confianza que los promedios de los precios de las papas Parda pastusa y Diacol capiro son diferentes y además como los valores del intervalo de confianza son negativos, indica que el precio promedio de la papa Diacol capiro es mayor que el precio promedio de la papa Parda pastusa.
+
+
+
 
 # tercer punto
 
@@ -327,19 +386,44 @@ Los datos anexos representan una población de 120 plantas de arveja de dos vari
 Suponga que los datos representan la población. Seleccione una muestra aleatoria simple de tamaño 70 por medio de un muestreo sistemático, estime la proporción de plantas que sobreviven de la variedad 1. Construir el intervalo de confianza al 99% para hacer inferencia y el porcentaje de error de muestreo concluya.
 
 
-```{r}
+Cargamos los datos en la tabla de datos, `TAREA4.xls` de la hoja `ejercicio3` saltando las tres primeras lineas, y especificamos que las columnas seleccionadas contienen numeros:
+
+```{r Caragando los datos, warning=FALSE, message=FALSE}
 Ej.3 <- read_excel("./TAREA4.xls", 
      sheet = "ejercicio3", col_types = c("numeric", 
         "numeric", "numeric", "numeric", 
         "numeric"), skip = 3)
+```
+La función `S.SY` realiza un muestreo aleatorio sistematico, en este caso se usa la funcion `round()` para obtener a, ya que la division entre 120 y 70 no es un numero entero es necesario redondear el numero, en este caso a es 2. Para completar el muestreo es necesario crear una secuancia de numeros con la funcion`seq()` :
+
+
+```{r seleccion por muestreo aleatorio sistematico}
 round(120/70,0)
 set.seed(4)
 seleccion3<-S.SY(120,2)
 caa<-seq(2, 20, 2)
 seleccion3.1<-c(seleccion3,caa)
 Muestra5<-Ej.3$`VARIEDAD 1`[seleccion3.1]
-sum(Muestra5)/70
+```
 
+Se estima la proporcion con la muestra, con los casos exitosos dividido el tamaño de la muestra:
+
+```{r estimacion de la proporcion}
+sum(Muestra5)/70
+```
+
+* Se estima que el 51%  de las plantas de la variedad 1 sobreviven.
+
+
+
+Ahora, podemos crear una función que nos permitirá estimar el intervalo de confianza para la proporcion, la cual depende de los siguientes argumentos:
+
+* n = número de elementos en la muestra
+* EstProporcion = La proporcion estimada con la muestra
+* PorcentajeConf = El porcentaje de confianza utilizado para el cálculo de los cuantiles, necesarios para calcular el intervalo de confianza.
+
+
+```{r se define Estimacion_proporcion}
 Estimacion_proporcion=function(n,EstProporcion,PorcentajeConf)  
 { 
   alf=(1-(PorcentajeConf/100))/2
@@ -348,18 +432,42 @@ alfmed=qnorm(alf, mean = 0, sd = 1, lower.tail = F)
  b3=EstProporcion+(alfmed*sqrt((EstProporcion*(1-EstProporcion ))/n))
  cat("Proporción: IC = ",a3, "--",b3,"\n")
 }
+```
 
+Podemos entonces utilizar la función `Estimacion_proporcion` con los argumentos asignados para este ejercicio:
+
+* n = 70 plantas de la variedad 1 
+* EstProporcion =  `sum(Muestra5)/70`
+* PorcentajeConf = 99 $\%$
+
+```{r Intervalo de confianza proporcion sobrevivencia planta variedad 1}
 Estimacion_proporcion(70,sum(Muestra5)/70,99)
 
+```
+* Con un una confianza del 99$%$ se estima que la proporcion de plantas de la variedad 1 que sobreviven esta entre 36.04 y 66.81%
 
+
+Para determinar el error de muestreo en la estimacion de la proporción, o el coeficiente de variación estimado podemos también crear una función llamada `CVE_proporcion`, la cual depende de los siguientes argumentos:
+
+* n = tamaño de muestra
+* EstProporcion = La proporcion estimada con la muestra
+
+```{r se define CVE proporcion}
 CVE_proporcion=function(n,EstProporcion)  
 { 
-w=  (sqrt((EstProporcion*(1-EstProporcion ))/n))/EstProporcion
+w=  ((sqrt((EstProporcion*(1-EstProporcion ))/n))/EstProporcion)*100
  cat(w)
 }
+```
 
+ Reemplazando los parametros en la funcion `CVE_proporcion` obtenemos el error de muestreo:
+ 
+```{r Error de muestreo proporcion}
 CVE_proporcion(70,sum(Muestra5)/70)
 ```
+* El error de muestreo para la proporcion es de 11.61% indicando que el estudio no es confiable.
+
+
 
 
 Los datos anexos en la misma hoja representan una muestra aleatoria de 100 plantas de arroz las cuales fueron transformadas con un gen que protege potencialmente a las plantas de la salinidad. Posteriormente se le adicionaron 300 mm de Cloruro de Sodio, se observo si germino o no la planta. Se codifico como (1) si tolera la salinidad, (0) si no la tolera.
