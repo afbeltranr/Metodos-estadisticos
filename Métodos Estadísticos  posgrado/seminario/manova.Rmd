@@ -1,0 +1,221 @@
+---
+title: "MANOVA - ejemplo en R"
+author: "Valentina gonzalez - Andres Beltran"
+date: "2/8/2022"
+output:
+  rmdformats::downcute
+---
+
+carga de paquetes:
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(rstatix)
+library(car)
+library(broom)
+```
+
+
+# Ejemplo con iris
+
+## Preparacion de los datos
+
+vamos a seleccionar dos columnas de interes, la longitud del sepalo y el petalo:
+
+```{r}
+iris2 <- iris %>%
+  select(Sepal.Length, Petal.Length, Species) %>%
+  add_column(id = 1:nrow(iris), .before = 1)
+head(iris2)
+```
+
+## Visualizacion
+
+Podemos graficar mediante un boxplot para cada especie, y para cada una de las dos variables usando `ggboxplot()`
+
+```{r}
+ggboxplot(
+  iris2, x = "Species", y = c("Sepal.Length", "Petal.Length"), 
+  merge = TRUE, palette = "jco"
+  )
+```
+
+# Estadistica descriptiva
+
+Podemos calcular el promedio y la desviacion estandar, por grupos (especies) para cada variable
+
+```{r}
+iris2 %>%
+  group_by(Species) %>%
+  get_summary_stats(Sepal.Length, Petal.Length, type = "mean_sd")
+```
+
+## Supuestos y pruebas preliminares
+
+El análisis MANOVA presenta los siguientes supuestos:
+
+* *tamaño de muestra adecuado* lo recomendable es que el número de observaciones por cada celda (un grupo dentro de una variable) debe ser mayor al numero de variables independientes
+* *independencia de las observaciones:*
+    + cada individuo debería pertenecer solo a un grupo.
+
+    + No existe relación entre las observaciones entre los grupos.
+
+     + No es posible tener réplicas para los individuos
+     
+     + la selección de la muestra debe ser aleatoria
+     
+* Ausencia de datos atípicos multivariados y univariados.
+
+* Normalidad mutivariada, Se puede utilizar la función `mshapiro_test()` del paquete `rstatix` para realizar la prueba de shapuro'wilk para normalidad multivariada
+
+* *Ausencia de multicolinearidad* las variables dependientes no deben estar correlacionadas. se aconseja correlacion menor a 0.9 
+* *linealidad* entre la variable independiente y dependiente para cada grupo
+* *Homogeneidad de varianzas* Para confirmar la igualdad de varianzas entre grupos puede utilizarse la prueba de levene, resultados no significantes indican que las varianzas entre grupos son iguales.
+
+* *Homogeneidad de las matrices de varianza y covarianza* para revisar la igualdad de covarianza entre los grupos puede utilizarse la prueba de Box M. Esta prueba es un equivalente a la homogeneidad de varianza. 
+
+Muy sensible, la significancia para esta rpueba se fija en alfa = 0.001
+
+## prueba de tamaño de muestra
+
+```{r}
+iris2 %>%
+  group_by(Species) %>%
+  summarise(N = n())
+```
+
+En la tabla observamos 50 observaciones por grupo, un número mayor al número de variables.
+
+## Identificación de datos atípicos univariados
+
+Para identificar los datos atípicos en cada variable podemos usar la función `identify_outliers()`
+
+Primero agrupamos los datos por especie:
+
+```{r}
+iris2 %>%
+  group_by(Species) %>%
+  identify_outliers(Sepal.Length)
+```
+
+El output de la función presenta que no hay datos atipicos extremos.
+
+## detección de datos atípicos multivariados
+
+Un dato atipico mutivariado es aquel que tiene una combinación inusual de valores en las variables independientes.
+
+un método útil para detectar datos atípicos multivariados, es la distancia de mahalanobis, la cual nos dice que tan alejado está el punto del centro de la nube de puntos, teniendo en cuenta la forma o covarianza de la nuve.
+
+```{r}
+iris2 %>%
+ group_by(Species) %>%
+ mahalanobis_distance(-id) %>%
+ filter(is.outlier == TRUE) %>%
+  as.data.frame()
+```
+
+No se imprime ningun dato atipico multivariado
+
+## Normalidad univariada
+
+Podemos utilizar la prueba de shapiro wilk para cada variable dentro de cada grupo. Si los datos se distribuyen normalmente:
+
+```{r}
+iris2 %>%
+  group_by(Species) %>%
+  shapiro_test(Sepal.Length, Petal.Length) %>%
+  arrange(variable)
+```
+
+Siempre y cuando el valor de p sea mayor a 0.05, la no es posible rechazar hipótesis nula de que la variable se distribuye normalmente
+
+También es posible realizar una evaluación gráfica de la normalidad mediante el diagrama cuantil-cuantil
+
+
+* Primero para el largo del sepalo por grupo
+```{r}
+# QQ plot de largo de sepalo
+ggqqplot(iris2, "Sepal.Length", facet.by = "Species",
+         ylab = "Sepal Length", ggtheme = theme_bw())
+```
+
+* Luego para el largo del petalo por grupo
+
+```{r}
+# QQ plot de largo de petalo
+ggqqplot(iris2, "Petal.Length", facet.by = "Species",
+         ylab = "Petal Length", ggtheme = theme_bw())
+```
+# normalidad multivariada
+
+```{r}
+iris2 %>%
+  select(Sepal.Length, Petal.Length) %>%
+  mshapiro_test()
+```
+
+
+obtenemos un valor de p mayor a 0.05, entonces existe una distribucion normal multivariada para las variables.
+
+## Identificación de multi colinealidad
+
+
+Es ideal que la correlación entre las variables sea moderada, no mayor a 0.9. A su vez, si la correlación es muy baja entre las variables, es aconsejable utilizar ANOVA para cada variable por separado.
+
+dado que tenemos dos variables podemos usar la función `cor_test()`. Si tenemos mas de dos variables, podemos usar la función `cor_mat()`:
+
+```{r}
+iris2 %>% cor_test(Sepal.Length, Petal.Length)
+```
+
+
+
+# confirmación ejemplo excel
+
+primero cargamos los datos:
+
+```{r}
+library(heplots)
+```
+Luego podemos ver la estructura de los datos:
+
+```{r}
+str(RootStock)
+```
+creamos una matriz de datos adecuada para el test, y lo ejecutamos:
+
+```{r}
+root.manova <- manova(
+                      cbind(
+                        RootStock$girth4,
+RootStock$ext4,
+RootStock$girth15,
+RootStock$weight15) ~ RootStock$rootstock, data = RootStock
+                      
+)
+```
+
+
+
+
+# Test de wilk
+
+Luego guardamos el resumen con el estadístico de interés, el lambda de Wilk: 
+
+```{r}
+root.summary <- summary(root.manova,
+                        test = 'Wilks')
+```
+
+Una vez tenemos guardado el resumen de resultados podemos imprimirlo:
+
+```{r}
+root.summary
+```
+También podemos imprimir las matrices H y E:
+
+```{r}
+root.summary$SS
+```
+
