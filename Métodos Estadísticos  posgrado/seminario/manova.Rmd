@@ -41,7 +41,7 @@ ggboxplot(
   )
 ```
 
-# Estadistica descriptiva
+## Estadistica descriptiva
 
 Podemos calcular el promedio y la desviacion estandar, por grupos (especies) para cada variable
 
