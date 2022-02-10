@@ -6,6 +6,56 @@ output:
   rmdformats::downcute
 ---
 
+# confirmación ejemplo excel
+
+primero cargamos los datos:
+
+```{r}
+library(heplots)
+```
+Luego podemos ver la estructura de los datos:
+
+```{r}
+str(RootStock)
+```
+creamos una matriz de datos adecuada para el test, y lo ejecutamos:
+
+```{r}
+root.manova <- manova(
+                      cbind(
+                        RootStock$girth4,
+RootStock$ext4,
+RootStock$girth15,
+RootStock$weight15) ~ RootStock$rootstock, data = RootStock
+                      
+)
+```
+
+
+
+
+## Test de wilk
+
+Luego guardamos el resumen con el estadístico de interés, el lambda de Wilk: 
+
+```{r}
+root.summary <- summary(root.manova,
+                        test = 'Wilks')
+```
+
+Una vez tenemos guardado el resumen de resultados podemos imprimirlo:
+
+```{r}
+root.summary
+```
+También podemos imprimir las matrices H y E:
+
+```{r}
+root.summary$SS
+```
+
+
+
 # Preparacion
 
 Primero cargamos los paquetes que vamos a utilizar:
@@ -319,51 +369,4 @@ Se presenta una diferencia estadisticamente singnificativa en las variables inde
 Analisis univariados de ANOVA utilizando un alfa ajustado de bonferroni de 0.025 presenta una diferencia significativa entre la longitud del sepalo `(F(2, 147) = 119, p < 0.0001 )` y longitud del petalo `(F(2, 147) = 1180, p < 0.0001 )` entre las especies.
 
 Todas las comparaciones pareadas mostraron ser significantivas para cada variable (longitud del sepalo y el petalo).
-# confirmación ejemplo excel
-
-primero cargamos los datos:
-
-```{r}
-library(heplots)
-```
-Luego podemos ver la estructura de los datos:
-
-```{r}
-str(RootStock)
-```
-creamos una matriz de datos adecuada para el test, y lo ejecutamos:
-
-```{r}
-root.manova <- manova(
-                      cbind(
-                        RootStock$girth4,
-RootStock$ext4,
-RootStock$girth15,
-RootStock$weight15) ~ RootStock$rootstock, data = RootStock
-                      
-)
-```
-
-
-
-
-## Test de wilk
-
-Luego guardamos el resumen con el estadístico de interés, el lambda de Wilk: 
-
-```{r}
-root.summary <- summary(root.manova,
-                        test = 'Wilks')
-```
-
-Una vez tenemos guardado el resumen de resultados podemos imprimirlo:
-
-```{r}
-root.summary
-```
-También podemos imprimir las matrices H y E:
-
-```{r}
-root.summary$SS
-```
 
