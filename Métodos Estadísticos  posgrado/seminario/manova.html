@@ -122,9 +122,9 @@
             <ul>
             <li><a href="#test-de-wilk">Test de wilk</a></li>
             </ul></li>
-            <li><a href="#preparacion">Preparacion</a></li>
             <li><a href="#ejemplo-con-iris-2-variables">Ejemplo con iris, 2 variables</a>
             <ul>
+            <li><a href="#preparacion">Preparacion</a></li>
             <li><a href="#preparacion-de-los-datos">Preparacion de los datos</a></li>
             <li><a href="#visualizacion">Visualizacion</a></li>
             <li><a href="#estadistica-descriptiva">Estadistica descriptiva</a></li>
@@ -171,11 +171,6 @@
 <h1>confirmación ejemplo excel</h1>
 <p>primero cargamos los datos:</p>
 <pre class="r"><code>library(heplots)</code></pre>
-<pre><code>## Warning: package &#39;heplots&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Loading required package: car</code></pre>
-<pre><code>## Warning: package &#39;car&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Loading required package: carData</code></pre>
-<pre><code>## Warning: package &#39;carData&#39; was built under R version 4.0.5</code></pre>
 <p>Luego podemos ver la estructura de los datos:</p>
 <pre class="r"><code>str(RootStock)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    48 obs. of  5 variables:
@@ -222,44 +217,17 @@ RootStock$weight15) ~ RootStock$rootstock, data = RootStock
 ## [4,] 0.2171400  2.110214 2.4816562 1.722525</code></pre>
 </div>
 </div>
-<div id="preparacion" class="section level1">
-<h1>Preparacion</h1>
-<p>Primero cargamos los paquetes que vamos a utilizar:</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.2     v dplyr   1.0.6
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-## x dplyr::recode() masks car::recode()
-## x purrr::some()   masks car::some()</code></pre>
-<pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>## Warning: package &#39;ggpubr&#39; was built under R version 4.0.5</code></pre>
-<pre class="r"><code>library(rstatix)</code></pre>
-<pre><code>## Warning: package &#39;rstatix&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## 
-## Attaching package: &#39;rstatix&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter</code></pre>
-<pre class="r"><code>library(car)
-library(broom)</code></pre>
-<pre><code>## Warning: package &#39;broom&#39; was built under R version 4.0.5</code></pre>
-</div>
 <div id="ejemplo-con-iris-2-variables" class="section level1">
 <h1>Ejemplo con iris, 2 variables</h1>
+<div id="preparacion" class="section level2">
+<h2>Preparacion</h2>
+<p>Primero cargamos los paquetes que vamos a utilizar:</p>
+<pre class="r"><code>library(tidyverse)
+library(ggpubr)
+library(rstatix)
+library(car)
+library(broom)</code></pre>
+</div>
 <div id="preparacion-de-los-datos" class="section level2">
 <h2>Preparacion de los datos</h2>
 <p>vamos a seleccionar dos columnas de interes, la longitud del sepalo y el petalo:</p>
@@ -420,12 +388,8 @@ ggqqplot(iris2, &quot;Petal.Length&quot;, facet.by = &quot;Species&quot;,
 <div id="verificacion-del-supuesto-de-linealidad." class="section level2">
 <h2>verificacion del supuesto de linealidad.</h2>
 <p>La realción entre las variables independientes debería ser lineal, si se compara por pares, para cada grupo. Podemos evaluar esta propiedad visualmente creando una matriz de dispersión usando la función <code>ggpairs()</code>, En el ejemplo de Iris, tenemos solo un par:</p>
-<pre class="r"><code>library(GGally)</code></pre>
-<pre><code>## Warning: package &#39;GGally&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
-##   method from   
-##   +.gg   ggplot2</code></pre>
-<pre class="r"><code>resultado &lt;- iris2 %&gt;%
+<pre class="r"><code>library(GGally)
+resultado &lt;- iris2 %&gt;%
   select(Sepal.Length, Petal.Length, Species) %&gt;%
   group_by(Species) %&gt;%
   doo(~ggpairs(.) + theme_bw(), result = &quot;plots&quot;)
@@ -500,6 +464,8 @@ resultado</code></pre>
 ## Species  2    0.9885   71.829      4    294 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Dado que estamos analizando dos variables independientes, es aconsejable utilizar una corrección para pruebas multiples de Bonferroni, lo cual consta de disminuir el nivel de significancia.</p>
+<p>esto se puede hacer dividiendo el nivel clásico (0.05) en el número de pruebas, o variables evaluadas. En este caso el resultado del nivel seria 0.025.</p>
 <p>El resultado significativo de esta prueba indica que hay diferencias entre los grupos (la especie de la flor) en las variables combinadas.</p>
 </div>
 <div id="pruebas-post---hoc" class="section level1">

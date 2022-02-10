@@ -10,7 +10,7 @@ output:
 
 primero cargamos los datos:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(heplots)
 ```
 Luego podemos ver la estructura de los datos:
@@ -56,20 +56,22 @@ root.summary$SS
 
 
 
-# Preparacion
+
+
+
+# Ejemplo con iris, 2 variables
+
+## Preparacion
 
 Primero cargamos los paquetes que vamos a utilizar:
 
-```{r}
+```{r, message = F, warning= F}
 library(tidyverse)
 library(ggpubr)
 library(rstatix)
 library(car)
 library(broom)
 ```
-
-
-# Ejemplo con iris, 2 variables
 
 ## Preparacion de los datos
 
@@ -229,7 +231,7 @@ No existe multicolinealidad entre las variables, evaluado por la correlación de
 
 La realción entre las variables independientes debería ser lineal, si se compara por pares, para cada grupo. Podemos evaluar esta propiedad visualmente creando una matriz de dispersión usando la función `ggpairs()`, En el ejemplo de Iris, tenemos solo un par:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(GGally)
 resultado <- iris2 %>%
   select(Sepal.Length, Petal.Length, Species) %>%
@@ -295,7 +297,13 @@ model <- lm(cbind(Sepal.Length, Petal.Length) ~ Species, iris2)
 Manova(model, test.statistic = "Pillai")
 ```
 
+Dado que estamos analizando dos variables independientes, es aconsejable utilizar una corrección para pruebas multiples de Bonferroni, lo cual consta de disminuir el nivel de significancia.
+
+esto se puede hacer dividiendo el nivel clásico (0.05) en el número de pruebas, o variables evaluadas. En este caso el resultado del nivel seria 0.025.
+
 El resultado significativo de esta prueba indica que hay diferencias entre los grupos (la especie de la flor) en las variables combinadas.
+
+ 
 
 # pruebas post - hoc
 
