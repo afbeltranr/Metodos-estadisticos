@@ -6,7 +6,9 @@ output:
   rmdformats::downcute
 ---
 
-carga de paquetes:
+# Preparacion
+
+Primero cargamos los paquetes que vamos a utilizar:
 
 ```{r}
 library(tidyverse)
@@ -17,7 +19,7 @@ library(broom)
 ```
 
 
-# Ejemplo con iris
+# Ejemplo con iris, 2 variables
 
 ## Preparacion de los datos
 
@@ -147,7 +149,9 @@ ggqqplot(iris2, "Sepal.Length", facet.by = "Species",
 ggqqplot(iris2, "Petal.Length", facet.by = "Species",
          ylab = "Petal Length", ggtheme = theme_bw())
 ```
-# normalidad multivariada
+## normalidad multivariada
+
+podemos usar la función `mshapiro_test()` para hacer la prueba de hipótesis de shapiro - wilk multivariada.
 
 ```{r}
 iris2 %>%
@@ -155,8 +159,8 @@ iris2 %>%
   mshapiro_test()
 ```
 
+Dado que el resutado del la prueba es un p-valor no significativo, podemos suponer que se presenta normalidad mutivariada.
 
-obtenemos un valor de p mayor a 0.05, entonces existe una distribucion normal multivariada para las variables.
 
 ## Identificación de multi colinealidad
 
@@ -169,8 +173,152 @@ dado que tenemos dos variables podemos usar la función `cor_test()`. Si tenemos
 iris2 %>% cor_test(Sepal.Length, Petal.Length)
 ```
 
+No existe multicolinealidad entre las variables, evaluado por la correlación de pearson. 0.87<0.9 usando un nivel de significancia de 0.0001.
+
+## verificacion del supuesto de linealidad.
+
+La realción entre las variables independientes debería ser lineal, si se compara por pares, para cada grupo. Podemos evaluar esta propiedad visualmente creando una matriz de dispersión usando la función `ggpairs()`, En el ejemplo de Iris, tenemos solo un par:
+
+```{r}
+library(GGally)
+resultado <- iris2 %>%
+  select(Sepal.Length, Petal.Length, Species) %>%
+  group_by(Species) %>%
+  doo(~ggpairs(.) + theme_bw(), result = "plots")
+resultado
+resultado$plots
+```
+
+Gracias a los gráficos de dispersión podemos afirmar una relación lineal entre las variables.
+
+## Verificación del supuesto de homogeneidad de covarianzas
+
+La homogeneidad de varianzas puede ser evaluada utilizando la prueba M de Box, implementada en el paquete `rstatix`
+
+```{r}
+box_m(iris2[,c('Sepal.Length','Petal.Length')], iris$Species)
+```
+
+Con un resultado significativo en el nivel de 0.001, los datos violan el supuesto de homogeneidad en las matrices de covarianza. 
+
+## Verificación de la homogeneidad de varianzas
+
+Para cada una de las variables, el análisis de MANOVa asume que las varianzas entre grupos son iguales. Esto se puede revisar usando el test de Levene para igualdad de varianzas:
+
+Procedimiento:
+
+1. agrupar las variables en parejas de identificador-valor
+2. agrupar por variable
+3. Ejecutar el test de levene
+
+```{r}
+iris2 %>% 
+  gather(key = "variable", value = "value", Sepal.Length, Petal.Length) %>%
+  group_by(variable) %>%
+  levene_test(value ~ Species)
+```
+
+Dado que el estad[istico de levene es signficante para cada una de las variables en un nivel de significancia de 0.05, lo que permite rechazar la hipótesis de homogeneidad de varianzas.
+
+Si no se presenta homogeneidad de varianzas, es aconsejable transformar la variable de respuesta.
+
+# Calculo de MANOVA
+
+Existen cuatro estadísticos que pueden utilizarse para el cálculode MANOVA:
+
+* Pillai
+* Wilks
+* Hotelling-Lawley
+* Roy
+
+El más usado y recomendado es el lambda de wilks. 
+
+Aún así, el rastro de pillai es mas robusto y se recomienda cuando se tiene un diseño no balanceado, y el resultado de la prueba de box M es significativo (Como en este caso)
+
+el metodo de pillai es el método que viene por defecto en la funcion `Manova()` del paquete `car`.
+
+para calcular el MANOVA primero creamos el modelo lineal:
+```{r}
+model <- lm(cbind(Sepal.Length, Petal.Length) ~ Species, iris2)
+```
+```{r}
+Manova(model, test.statistic = "Pillai")
+```
+
+El resultado significativo de esta prueba indica que hay diferencias entre los grupos (la especie de la flor) en las variables combinadas.
+
+# pruebas post - hoc
+
+Una vez se tiene un resultado estadisticamente significativo para el MANOVA de una via, se puede continuar con el **anova univariado de una via** para examinar de manera separada cada variable. El objetivo es identificar cuales variables son las que contribuyen al efecto global significativo.
+
+## ANOVA univariado de una via
+
+El procedimiento es analogo al anterior:
+
+1. Agrupar los valores de las variables en parejas de identificador - valor. 
+2. agrupar por variable:
+
+```{r}
+grouped.data <- iris2 %>%
+  gather(key = "variable", value = "value", Sepal.Length, Petal.Length) %>%
+  group_by(variable)
+```
 
 
+3. realizar el ANOVA de una via
+
+existen tres funciones diferentes en r para calcular el ANOVA de una via dependiendo de cuales supuestos se cumplen:
+
+* `anova_test()` [rstatix]: Se puede usar cuando se cumplen los supuestos de normalidad y homogeneidad.
+
+```{r}
+grouped.data %>% anova_test(value ~ Species)
+```
+
+* `welch_anova_test()` [rstatix]: Se puede usar cuando el supuesto de homogeneidad no se cumple, como en este caso.
+
+```{r}
+grouped.data %>% welch_anova_test(value ~ Species)
+```
+
+* `kruskal_test()` [rstatix]: Una alternativa no parametrica para el cálculo de ANOVA
+
+```{r}
+grouped.data %>% kruskal_test(value ~ Species)
+```
+
+Para las tres pruebas se presenta significancia para ambas variables, longitud del sepalo y longitud del petalo, a lo largo de los grupos de especie.
+
+## comparaciones pareadas
+
+Una vez se obtiene un ANOVA unviariado significativo, es posible hacer comparaciones pareadas para determinar cuales grupos son diferentes.
+
+Si el supuesto de homogeneidad de varianza se cumple, se puede utilizar la función de R `tukey_hsd()`.
+
+Si no se cumple el supuesto de homogeneidad de varianzas, como en este caso, es posible utilizar una prueba post-hoc de Games-Howell. 
+
+Lo anterior también se puede hacer utilizando la función `pairwise_t_test()` del paquete `rstatix` utilizando los argumentos `pool.sd = FALSE` y `var.equal = F`
+
+```{r}
+pwc <- iris2 %>%
+  gather(key = "variables", value = "value", Sepal.Length, Petal.Length) %>%
+  group_by(variables) %>%
+  games_howell_test(value ~ Species) %>%
+  select(-estimate, -conf.low, -conf.high) # Remove details
+pwc
+```
+
+Tenemos como resultado que todas las comparaciones pareadas son significantes para cada variable, longitud de petalo y longitud de sepalo.
+
+# Conclusion
+
+Se realizo un analisis de varianza para determinar el efecto del grupo (especie) en la longitud del sépalo y la longitud del pétalo. Existen tres especies diferentes: setosa, versicolor y virginica.
+
+Se presenta una diferencia estadisticamente singnificativa en las variables independientes combinadas (longitud de sepalo y petalo)`F(4, 294) = 71.829, p < 0.0001`
+
+Analisis univariados de ANOVA utilizando un alfa ajustado de bonferroni de 0.025 presenta una diferencia significativa entre la longitud del sepalo `(F(2, 147) = 119, p < 0.0001 )` y longitud del petalo `(F(2, 147) = 1180, p < 0.0001 )` entre las especies.
+
+Todas las comparaciones pareadas mostraron ser significantivas para cada variable (longitud del sepalo y el petalo).
 # confirmación ejemplo excel
 
 primero cargamos los datos:
@@ -199,7 +347,7 @@ RootStock$weight15) ~ RootStock$rootstock, data = RootStock
 
 
 
-# Test de wilk
+## Test de wilk
 
 Luego guardamos el resumen con el estadístico de interés, el lambda de Wilk: 
 
